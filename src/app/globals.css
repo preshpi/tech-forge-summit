@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+:root {
+  --color-ink: #0a0a0c;
+  --color-ink-soft: #121215;
+  --color-paper: #f2f2f0;
+  --color-line: #232327;
+  --color-signal: #c6ff3d;
+  --color-signal-dim: #9fd92f;
+  --color-accent-2: #b98cff;
+  --color-accent-3: #ff6b4a;
+  --color-muted: #9a9a94;
+
+  /* Font stacks: geometric grotesk-style display, neutral humanist body, mono for
+     data/eyebrows. Swap in Space Grotesk / Inter / JetBrains Mono via next/font
+     once you have normal network access — these system stacks approximate the
+     same shapes offline. */
+  --font-display: "Avenir Next", "Century Gothic", Futura, Poppins, ui-sans-serif, system-ui, sans-serif;
+  --font-body: Inter, "Helvetica Neue", Arial, ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+
+@theme inline {
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-paper: var(--color-paper);
+  --color-line: var(--color-line);
+  --color-signal: var(--color-signal);
+  --color-signal-dim: var(--color-signal-dim);
+  --color-accent-2: var(--color-accent-2);
+  --color-accent-3: var(--color-accent-3);
+  --color-muted: var(--color-muted);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Marquee ticker */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+.animate-marquee-slow {
+  animation: marquee 60s linear infinite;
+}
+.animate-marquee-reverse {
+  animation: marquee 40s linear infinite reverse;
+}
+
+/* Orbit for the "who it's for" signature element */
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(var(--radius)) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(var(--radius)) rotate(-360deg); }
+}
+.animate-orbit {
+  animation: orbit var(--duration, 24s) linear infinite;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 18s linear infinite;
+}
+
+/* subtle grain */
+.grain {
+  position: relative;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+::selection {
+  background: var(--color-signal);
+  color: #0a0a0c;
+}
