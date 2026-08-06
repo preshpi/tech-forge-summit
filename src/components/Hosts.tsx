@@ -40,15 +40,11 @@ export default function Hosts() {
             <br />
             for builders.
           </h2>
-        </div>
-
-        {/* Right Description Column */}
-        <div className="lg:col-span-5 lg:pt-8">
-          <p className="text-zinc-400 text-sm sm:text-base leading-relaxed font-normal">
-            Synthik is hosted by a small independent team of operators and
-            researchers who&apos;ve shipped AI products at every stage — from
+          <p className="mt-6 text-paper/60 leading-relaxed max-w-md">
+            The TechForge is run by a small independent team of operators and
+            researchers who&apos;ve shipped AI products at every stage, from
             research labs to public companies. We pick the speakers, write the
-            agenda, and run the show.
+            agenda, and run the show ourselves.
           </p>
         </div>
       </div>

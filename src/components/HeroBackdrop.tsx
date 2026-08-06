@@ -1,41 +1,68 @@
-export default function HeroBackdrop() {
+import Image from "next/image";
+
+const heroImages = [
+  { src: "/tf1.jpg" },
+  { src: "/tf2.jpg" },
+  { src: "/tf3.jpg" },
+  { src: "/tf4.jpg" },
+  { src: "/tf5.jpg" },
+];
+
+type HeroBackdropProps = {
+  activeIndex: number;
+  nextIndex: number;
+  isTransitioning: boolean;
+  transitionKey: number;
+  transitionMs: number;
+};
+
+export default function HeroBackdrop({
+  activeIndex,
+  nextIndex,
+  isTransitioning,
+  transitionKey,
+  transitionMs,
+}: HeroBackdropProps) {
+  const activeImage = heroImages[activeIndex];
+  const nextImage = heroImages[nextIndex];
+
   return (
     <div className="absolute inset-0 -z-10 overflow-hidden bg-ink">
-      {/* warm key light, upper right — stands in for a stage spotlight */}
-      <div className="absolute -top-24 right-[-10%] h-[620px] w-[620px] rounded-full bg-[radial-gradient(closest-side,rgba(198,255,61,0.16),transparent_70%)]" />
-      {/* cool fill light, left */}
-      <div className="absolute top-1/3 -left-32 h-[480px] w-[480px] rounded-full bg-[radial-gradient(closest-side,rgba(185,140,255,0.12),transparent_70%)]" />
+      <div className="hero-image-carousel absolute inset-0" aria-hidden="true">
+        <Image
+          key={`active-${activeImage.src}`}
+          src={activeImage.src}
+          alt=""
+          fill
+          priority={activeIndex === 0}
+          sizes="100vw"
+          className="hero-carousel-image hero-carousel-image-current object-cover"
+        />
 
-      {/* abstract crowd — rows of soft dots receding into the dark, evokes an
-          auditorium without depicting real people */}
-      <svg
-        className="absolute inset-0 h-full w-full opacity-[0.35]"
-        preserveAspectRatio="xMidYMax slice"
-        viewBox="0 0 1600 900"
-        aria-hidden="true"
-      >
-        {Array.from({ length: 7 }).map((_, row) => {
-          const y = 620 + row * 34;
-          const scale = 1 - row * 0.045;
-          const count = 34;
-          return (
-            <g key={row} opacity={0.5 - row * 0.05}>
-              {Array.from({ length: count }).map((_, i) => {
-                const x = 40 + i * (1520 / count) + (row % 2 === 0 ? 10 : -10);
-                return (
-                  <circle
-                    key={i}
-                    cx={x}
-                    cy={y}
-                    r={9 * scale}
-                    fill="#f2f2f0"
-                  />
-                );
-              })}
-            </g>
-          );
-        })}
-      </svg>
+        {isTransitioning ? (
+          <>
+            <Image
+              key={`next-${transitionKey}-${nextImage.src}`}
+              src={nextImage.src}
+              alt=""
+              fill
+              sizes="100vw"
+              className="hero-carousel-image hero-carousel-image-next object-cover"
+              style={{ animationDuration: `${transitionMs}ms` }}
+            />
+            <div
+              key={`wipe-${transitionKey}`}
+              className="hero-carousel-wipe"
+              style={{ animationDuration: `${transitionMs}ms` }}
+            />
+          </>
+        ) : null}
+      </div>
+
+      {/* warm key light, upper right — stands in for a stage spotlight */}
+      <div className="absolute -top-24 right-[-10%] h-155 w-155 rounded-full bg-[radial-gradient(closest-side,rgba(198,255,61,0.16),transparent_70%)]" />
+      {/* cool fill light, left */}
+      <div className="absolute top-1/3 -left-32 h-120 w-120 rounded-full bg-[radial-gradient(closest-side,rgba(185,140,255,0.12),transparent_70%)]" />
 
       {/* vignette so the headline stays legible over the crowd */}
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,12,0.2)_0%,rgba(10,10,12,0.55)_45%,rgba(10,10,12,0.95)_78%,#0a0a0c_100%)]" />

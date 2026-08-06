@@ -22,10 +22,10 @@ export default function Footer() {
         <div>
           <div className="flex items-center gap-2 font-display font-bold text-lg">
             <span className="inline-block h-2.5 w-2.5 rounded-full bg-signal" />
-            NOVA
+            The TechForge
           </div>
           <p className="mt-4 text-sm text-paper/50 max-w-xs leading-relaxed">
-            Sign up to stay informed about NOVA 2027 and future builder events.
+            Sign up to stay informed about The TechForge 2027 and future builder events.
           </p>
           <form className="mt-4 flex gap-2 max-w-xs" onSubmit={(e) => e.preventDefault()}>
             <input
@@ -76,7 +76,7 @@ export default function Footer() {
 
       <div className="border-t border-line">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 py-6 flex flex-wrap items-center justify-between gap-2 text-xs text-paper/30 font-mono">
-          <span>© 2027 NOVA. All rights reserved.</span>
+          <span>© 2027 The TechForge. All rights reserved.</span>
           <a href="#top" className="hover:text-paper transition-colors">
             Scroll to top ↑
           </a>
