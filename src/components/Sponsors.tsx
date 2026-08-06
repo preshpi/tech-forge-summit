@@ -2,7 +2,7 @@ import SponsorLogo from "./SponsorLogo";
 
 const sponsors = [
   "Lumen AI", "Quantum Solutions", "Neural Dynamics", "Insight Analytics",
-  "TechSphere", "FutureTech Labs", "BioTech Innovations", "AI Frontier",
+  "TechSphere", "FutureTech Labs", "BioTech InThe TechForgetions", "AI Frontier",
   "Smart Systems", "Cloud Intelligence",
 ];
 

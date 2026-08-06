@@ -1,10 +1,18 @@
 "use client";
 
+import type { PointerEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 
 export default function AboutMedia() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const mediaRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLAnchorElement>(null);
   const [progress, setProgress] = useState(0);
+  const [ctaPosition, setCtaPosition] = useState({
+    x: 0,
+    y: 0,
+    hasPointer: false,
+  });
 
   useEffect(() => {
     let raf = 0;
@@ -32,46 +40,83 @@ export default function AboutMedia() {
 
   const width = 62 + progress * 38;
   const height = 46 + progress * 54;
-  const radius = 28 - progress * 28;
-  const ctaOpacity = Math.max(0, (progress - 0.55) / 0.35);
+  const mobileHeight = 52 + progress * 48;
+  const radius = 28 - progress * 12;
+  const edgeInset = progress * 48;
+
+  function handlePointerMove(event: PointerEvent<HTMLDivElement>) {
+    if (event.pointerType !== "mouse") return;
+
+    const media = mediaRef.current;
+    if (!media) return;
+
+    const rect = media.getBoundingClientRect();
+    const button = ctaRef.current;
+    const padding = 16;
+    const halfWidth = (button?.offsetWidth ?? 132) / 2 + padding;
+    const halfHeight = (button?.offsetHeight ?? 52) / 2 + padding;
+    const x = Math.min(
+      rect.width - halfWidth,
+      Math.max(halfWidth, event.clientX - rect.left),
+    );
+    const y = Math.min(
+      rect.height - halfHeight,
+      Math.max(halfHeight, event.clientY - rect.top),
+    );
+
+    setCtaPosition({ x, y, hasPointer: true });
+  }
 
   return (
-    <div ref={sectionRef} className="relative" style={{ height: "260vh" }}>
-      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+    <div ref={sectionRef} className="relative h-[220svh] md:h-[260vh]">
+      <div className="sticky top-0 mx-auto flex h-svh max-w-8xl items-center justify-center overflow-hidden lg:h-screen">
         <div
-          className="relative overflow-hidden border border-line bg-ink-soft"
+          ref={mediaRef}
+          className="relative h-[calc(var(--mobile-media-height)-var(--edge-inset))] w-[calc(88vw-var(--edge-inset))] cursor-none overflow-hidden bg-ink-soft sm:w-[calc(76vw-var(--edge-inset))] lg:h-[calc(var(--media-height)-var(--edge-inset))] lg:w-[calc(var(--media-width)-var(--edge-inset))]"
+          onPointerMove={handlePointerMove}
+          onPointerLeave={() =>
+            setCtaPosition((position) => ({ ...position, hasPointer: false }))
+          }
           style={{
-            width: `${width}vw`,
-            height: `${height}vh`,
+            "--media-width": `${width}vw`,
+            "--media-height": `${height}vh`,
+            "--mobile-media-height": `${mobileHeight}svh`,
+            "--edge-inset": `${edgeInset}px`,
             borderRadius: `${radius}px`,
-          }}
+          } as React.CSSProperties}
         >
+          <video
+            className="absolute inset-0 h-full w-full object-cover"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            poster="/tf5.jpg"
+            aria-label="TechForge summit preview"
+          >
+            <source src="/tf-vid.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
           <div
-            className="absolute inset-0"
+            className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                "radial-gradient(120% 100% at 75% 15%, rgba(198,255,61,0.14), transparent 60%), radial-gradient(100% 100% at 15% 100%, rgba(185,140,255,0.16), transparent 60%)",
+                "linear-gradient(180deg, rgba(10,10,12,0.08), rgba(10,10,12,0.28)), radial-gradient(120% 100% at 75% 15%, rgba(198,255,61,0.14), transparent 60%), radial-gradient(100% 100% at 15% 100%, rgba(185,140,255,0.16), transparent 60%)",
             }}
           />
-          <svg
-            className="absolute inset-0 h-full w-full opacity-40"
-            viewBox="0 0 800 500"
-            preserveAspectRatio="xMidYMax slice"
-            aria-hidden="true"
-          >
-            <path
-              d="M400 500 L400 260 Q400 210 350 200 L320 195 Q300 190 300 165 L300 120 Q300 90 330 85 L470 85 Q500 90 500 120 L500 165 Q500 190 480 195 L450 200 Q400 210 400 260 Z"
-              fill="#f2f2f0"
-              opacity="0.5"
-            />
-          </svg>
-          <div
-            className="absolute inset-0 flex items-center justify-center transition-opacity duration-200"
-            style={{ opacity: ctaOpacity, pointerEvents: ctaOpacity > 0.5 ? "auto" : "none" }}
-          >
+          <div className="absolute inset-0 pointer-events-none">
             <a
+              ref={ctaRef}
               href="/checkout?tier=general"
-              className="rounded-full bg-signal text-ink font-semibold px-8 py-4 text-sm hover:bg-signal-dim transition-colors"
+              className="absolute cursor-none rounded-full bg-primary text-ink font-semibold px-8 py-14 text-sm transition-[background-color,opacity,transform] duration-200"
+              style={{
+                left: ctaPosition.hasPointer ? ctaPosition.x : "50%",
+                top: ctaPosition.hasPointer ? ctaPosition.y : "50%",
+                opacity: ctaPosition.hasPointer ? 1 : 0,
+                pointerEvents: ctaPosition.hasPointer ? "auto" : "none",
+                transform: "translate(-50%, -50%)",
+              }}
             >
               Get tickets
             </a>

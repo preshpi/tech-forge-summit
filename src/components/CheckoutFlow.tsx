@@ -52,7 +52,7 @@ export default function CheckoutFlow() {
         <div className="mx-auto max-w-2xl px-4 sm:px-6 py-5 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 font-display font-bold">
             <span className="inline-block h-2.5 w-2.5 rounded-full bg-signal" />
-            NOVA
+            The TechForge
           </Link>
           <div className="flex items-center gap-1.5">
             {steps.slice(0, 3).map((s, i) => (

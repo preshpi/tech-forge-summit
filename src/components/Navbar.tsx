@@ -30,7 +30,7 @@ export default function Navbar() {
           <span className="h-8 w-8 rounded-lg bg-paper/10 flex items-center justify-center">
             <Grid2x2 className="h-4 w-4" strokeWidth={2} />
           </span>
-          <span className="font-display font-bold text-xl tracking-tight">NOVA</span>
+          <span className="font-display font-bold text-xl tracking-tight">The TechForge</span>
         </a>
 
         <nav className="hidden md:flex items-center gap-10 text-[15px] font-medium text-paper/90">
@@ -41,21 +41,27 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2.5">
-          <a
-            href="/checkout?tier=general"
-            className="rounded-full bg-paper text-ink text-sm font-semibold px-6 py-3 hover:bg-paper/90 transition-colors"
-          >
-            Get ticket
-          </a>
-          <a
-            href="/checkout?tier=general"
-            aria-label="Get ticket"
-            className="h-11 w-11 shrink-0 rounded-full bg-paper text-ink flex items-center justify-center hover:bg-paper/90 transition-colors"
-          >
-            <ArrowUpRight className="h-4 w-4" />
-          </a>
-        </div>
+        <div className="ticket-switcher">
+              <a
+                href="/checkout?tier=general"
+                style={{backgroundColor: "white"}}
+                className="ticket-switch-button ticket-switch-primary"
+              >
+                <span className="ticket-switch-text">Get ticket</span>
+                <ArrowUpRight className="ticket-switch-symbol h-4 w-4" aria-hidden="true" />
+              </a>
+              <a
+                href="/checkout?tier=general"
+                aria-label="Get ticket"
+                style={{backgroundColor: "white"}}
+                className="ticket-switch-button ticket-switch-secondary"
+              >
+                <ArrowUpRight className="ticket-switch-symbol h-4 w-4" aria-hidden="true" />
+                <span className="ticket-switch-text" aria-hidden="true">
+                  Get ticket
+                </span>
+              </a>
+            </div>
       </div>
     </header>
   );

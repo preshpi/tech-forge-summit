@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const EVENT_DATE = new Date("2027-03-12T09:00:00-06:00").getTime();
+const EVENT_DATE = new Date("2026-12-05T09:00:00-06:00").getTime();
 
 function getRemaining() {
   const now = Date.now();

@@ -5,7 +5,7 @@ import { Plus } from "lucide-react";
 
 const faqs = [
   {
-    q: "When and where is NOVA 2027?",
+    q: "When and where is The TechForge 2027?",
     a: "March 12, 2027, at a downtown venue in Austin, Texas. Doors open at 8:30am.",
   },
   {
