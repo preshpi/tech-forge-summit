@@ -10,7 +10,7 @@ export default function Hosts() {
             Curated by builders, for builders
           </h2>
           <p className="mt-6 text-paper/60 leading-relaxed max-w-md">
-            NOVA is run by a small independent team of operators and researchers
+            The TechForge is run by a small independent team of operators and researchers
             who&apos;ve shipped AI products at every stage, from research labs to
             public companies. We pick the speakers, write the agenda, and run
             the show ourselves.

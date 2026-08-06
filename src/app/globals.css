@@ -5,22 +5,20 @@
   --color-ink-soft: #121215;
   --color-paper: #f2f2f0;
   --color-line: #232327;
-  --color-signal: #c6ff3d;
-  --color-signal-dim: #9fd92f;
+  --color-signal: #419bc2;
+  --color-signal-dim: #038ccd;
   --color-accent-2: #b98cff;
   --color-accent-3: #ff6b4a;
   --color-muted: #9a9a94;
 
-  /* Font stacks: geometric grotesk-style display, neutral humanist body, mono for
-     data/eyebrows. Swap in Space Grotesk / Inter / JetBrains Mono via next/font
-     once you have normal network access — these system stacks approximate the
-     same shapes offline. */
-  --font-display: "Avenir Next", "Century Gothic", Futura, Poppins, ui-sans-serif, system-ui, sans-serif;
-  --font-body: Inter, "Helvetica Neue", Arial, ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", "SF Mono", "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  /* Single typeface (BDOGrotesk, loaded locally via next/font) used for every
+     role — display, body, and mono/eyebrow text — across the whole site. */
+  --font-display: var(--font-bdo-grotesk);
+  --font-body: var(--font-bdo-grotesk);
+  --font-mono: var(--font-bdo-grotesk);
 }
 
-@theme inline {
+/* @theme inline {
   --font-display: var(--font-display);
   --font-body: var(--font-body);
   --font-mono: var(--font-mono);
@@ -33,6 +31,14 @@
   --color-accent-2: var(--color-accent-2);
   --color-accent-3: var(--color-accent-3);
   --color-muted: var(--color-muted);
+} */
+
+.bg-primary {
+  background-color: var(--color-signal);
+}
+
+.bg-primary-dim {
+  background-color: var(--color-signal-dim);
 }
 
 html {
@@ -53,8 +59,12 @@ body {
 
 /* Marquee ticker */
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 .animate-marquee {
   animation: marquee 28s linear infinite;
@@ -68,19 +78,310 @@ body {
 
 /* Orbit for the "who it's for" signature element */
 @keyframes orbit {
-  from { transform: rotate(0deg) translateX(var(--radius)) rotate(0deg); }
-  to { transform: rotate(360deg) translateX(var(--radius)) rotate(-360deg); }
+  from {
+    transform: rotate(0deg) translateX(var(--radius)) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(var(--radius)) rotate(-360deg);
+  }
 }
 .animate-orbit {
   animation: orbit var(--duration, 24s) linear infinite;
 }
 
 @keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 .animate-spin-slow {
   animation: spin-slow 18s linear infinite;
+}
+
+/* Image-filled display text */
+.image-text-fill {
+  display: inline-block;
+  color: transparent;
+  background-position: center;
+  background-size: 145%;
+  background-repeat: no-repeat;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.025em rgba(242, 242, 240, 0.82);
+  paint-order: stroke fill;
+}
+
+/* Ticket CTA switch */
+.ticket-switcher {
+  display: inline-flex;
+  align-items: center;
+  width: 11.25rem;
+  height: 3rem;
+}
+
+.ticket-switch-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 3rem;
+  overflow: hidden;
+  border-radius: 9999px;
+  background-color: var(--color-signal);
+  color: #000;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    width 180ms cubic-bezier(0.72, 0, 0.28, 1),
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.ticket-switch-button:hover,
+.ticket-switch-button:focus-visible,
+.ticket-switcher:focus-within .ticket-switch-button {
+  background-color: var(--color-signal-dim);
+}
+
+.ticket-switch-primary {
+  width: 8.25rem;
+}
+
+.ticket-switch-secondary {
+  width: 3rem;
+  flex-shrink: 0;
+}
+
+.ticket-switcher:hover .ticket-switch-primary,
+.ticket-switcher:focus-within .ticket-switch-primary {
+  width: 3rem;
+}
+
+.ticket-switcher:hover .ticket-switch-secondary,
+.ticket-switcher:focus-within .ticket-switch-secondary {
+  width: 8.25rem;
+}
+
+.ticket-switch-text,
+.ticket-switch-symbol {
+  flex-shrink: 0;
+  transition:
+    max-width 280ms cubic-bezier(0.72, 0, 0.28, 1),
+    width 280ms cubic-bezier(0.72, 0, 0.28, 1),
+    opacity 160ms ease,
+    transform 280ms cubic-bezier(0.72, 0, 0.28, 1);
+}
+
+.ticket-switch-text {
+  max-width: 5rem;
+  overflow: hidden;
+}
+
+.ticket-switch-symbol {
+  width: 1rem;
+}
+
+.ticket-switch-primary .ticket-switch-text,
+.ticket-switch-secondary .ticket-switch-symbol {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ticket-switch-primary .ticket-switch-symbol,
+.ticket-switch-secondary .ticket-switch-text {
+  width: 0;
+  max-width: 0;
+  opacity: 0;
+  transform: translateY(0.6rem);
+}
+
+.ticket-switcher:hover .ticket-switch-primary .ticket-switch-text,
+.ticket-switcher:focus-within .ticket-switch-primary .ticket-switch-text,
+.ticket-switcher:hover .ticket-switch-secondary .ticket-switch-symbol,
+.ticket-switcher:focus-within .ticket-switch-secondary .ticket-switch-symbol {
+  width: 0;
+  max-width: 0;
+  opacity: 0;
+  transform: translateY(-0.6rem);
+}
+
+.ticket-switcher:hover .ticket-switch-primary .ticket-switch-symbol,
+.ticket-switcher:focus-within .ticket-switch-primary .ticket-switch-symbol,
+.ticket-switcher:hover .ticket-switch-secondary .ticket-switch-text,
+.ticket-switcher:focus-within .ticket-switch-secondary .ticket-switch-text {
+  width: 1rem;
+  max-width: 5rem;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ticket-switcher:hover .ticket-switch-secondary .ticket-switch-text,
+.ticket-switcher:focus-within .ticket-switch-secondary .ticket-switch-text {
+  width: auto;
+}
+
+/* Hero image carousel */
+.hero-image-carousel {
+  isolation: isolate;
+}
+
+.hero-carousel-image {
+  opacity: 0.9;
+  transform: scale(1.04);
+}
+
+.hero-carousel-image-current {
+  clip-path: inset(0 0 0 0);
+}
+
+.hero-carousel-image-next {
+  animation: hero-image-wipe-in 850ms cubic-bezier(0.72, 0, 0.28, 1) both;
+  clip-path: inset(100% 0 0 0);
+  will-change: clip-path;
+}
+
+.hero-carousel-wipe {
+  position: absolute;
+  inset-inline: -8%;
+  bottom: 0;
+  z-index: 2;
+  height: 44%;
+  /* background:
+    linear-gradient(180deg, transparent 0%, rgba(242, 242, 240, 0.26) 15%, rgba(65, 155, 194, 0.52) 46%, rgba(10, 10, 12, 0.42) 72%, transparent 100%); */
+  filter: blur(18px);
+  mix-blend-mode: screen;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(115%);
+  animation: hero-carousel-wipe-up 850ms cubic-bezier(0.72, 0, 0.28, 1) both;
+  will-change: transform, opacity;
+}
+
+@keyframes hero-image-wipe-in {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes hero-carousel-wipe-up {
+  0% {
+    opacity: 0;
+    transform: translateY(115%);
+  }
+  12% {
+    opacity: 0.9;
+  }
+  84% {
+    opacity: 0.45;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-260%);
+  }
+}
+
+/* Hero vertical word ticker */
+.hero-typewriter-character {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(12px);
+  transform: translateY(0.3em) scale(0.96);
+  animation: hero-typewriter-character-in 520ms
+    cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: filter, opacity, transform;
+}
+
+.hero-word-window.vertical-word-window {
+  opacity: 0;
+  filter: blur(12px);
+  transform: translateY(0.3em);
+  transition:
+    filter 520ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 360ms ease,
+    transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-word-window-ready.vertical-word-window {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0.03em);
+}
+
+@keyframes hero-typewriter-character-in {
+  0% {
+    opacity: 0;
+    filter: blur(12px);
+    transform: translateY(0.3em) scale(0.96);
+  }
+  65% {
+    opacity: 0.9;
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+.vertical-word-window {
+  height: 1.05em;
+  min-width: 6.8ch;
+  overflow: hidden;
+  transform: translateY(0.03em);
+}
+
+.vertical-word-stack {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.72, 0, 0.28, 1);
+  transition-duration: 0ms;
+  will-change: transform;
+}
+
+.vertical-word-stack-moving {
+  transition-duration: 850ms;
+}
+
+.vertical-word-stack > span {
+  height: 1.05em;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-carousel-image-next,
+  .hero-carousel-wipe {
+    animation: none;
+  }
+
+  .vertical-word-stack {
+    transition-duration: 0ms;
+  }
+
+  .hero-typewriter-character {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    animation: none;
+  }
+
+  .hero-word-window {
+    opacity: 1;
+    filter: none;
+    transform: translateY(0.03em);
+    transition: none;
+  }
 }
 
 /* subtle grain */
