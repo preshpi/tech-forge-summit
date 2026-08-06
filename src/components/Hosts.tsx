@@ -15,7 +15,7 @@ export default function Hosts() {
         <div className="lg:col-span-7 space-y-4">
           <div className="flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-zinc-400 font-semibold">
             <Plus className="h-3.5 w-3.5 text-[#86efac]" />
-            <span>Hosts</span>
+            <span>Host</span>
           </div>
 
           <h2 className="font-sans font-bold text-4xl sm:text-5xl md:text-6xl tracking-tight leading-[1.1]">
