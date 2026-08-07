@@ -70,11 +70,105 @@ const venueDetails = {
   ],
 };
 
+function AnimatedSessionTitle({ title }: { title: string }) {
+  let characterIndex = 0;
+
+  return (
+    <h4
+      aria-label={title}
+      className="font-sans text-2xl font-bold leading-snug tracking-tight text-white sm:text-3xl"
+    >
+      <span aria-hidden="true">
+        {title.split(" ").map((word, wordIndex, words) => (
+          <span key={`${word}-${wordIndex}`}>
+            <span className="inline-block whitespace-nowrap">
+              {Array.from(word).map((character) => {
+                const delay = characterIndex * 38;
+                characterIndex += 1;
+
+                return (
+                  <span
+                    key={`${character}-${characterIndex}`}
+                    className="hero-typewriter-character"
+                    style={{ animationDelay: `${delay}ms` }}
+                  >
+                    {character}
+                  </span>
+                );
+              })}
+            </span>
+            {wordIndex < words.length - 1 ? " " : null}
+          </span>
+        ))}
+      </span>
+    </h4>
+  );
+}
+
+function VerticalTime({
+  current,
+  previous,
+  direction,
+}: {
+  current: string;
+  previous: string;
+  direction: 1 | -1;
+}) {
+  return (
+    <div
+      aria-label={current}
+      className="mb-8 flex font-mono text-3xl font-semibold tracking-tight text-zinc-600 sm:text-4xl"
+    >
+      <span aria-hidden="true" className="inline-flex">
+        {Array.from(current).map((character, index) => {
+          const previousCharacter = Array.from(previous)[index] ?? " ";
+          const width =
+            character === " " ? "0.34em" : character === "–" ? "0.78em" : "0.62em";
+          const delay = index * 18;
+
+          return (
+            <span
+              key={`${character}-${index}`}
+              className="session-time-cell"
+              style={{ width }}
+            >
+              <span
+                className={`session-time-value ${
+                  direction === 1
+                    ? "session-time-old-up"
+                    : "session-time-old-down"
+                }`}
+                style={{ animationDelay: `${delay}ms` }}
+              >
+                {previousCharacter === " " ? "\u00a0" : previousCharacter}
+              </span>
+              <span
+                className={`session-time-value ${
+                  direction === 1
+                    ? "session-time-new-up"
+                    : "session-time-new-down"
+                }`}
+                style={{ animationDelay: `${delay}ms` }}
+              >
+                {character === " " ? "\u00a0" : character}
+              </span>
+            </span>
+          );
+        })}
+      </span>
+    </div>
+  );
+}
+
 export default function EventPage() {
   const [index, setIndex] = useState(1);
+  const [direction, setDirection] = useState<1 | -1>(1);
   const s = sessions[index];
+  const previousIndex =
+    (index - direction + sessions.length) % sessions.length;
 
   function go(dir: 1 | -1) {
+    setDirection(dir);
     setIndex((i) => (i + dir + sessions.length) % sessions.length);
   }
 
@@ -98,9 +192,7 @@ export default function EventPage() {
                 </div>
 
                 <div>
-                  <h4 className="font-sans font-bold text-2xl sm:text-3xl leading-snug tracking-tight text-white">
-                    {s.title}
-                  </h4>
+                  <AnimatedSessionTitle key={index} title={s.title} />
                   <p className="mt-4 text-sm text-zinc-400 leading-relaxed max-w-sm">
                     {s.desc}
                   </p>
@@ -110,12 +202,12 @@ export default function EventPage() {
               {/* Bottom Row: Time/Nav vs Speaker */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 items-end pt-8">
                 <div>
-                  <div
+                  <VerticalTime
                     key={`time-${index}`}
-                    className="font-sans font-semibold text-3xl sm:text-4xl text-zinc-600 tracking-tight mb-8"
-                  >
-                    {s.time}
-                  </div>
+                    current={s.time}
+                    previous={sessions[previousIndex].time}
+                    direction={direction}
+                  />
 
                   {/* Square Pill Navigation */}
                   <div className="inline-flex items-center gap-1 bg-[#1c1c1c] p-1.5 rounded-xl border border-zinc-800/60">
