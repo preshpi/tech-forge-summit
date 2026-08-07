@@ -1,4 +1,4 @@
-import { Check, Globe, Crown, Users, ArrowUpRight } from "lucide-react";
+import { Check, Globe, Crown, Users, ArrowUpRight, type LucideIcon } from "lucide-react";
 import type { TierId } from "@/lib/tickets";
 
 const tiers: {
@@ -9,7 +9,7 @@ const tiers: {
   desc: string;
   features: string[];
   highlight: boolean;
-  icon: any;
+  icon: LucideIcon;
 }[] = [
   {
     id: "general",
@@ -60,7 +60,7 @@ const tiers: {
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="mx-auto max-w-6xl px-4 sm:px-6 py-16">
+    <section id="pricing" className="bg-white px-4 sm:px-6 py-16">
       <div className="grid md:grid-cols-3 gap-6 items-stretch">
         {tiers.map((t) => {
           const Icon = t.icon;
@@ -79,7 +79,7 @@ export default function Pricing() {
                   <div
                     className={`h-10 w-10 rounded-xl flex items-center justify-center ${
                       t.highlight
-                        ? "bg-[#86efac] text-black"
+                        ? "bg-primary text-black"
                         : "bg-black text-white"
                     }`}
                   >
@@ -88,7 +88,7 @@ export default function Pricing() {
                   <span
                     className={`font-mono text-[10px] font-bold tracking-wider px-2.5 py-1 rounded-md uppercase ${
                       t.highlight
-                        ? "bg-zinc-800 text-[#86efac]"
+                        ? "bg-zinc-800 text-primary"
                         : "bg-zinc-300/70 text-zinc-700"
                     }`}
                   >
@@ -152,25 +152,25 @@ export default function Pricing() {
                 </div>
 
                 {/* Split Pill Button */}
-                <a
-                  href={`/checkout?tier=${t.id}`}
-                  className={`inline-flex items-center gap-2 rounded-full p-1.5 pl-5 pr-1.5 font-semibold text-xs transition-colors ${
-                    t.highlight
-                      ? "bg-[#86efac] text-black hover:bg-[#76e09c]"
-                      : "bg-black text-white hover:bg-zinc-800"
-                  }`}
-                >
-                  <span>Buy ticket</span>
-                  <div
-                    className={`h-7 w-7 rounded-full flex items-center justify-center ${
-                      t.highlight
-                        ? "bg-black text-[#86efac]"
-                        : "bg-white text-black"
-                    }`}
-                  >
-                    <ArrowUpRight className="h-3.5 w-3.5" />
-                  </div>
-                </a>
+                <div className="ticket-switcher">
+              <a
+                href="/checkout?tier=general"
+                className="ticket-switch-button ticket-switch-primary"
+              >
+                <span className="ticket-switch-text">Buy ticket</span>
+                <ArrowUpRight className="ticket-switch-symbol h-4 w-4" aria-hidden="true" />
+              </a>
+              <a
+                href="/checkout?tier=general"
+                aria-label="Get ticket"
+                className="ticket-switch-button ticket-switch-secondary"
+              >
+                <ArrowUpRight className="ticket-switch-symbol h-4 w-4" aria-hidden="true" />
+                <span className="ticket-switch-text" aria-hidden="true">
+                  Buy ticket
+                </span>
+              </a>
+            </div>
               </div>
             </div>
           );

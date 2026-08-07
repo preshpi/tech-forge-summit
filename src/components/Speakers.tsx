@@ -3,15 +3,17 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Link2, AtSign } from "lucide-react";
 import { gradientFor } from "@/lib/avatar";
+import Image from "next/image";
 
 const speakers = [
-  { name: "Aiko Tanaka", role: "Director of Innovation", org: "Lumen AI" },
+  { name: "Imam Abubakar", role: "Founder", org: "Sqaleup Inc", image: '/imam.jpeg' },
   {
-    name: "Marcus Alvarado",
-    role: "Chief Technology Officer",
-    org: "Quantum Solutions",
+    name: "Folashade Blessing Adegbite",
+    role: "Senior Product Designer",
+    org: "Interswitch Group",
+    image: '/folashade.jpeg'
   },
-  { name: "Priya Kapoor", role: "Lead Scientist", org: "Neural Dynamics" },
+  { name: "Dominus Kelvin", role: "Lead maintainer", org: "Sails", image: '/koo.jpg' },
   {
     name: "Daniel Okafor",
     role: "Principal Engineer",
@@ -26,49 +28,91 @@ export default function Speakers() {
   const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const idx = rowRefs.current.findIndex((el) => el === entry.target);
-            if (idx !== -1) setActive(idx);
-          }
-        });
-      },
-      { rootMargin: "-45% 0px -45% 0px", threshold: 0 },
-    );
+    let frame = 0;
 
-    rowRefs.current.forEach((el) => el && observer.observe(el));
-    return () => observer.disconnect();
+    function updateActiveSpeaker() {
+      const viewportCenter = window.innerHeight / 2;
+      let closestIndex = 0;
+      let closestDistance = Number.POSITIVE_INFINITY;
+
+      rowRefs.current.forEach((row, index) => {
+        if (!row) return;
+
+        const rect = row.getBoundingClientRect();
+        const rowCenter = rect.top + rect.height / 2;
+        const distance = Math.abs(rowCenter - viewportCenter);
+
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = index;
+        }
+      });
+
+      setActive((current) =>
+        current === closestIndex ? current : closestIndex,
+      );
+    }
+
+    function scheduleUpdate() {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(updateActiveSpeaker);
+    }
+
+    updateActiveSpeaker();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+    };
   }, []);
 
   const speaker = speakers[active];
 
   return (
-    <section id="speakers" className="bg-paper text-ink py-24 md:py-32">
+    <section id="speakers" className="bg-white  py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-ink/70 mb-14">
+        <p className="flex items-center text-black gap-2 font-mono text-xs uppercase tracking-widest mb-14">
           <span className="text-ink">✦</span> Meet the speakers
         </p>
 
         <div className="grid md:grid-cols-[340px_1fr] gap-12 md:gap-20">
           <div className="md:sticky md:top-32 self-start">
             <div
-              key={active}
-              className="relative aspect-[3/4.2] rounded-3xl overflow-hidden border border-ink/10 animate-fade-in"
+              className="relative aspect-[3/4.2] overflow-hidden rounded-3xl border border-ink/10"
               style={{ background: gradientFor(speaker.name) }}
             >
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="font-display text-6xl font-bold text-ink/10">
-                  {speaker.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")}
-                </span>
-              </div>
+              {speakers.map((item, index) => (
+                <div
+                  key={item.name}
+                  className={`absolute inset-0 items-center justify-center ${
+                    index === active ? "flex" : "hidden"
+                  }`}
+                >
+                  {item.image ? (
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      loading="eager"
+                      sizes="(min-width: 768px) 340px, calc(100vw - 2rem)"
+                      className="object-cover"
+                    />
+                  ) : (
+                    <span className="font-display text-6xl font-bold text-black/15">
+                      {item.name
+                        .split(" ")
+                        .map((name) => name[0])
+                        .join("")}
+                    </span>
+                  )}
+                </div>
+              ))}
             </div>
 
-            <div key={`meta-${active}`} className="mt-5 animate-fade-in">
+            <div className="mt-5">
               <div className="font-display font-bold text-lg">
                 {speaker.role}
               </div>
@@ -105,7 +149,7 @@ export default function Speakers() {
                 />
                 <span
                   className={`font-display font-bold tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl transition-colors duration-300 ${
-                    i === active ? "text-ink" : "text-ink/15"
+                    i === active ? "text-black" : "text-zinc-300"
                   }`}
                 >
                   {s.name}

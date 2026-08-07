@@ -1,9 +1,123 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { Plus } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+function AnimatedWord({ children }: { children: string }) {
+  return (
+    <span className="inline-block whitespace-nowrap">
+      {Array.from(children).map((character, index) => (
+        <span
+          key={`${character}-${index}`}
+          data-host-title-letter
+          className="inline-block will-change-transform"
+        >
+          {character}
+        </span>
+      ))}
+    </span>
+  );
+}
 
 export default function Hosts() {
+  const headingRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    const heading = headingRef.current;
+    if (!heading) return;
+    const headingElement = heading;
+
+    const letters = gsap.utils.toArray<HTMLElement>(
+      "[data-host-title-letter]",
+      headingElement,
+    );
+    const underline = headingElement.querySelector<SVGElement>(
+      "[data-host-title-underline]",
+    );
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    const ctx = gsap.context(() => {
+      if (reduceMotion) {
+        gsap.set(letters, {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          filter: "blur(0px)",
+        });
+        if (underline) {
+          gsap.set(underline, { autoAlpha: 1, scaleX: 1 });
+        }
+        return;
+      }
+
+      function resetHeading() {
+        gsap.set(letters, {
+          autoAlpha: 0,
+          y: "0.3em",
+          scale: 0.96,
+          filter: "blur(12px)",
+          transformOrigin: "50% 50%",
+        });
+
+        if (underline) {
+          gsap.set(underline, {
+            autoAlpha: 0,
+            scaleX: 0,
+            transformOrigin: "0% 50%",
+          });
+        }
+      }
+
+      resetHeading();
+
+      const timeline = gsap.timeline({ paused: true }).to(letters, {
+        autoAlpha: 1,
+        y: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        duration: 0.52,
+        ease: "power4.out",
+        stagger: 0.045,
+      });
+
+      if (underline) {
+        timeline.to(
+          underline,
+          {
+            autoAlpha: 1,
+            scaleX: 1,
+            duration: 0.55,
+            ease: "power3.out",
+          },
+          "-=0.35",
+        );
+      }
+
+      function replay() {
+        timeline.pause(0);
+        resetHeading();
+        timeline.invalidate().restart();
+      }
+
+      ScrollTrigger.create({
+        trigger: headingElement,
+        start: "top 84%",
+        end: "bottom 16%",
+        onEnter: replay,
+        onEnterBack: replay,
+      });
+    }, headingElement);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
       id="hosts"
@@ -18,27 +132,36 @@ export default function Hosts() {
             <span>Host</span>
           </div>
 
-          <h2 className="font-sans font-bold text-4xl sm:text-5xl md:text-6xl tracking-tight leading-[1.1]">
-            Curated by{" "}
-            <span className="relative inline-block">
-              builders,
-              {/* Green Scribble/Underline SVG Accent */}
-              <svg
-                className="absolute -bottom-2 left-0 w-full h-3 text-[#86efac]"
-                viewBox="0 0 100 20"
-                fill="none"
-                preserveAspectRatio="none"
-              >
-                <path
-                  d="M2 12 Q 25 2, 50 12 T 98 10"
-                  stroke="currentColor"
-                  strokeWidth="5"
-                  strokeLinecap="round"
-                />
-              </svg>
+          <h2
+            ref={headingRef}
+            aria-label="Curated by builders, for builders."
+            className="font-sans font-bold text-4xl sm:text-5xl md:text-6xl tracking-tight leading-[1.1]"
+          >
+            <span aria-hidden="true">
+              <AnimatedWord>Curated</AnimatedWord>{" "}
+              <AnimatedWord>by</AnimatedWord>{" "}
+              <span className="relative inline-block">
+                <AnimatedWord>builders,</AnimatedWord>
+                {/* Green Scribble/Underline SVG Accent */}
+                <svg
+                  data-host-title-underline
+                  className="absolute -bottom-2 left-0 w-full h-3 text-[#86efac]"
+                  viewBox="0 0 100 20"
+                  fill="none"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    d="M2 12 Q 25 2, 50 12 T 98 10"
+                    stroke="currentColor"
+                    strokeWidth="5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>
+              <br />
+              <AnimatedWord>for</AnimatedWord>{" "}
+              <AnimatedWord>builders.</AnimatedWord>
             </span>
-            <br />
-            for builders.
           </h2>
           <p className="mt-6 text-paper/60 leading-relaxed max-w-md">
             The TechForge is run by a small independent team of operators and

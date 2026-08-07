@@ -116,11 +116,13 @@ export default function Audience() {
 
       {/* signature orbit element, now its own row below the stack */}
       <div className="mx-auto mt-16 flex max-w-7xl justify-center px-4 sm:mt-24 sm:px-6">
-        <div className="relative mx-auto flex h-[clamp(18rem,90vw,26.25rem)] w-[clamp(18rem,90vw,26.25rem)] items-center justify-center">
+        <div className="relative mx-auto flex h-[clamp(20rem,92vw,32.5rem)] w-[clamp(20rem,92vw,32.5rem)] items-center justify-center">
           <div className="absolute inset-0 rounded-full border border-line" />
-          <div className="absolute inset-8 rounded-full border border-line sm:inset-10" />
-          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-signal text-center font-display text-sm font-bold text-ink sm:h-24 sm:w-24 sm:text-base">
-            The TechForge
+          <div className="absolute inset-9 rounded-full border border-line sm:inset-12 lg:inset-14" />
+          <div className="flex h-28 w-28 items-center justify-center rounded-full bg-signal text-center font-display font-bold text-ink sm:h-32 sm:w-32 lg:h-36 lg:w-36">
+            <span className="max-w-24 leading-tight text-[12px]">
+              The TechForge
+            </span>
           </div>
           {orbitTags.map((tag, i) => {
             const dot = ["bg-signal", "bg-accent-2", "bg-accent-3", "bg-signal"][i % 4];
@@ -130,7 +132,7 @@ export default function Audience() {
                 className="absolute animate-orbit"
                 style={
                   {
-                    "--radius": "clamp(126px, 40vw, 188px)",
+                    "--radius": "clamp(142px, 42vw, 232px)",
                     "--duration": `${24 + i * 6}s`,
                     animationDelay: `${i * -6}s`,
                   } as React.CSSProperties
