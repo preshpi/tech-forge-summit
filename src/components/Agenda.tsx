@@ -210,21 +210,21 @@ export default function EventPage() {
                   />
 
                   {/* Square Pill Navigation */}
-                  <div className="inline-flex items-center gap-1 bg-[#1c1c1c] p-1.5 rounded-xl border border-zinc-800/60">
+                  <div className="inline-flex items-center gap-1 rounded-xl border border-zinc-800/60 bg-[#1c1c1c] p-1 md:p-1.5">
                     <button
                       onClick={() => go(-1)}
                       aria-label="Previous session"
-                      className="h-10 w-10 rounded-lg bg-[#262626] hover:bg-zinc-700 text-zinc-300 flex items-center justify-center transition-colors"
+                      className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#262626] text-zinc-300 transition-colors hover:bg-zinc-700 md:h-10 md:w-10"
                     >
                       <ArrowLeft className="h-4 w-4" />
                     </button>
-                    <span className="font-mono text-xs font-semibold px-3 text-zinc-200">
+                    <span className="px-2 font-mono text-[10px] font-semibold text-zinc-200 md:px-3 md:text-xs">
                       {index + 1}/{sessions.length}
                     </span>
                     <button
                       onClick={() => go(1)}
                       aria-label="Next session"
-                      className="h-10 w-10 rounded-lg bg-[#262626] hover:bg-zinc-700 text-zinc-300 flex items-center justify-center transition-colors"
+                      className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#262626] text-zinc-300 transition-colors hover:bg-zinc-700 md:h-10 md:w-10"
                     >
                       <ArrowRight className="h-4 w-4" />
                     </button>
@@ -325,7 +325,7 @@ export default function EventPage() {
                   href={venueDetails.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-between w-full p-4 rounded-xl bg-[#1c1c1c] hover:bg-[#222222] border border-zinc-800/80 transition-colors group"
+                  className="group inline-flex w-full items-center justify-between rounded-xl border border-zinc-800/80 bg-[#1c1c1c] p-3 transition-colors hover:bg-[#222222] md:p-4"
                 >
                   <div className="flex items-center gap-3">
                     <Navigation className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />

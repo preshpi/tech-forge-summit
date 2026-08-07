@@ -149,7 +149,7 @@ export default function Hero() {
                 </TypewriterText>
               </span>{" "}
               <span
-                className={`hero-word-window vertical-word-window inline-flex align-baseline text-signal ${
+                className={`hero-word-window vertical-word-window inline-flex align-baseline ${
                   introComplete ? "hero-word-window-ready" : ""
                 }`}
               >
@@ -172,7 +172,7 @@ export default function Hero() {
             </span>
           </h1>
 
-          <div className="mt-7 flex flex-col items-start gap-5 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+          <div className="mt-7 flex w-full items-center justify-between gap-3 sm:mt-10">
             <div className="ticket-switcher">
               <a
                 href="/checkout?tier=general"
@@ -194,7 +194,7 @@ export default function Hero() {
             </div>
             <a
               href="#about"
-              className="text-sm font-medium text-paper/70 hover:text-paper transition-colors inline-flex items-center gap-2"
+              className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap text-xs font-medium text-paper/70 transition-colors hover:text-paper sm:text-sm"
             >
               Scroll to explore
               <span className="inline-block animate-bounce">↓</span>

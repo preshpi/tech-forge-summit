@@ -1,19 +1,29 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Link2, AtSign } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { gradientFor } from "@/lib/avatar";
 import Image from "next/image";
 
 const speakers = [
-  { name: "Imam Abubakar", role: "Founder", org: "Sqaleup Inc", image: '/imam.jpeg' },
+  {
+    name: "Imam Abubakar",
+    role: "Founder",
+    org: "Sqaleup Inc",
+    image: "/imam.jpeg",
+  },
   {
     name: "Folashade Blessing Adegbite",
     role: "Senior Product Designer",
     org: "Interswitch Group",
-    image: '/folashade.jpeg'
+    image: "/folashade.jpeg",
   },
-  { name: "Dominus Kelvin", role: "Lead maintainer", org: "Sails", image: '/koo.jpg' },
+  {
+    name: "Dominus Kelvin",
+    role: "Lead maintainer",
+    org: "Sails",
+    image: "/koo.jpg",
+  },
   {
     name: "Daniel Okafor",
     role: "Principal Engineer",
@@ -22,6 +32,47 @@ const speakers = [
   { name: "Sofia Andersson", role: "VP of Research", org: "TechSphere" },
   { name: "Wei Liu", role: "Co-Founder", org: "FutureTech Labs" },
 ];
+
+function SocialIcons({ onImage = false }: { onImage?: boolean }) {
+  const iconClass = onImage
+    ? "flex h-9 w-9 items-center justify-center rounded-lg border border-white/15 bg-black/55 text-sm text-white backdrop-blur-md"
+    : "flex h-10 w-10 items-center justify-center rounded-lg bg-ink/5 text-black";
+
+  return (
+    <div className="flex gap-2">
+      <span className={iconClass}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path d="M0 0h24v24H0z" fill="none" />
+          <path
+            fill="currentColor"
+            d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37z"
+          />
+        </svg>
+      </span>
+      <span className={iconClass}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          viewBox="0 0 14 14"
+          aria-hidden="true"
+        >
+          <path d="M0 0h14v14H0z" fill="none" />
+          <path
+            fill="currentColor"
+            d="M11.025.656h2.147L8.482 6.03L14 13.344H9.68L6.294 8.909l-3.87 4.435H.275l5.016-5.75L0 .657h4.43L7.486 4.71zm-.755 11.4h1.19L3.78 1.877H2.504z"
+          />
+        </svg>
+      </span>
+    </div>
+  );
+}
 
 export default function Speakers() {
   const [active, setActive] = useState(0);
@@ -78,7 +129,51 @@ export default function Speakers() {
           <span className="text-ink">✦</span> Meet the speakers
         </p>
 
-        <div className="grid md:grid-cols-[340px_1fr] gap-12 md:gap-20">
+        <div className="grid gap-10 md:hidden">
+          {speakers.map((item) => (
+            <article key={item.name}>
+              <div
+                className="relative aspect-[4/5] overflow-hidden rounded-2xl"
+                style={{ background: gradientFor(item.name) }}
+              >
+                {item.image ? (
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    fill
+                    sizes="(max-width: 767px) calc(100vw - 2rem), 340px"
+                    className="object-cover"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center">
+                    <span className="font-display text-6xl font-bold text-black/15">
+                      {item.name
+                        .split(" ")
+                        .map((name) => name[0])
+                        .join("")}
+                    </span>
+                  </div>
+                )}
+
+                <div className="absolute bottom-3 right-3">
+                  <SocialIcons onImage />
+                </div>
+              </div>
+
+              <div className="pt-4 text-black">
+                <h3 className="font-display text-2xl font-bold leading-tight">
+                  {item.name}
+                </h3>
+                <p className="mt-1.5 text-sm text-zinc-600">
+                  {item.role} <span className="text-zinc-400">at</span>{" "}
+                  {item.org}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="hidden gap-12 md:grid md:grid-cols-[340px_1fr] md:gap-20">
           <div className="md:sticky md:top-32 self-start">
             <div
               className="relative aspect-[3/4.2] overflow-hidden rounded-3xl border border-ink/10"
@@ -111,21 +206,17 @@ export default function Speakers() {
                 </div>
               ))}
             </div>
-
-            <div className="mt-5">
-              <div className="font-display font-bold text-lg">
-                {speaker.role}
+            <div className="mt-6 flex items-center justify-between gap-3">
+              <div className="">
+                <div className="font-display font-bold text-lg text-ink">
+                  {speaker.role}
+                </div>
+                <div className="font-mono text-xs uppercase tracking-wide text-ink/40 mt-1">
+                  {speaker.org}
+                </div>
               </div>
-              <div className="font-mono text-xs uppercase tracking-wide text-ink/40 mt-1">
-                {speaker.org}
-              </div>
-              <div className="flex gap-2 mt-4">
-                <span className="h-9 w-9 rounded-lg bg-ink/5 flex items-center justify-center">
-                  <Link2 className="h-4 w-4" />
-                </span>
-                <span className="h-9 w-9 rounded-lg bg-ink/5 flex items-center justify-center">
-                  <AtSign className="h-4 w-4" />
-                </span>
+              <div className="mt-4">
+                <SocialIcons />
               </div>
             </div>
           </div>

@@ -234,6 +234,46 @@ body {
   width: auto;
 }
 
+@media (max-width: 767px) {
+  .ticket-switcher {
+    width: 8.75rem;
+    height: 2.25rem;
+  }
+
+  .ticket-switch-button {
+    gap: 0.375rem;
+    height: 2.25rem;
+    font-size: 0.75rem;
+  }
+
+  .ticket-switch-primary {
+    width: 6.5rem;
+  }
+
+  .ticket-switch-secondary {
+    width: 2.25rem;
+  }
+
+  .ticket-switcher:hover .ticket-switch-primary,
+  .ticket-switcher:focus-within .ticket-switch-primary {
+    width: 2.25rem;
+  }
+
+  .ticket-switcher:hover .ticket-switch-secondary,
+  .ticket-switcher:focus-within .ticket-switch-secondary {
+    width: 6.5rem;
+  }
+
+  .ticket-switch-text {
+    max-width: 4.5rem;
+  }
+
+  .ticket-switch-symbol {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+}
+
 /* Hero image carousel */
 .hero-image-carousel {
   isolation: isolate;
