@@ -75,7 +75,7 @@ export default function CheckoutFlow() {
         {step !== "review" && step !== "success" && (
           <button
             onClick={back}
-            className="mb-8 inline-flex items-center gap-1.5 text-sm text-paper/50 hover:text-paper transition-colors"
+            className="mb-8 inline-flex items-center gap-1.5 text-xs text-paper/50 transition-colors hover:text-paper md:text-sm"
           >
             <ChevronLeft className="h-4 w-4" />
             Back
@@ -95,7 +95,7 @@ export default function CheckoutFlow() {
                   <button
                     key={id}
                     onClick={() => setTierId(id)}
-                    className={`w-full text-left rounded-2xl border p-5 flex items-start justify-between gap-4 transition-colors ${
+                    className={`flex w-full items-start justify-between gap-3 rounded-xl border p-4 text-left transition-colors md:gap-4 md:rounded-2xl md:p-5 ${
                       selected
                         ? "border-signal bg-ink-soft"
                         : "border-line hover:border-paper/20"
@@ -115,19 +115,19 @@ export default function CheckoutFlow() {
             </div>
 
             {tierId !== "team" && (
-              <div className="mt-8 flex items-center justify-between rounded-2xl border border-line p-5">
+              <div className="mt-8 flex items-center justify-between rounded-xl border border-line p-4 md:rounded-2xl md:p-5">
                 <span className="text-sm font-semibold">Quantity</span>
                 <div className="flex items-center gap-4">
                   <button
                     onClick={() => setQty((q) => Math.max(1, q - 1))}
-                    className="h-8 w-8 rounded-full border border-line hover:border-signal/50 flex items-center justify-center"
+                    className="flex h-7 w-7 items-center justify-center rounded-full border border-line hover:border-signal/50 md:h-8 md:w-8"
                   >
                     −
                   </button>
                   <span className="font-mono w-4 text-center">{qty}</span>
                   <button
                     onClick={() => setQty((q) => Math.min(10, q + 1))}
-                    className="h-8 w-8 rounded-full border border-line hover:border-signal/50 flex items-center justify-center"
+                    className="flex h-7 w-7 items-center justify-center rounded-full border border-line hover:border-signal/50 md:h-8 md:w-8"
                   >
                     +
                   </button>
@@ -137,7 +137,7 @@ export default function CheckoutFlow() {
 
             <button
               onClick={next}
-              className="mt-10 w-full rounded-full bg-signal text-ink font-semibold py-3.5 text-sm hover:bg-signal-dim transition-colors"
+              className="mt-10 w-full rounded-full bg-signal py-3 text-xs font-semibold text-ink transition-colors hover:bg-signal-dim md:py-3.5 md:text-sm"
             >
               Continue — ${total.toLocaleString()}
             </button>
@@ -157,7 +157,7 @@ export default function CheckoutFlow() {
             <button
               onClick={next}
               disabled={!name || !email}
-              className="mt-10 w-full rounded-full bg-signal text-ink font-semibold py-3.5 text-sm hover:bg-signal-dim transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              className="mt-10 w-full rounded-full bg-signal py-3 text-xs font-semibold text-ink transition-colors hover:bg-signal-dim disabled:cursor-not-allowed disabled:opacity-30 md:py-3.5 md:text-sm"
             >
               Continue to payment
             </button>
@@ -187,7 +187,7 @@ export default function CheckoutFlow() {
             <button
               onClick={next}
               disabled={submitting}
-              className="mt-8 w-full rounded-full bg-signal text-ink font-semibold py-3.5 text-sm hover:bg-signal-dim transition-colors flex items-center justify-center gap-2 disabled:opacity-70"
+              className="mt-8 flex w-full items-center justify-center gap-2 rounded-full bg-signal py-3 text-xs font-semibold text-ink transition-colors hover:bg-signal-dim disabled:opacity-70 md:py-3.5 md:text-sm"
             >
               {submitting ? (
                 <>
@@ -217,7 +217,7 @@ export default function CheckoutFlow() {
             </p>
             <Link
               href="/"
-              className="mt-10 inline-block rounded-full border border-line px-6 py-3 text-sm font-semibold hover:border-signal/50 transition-colors"
+              className="mt-10 inline-block rounded-full border border-line px-5 py-2.5 text-xs font-semibold transition-colors hover:border-signal/50 md:px-6 md:py-3 md:text-sm"
             >
               Back to homepage
             </Link>

@@ -208,7 +208,7 @@ export default function FAQ() {
                 {/* Question Pill */}
                 <button
                   onClick={() => setOpen(isOpen ? null : i)}
-                  className={`w-full sm:w-auto inline-flex items-center justify-between gap-6 px-6 py-4 rounded-[20px] transition-all duration-200 text-left ${
+                  className={`inline-flex w-full items-center justify-between gap-4 rounded-[16px] px-4 py-3 text-left transition-all duration-200 md:w-auto md:gap-6 md:rounded-[20px] md:px-6 md:py-4 ${
                     isOpen
                       ? "bg-[#1c1c1c] text-white"
                       : "bg-[#161616] hover:bg-[#1f1f1f] text-zinc-200"
@@ -218,7 +218,7 @@ export default function FAQ() {
                     {f.q}
                   </span>
                   <div
-                    className={`h-7 w-7 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
+                    className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg transition-colors md:h-7 md:w-7 md:rounded-xl ${
                       isOpen
                         ? "bg-[#282828] text-zinc-300"
                         : "bg-[#222222] text-zinc-400"

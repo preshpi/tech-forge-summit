@@ -70,7 +70,7 @@ export default function Footer() {
 
       <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col px-4 py-8 sm:px-6 md:py-14">
         <div className="flex flex-col gap-12 md:gap-20">
-          <div className="grid grid-cols-2 gap-x-5 gap-y-7 pb-6 font-mono text-[10px] uppercase tracking-wider text-paper/75 md:grid-cols-3 md:gap-10 md:pb-8 md:text-[11px]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-5 gap-y-7 pb-6 font-mono text-[10px] uppercase tracking-wider text-paper/75 md:gap-10 md:pb-8 md:text-[11px]">
             <div>
               <p className="mb-2 text-paper/40">Date &amp; time</p>
               <p>December 5, 2026</p>
@@ -85,7 +85,7 @@ export default function Footer() {
 
             <a
               href="#top"
-              className="col-span-2 inline-flex h-fit items-center gap-2 justify-self-start text-paper transition-colors hover:text-signal md:col-span-1 md:justify-self-end"
+              className="inline-flex h-fit items-center gap-2 justify-self-start text-paper transition-colors hover:text-signal md:justify-self-end"
             >
               Scroll to top
               <ArrowUp className="h-4 w-4" aria-hidden="true" />
@@ -133,7 +133,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="grid flex-1 grid-cols-2 items-start gap-6 py-0 md:grid-cols-[minmax(0,1.55fr)_minmax(10rem,0.55fr)_minmax(10rem,0.55fr)] md:gap-10 md:py-14 lg:py-20">
+          <div className="grid flex-1 grid-cols-1 items-start gap-10 py-0 md:grid-cols-[minmax(0,1.55fr)_minmax(10rem,0.55fr)_minmax(10rem,0.55fr)] md:gap-10 md:py-14 lg:py-20">
             <div>
               <div className="mb-5 font-mono text-xs font-bold uppercase tracking-widest text-paper/45">
                 Site map
