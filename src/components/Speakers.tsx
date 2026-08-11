@@ -13,7 +13,7 @@ const speakers = [
     image: "/imam.jpeg",
   },
   {
-    name: "Folashade Blessing Adegbite",
+    name: "Folashade Blessing",
     role: "Senior Product Designer",
     org: "Interswitch Group",
     image: "/folashade.jpeg",
@@ -28,6 +28,7 @@ const speakers = [
     name: "Daniel Okafor",
     role: "Principal Engineer",
     org: "Insight Analytics",
+    image: "/daniel.jpeg",
   },
   { name: "Sofia Andersson", role: "VP of Research", org: "TechSphere" },
   { name: "Wei Liu", role: "Co-Founder", org: "FutureTech Labs" },
@@ -77,6 +78,80 @@ function SocialIcons({ onImage = false }: { onImage?: boolean }) {
 export default function Speakers() {
   const [active, setActive] = useState(0);
   const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [mobileActive, setMobileActive] = useState(0);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const slideRefs = useRef<(HTMLElement | null)[]>([]);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    let frame = 0;
+
+    function updateMobileActive() {
+      if (!track) return;
+      const trackCenter = track.scrollLeft + track.clientWidth / 2;
+      let closestIndex = 0;
+      let closestDistance = Number.POSITIVE_INFINITY;
+
+      slideRefs.current.forEach((slide, index) => {
+        if (!slide) return;
+        const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
+        const distance = Math.abs(slideCenter - trackCenter);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = index;
+        }
+      });
+
+      setMobileActive((current) =>
+        current === closestIndex ? current : closestIndex,
+      );
+    }
+
+    function scheduleUpdate() {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(updateMobileActive);
+    }
+
+    track.addEventListener("scroll", scheduleUpdate, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      track.removeEventListener("scroll", scheduleUpdate);
+    };
+  }, []);
+
+  function goToSlide(index: number) {
+    const track = trackRef.current;
+    const slide = slideRefs.current[index];
+    if (!track || !slide) return;
+
+    const targetLeft =
+      slide.offsetLeft - (track.clientWidth - slide.offsetWidth) / 2;
+
+    track.scrollTo({ left: targetLeft, behavior: "smooth" });
+  }
+
+  const isInteractingRef = useRef(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (isInteractingRef.current) return;
+      goToSlide((mobileActive + 1) % speakers.length);
+    }, 3500);
+
+    return () => clearInterval(interval);
+  }, [mobileActive]);
+
+  function pauseAutoplay() {
+    isInteractingRef.current = true;
+  }
+
+  function resumeAutoplay() {
+    window.setTimeout(() => {
+      isInteractingRef.current = false;
+    }, 4000);
+  }
 
   useEffect(() => {
     let frame = 0;
@@ -124,56 +199,88 @@ export default function Speakers() {
 
   return (
     <section id="speakers" className="bg-white  py-24 md:py-32">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="px-12">
         <p className="flex items-center text-black gap-2 font-mono text-xs uppercase tracking-widest mb-14">
           <span className="text-ink">✦</span> Meet the speakers
         </p>
 
-        <div className="grid gap-10 md:hidden">
-          {speakers.map((item) => (
-            <article key={item.name}>
-              <div
-                className="relative aspect-[4/5] overflow-hidden rounded-2xl"
-                style={{ background: gradientFor(item.name) }}
+        <div className="md:hidden">
+          <div
+            ref={trackRef}
+            onPointerDown={pauseAutoplay}
+            onPointerUp={resumeAutoplay}
+            onPointerCancel={resumeAutoplay}
+            onTouchStart={pauseAutoplay}
+            onTouchEnd={resumeAutoplay}
+            className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2 -mx-12 px-12 scrollbar-none"
+          >
+            {speakers.map((item, index) => (
+              <article
+                key={item.name}
+                ref={(el) => {
+                  slideRefs.current[index] = el;
+                }}
+                className="w-[82%] shrink-0 snap-center"
               >
-                {item.image ? (
-                  <Image
-                    src={item.image}
-                    alt={item.name}
-                    fill
-                    sizes="(max-width: 767px) calc(100vw - 2rem), 340px"
-                    className="object-cover"
-                  />
-                ) : (
-                  <div className="flex h-full w-full items-center justify-center">
-                    <span className="font-display text-6xl font-bold text-black/15">
-                      {item.name
-                        .split(" ")
-                        .map((name) => name[0])
-                        .join("")}
-                    </span>
+                <div
+                  className="relative aspect-4/5 overflow-hidden rounded-2xl"
+                  style={{ background: gradientFor(item.name) }}
+                >
+                  {item.image ? (
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      sizes="(max-width: 767px) calc(100vw - 2rem), 340px"
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center">
+                      <span className="font-display text-6xl font-bold text-black/15">
+                        {item.name
+                          .split(" ")
+                          .map((name) => name[0])
+                          .join("")}
+                      </span>
+                    </div>
+                  )}
+
+                  <div className="absolute bottom-3 right-3">
+                    <SocialIcons onImage />
                   </div>
-                )}
-
-                <div className="absolute bottom-3 right-3">
-                  <SocialIcons onImage />
                 </div>
-              </div>
 
-              <div className="pt-4 text-black">
-                <h3 className="font-display text-2xl font-bold leading-tight">
-                  {item.name}
-                </h3>
-                <p className="mt-1.5 text-sm text-zinc-600">
-                  {item.role} <span className="text-zinc-400">at</span>{" "}
-                  {item.org}
-                </p>
-              </div>
-            </article>
-          ))}
+                <div className="pt-4 text-black">
+                  <h3 className="font-display text-2xl font-bold leading-tight">
+                    {item.name}
+                  </h3>
+                  <p className="mt-1.5 text-sm text-zinc-600">
+                    {item.role} <span className="text-zinc-400">at</span>{" "}
+                    {item.org}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-6 flex items-center justify-center gap-2">
+            {speakers.map((item, index) => (
+              <button
+                key={item.name}
+                type="button"
+                aria-label={`Go to ${item.name}`}
+                onClick={() => goToSlide(index)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  index === mobileActive
+                    ? "w-6 bg-signal-dim"
+                    : "w-1.5 bg-ink/15"
+                }`}
+              />
+            ))}
+          </div>
         </div>
 
-        <div className="hidden gap-12 md:grid md:grid-cols-[340px_1fr] md:gap-20">
+        <div className="hidden gap-12 md:grid md:grid-cols-[340px_1fr] md:gap-32 lg:gap-48">
           <div className="md:sticky md:top-32 self-start">
             <div
               className="relative aspect-[3/4.2] overflow-hidden rounded-3xl border border-ink/10"
@@ -228,7 +335,7 @@ export default function Speakers() {
                 ref={(el) => {
                   rowRefs.current[i] = el;
                 }}
-                className="py-4 md:py-6 flex items-center gap-4"
+                className={`py-4 md:py-6 flex items-center gap-4 ${i === active ? "px-12" : "px-0"}`}
               >
                 <ArrowRight
                   className={`h-8 w-8 md:h-10 md:w-10 shrink-0 text-signal-dim transition-all duration-300 ${
@@ -239,7 +346,7 @@ export default function Speakers() {
                   strokeWidth={2.5}
                 />
                 <span
-                  className={`font-display font-bold tracking-tight text-4xl sm:text-5xl md:text-6xl lg:text-7xl transition-colors duration-300 ${
+                  className={`font-display font-bold tracking-tight text-4xl sm:text-5xl md:text-5xl lg:text-6xl transition-colors duration-300 ${
                     i === active ? "text-black" : "text-zinc-300"
                   }`}
                 >
