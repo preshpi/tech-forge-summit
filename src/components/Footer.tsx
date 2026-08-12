@@ -178,7 +178,7 @@ export default function Footer() {
 
       <div className="relative z-10 border-t border-white/15">
         <div className="mx-auto flex max-w-7xl flex-col items-start gap-2 px-4 py-5 font-mono text-[10px] text-paper/40 sm:px-6 md:flex-row md:flex-wrap md:items-center md:justify-between md:py-6 md:text-xs">
-          <span>© 2027 The TechForge. All rights reserved.</span>
+          <span>© 2026 The TechForge. All rights reserved.</span>
           <span>Built for the people building it.</span>
         </div>
       </div>

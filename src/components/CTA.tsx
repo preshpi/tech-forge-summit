@@ -8,7 +8,7 @@ export default function CTA() {
         <div className="pointer-events-none absolute -bottom-24 left-1/2 -translate-x-1/2 h-[300px] w-[600px] rounded-full bg-signal/10 blur-[100px]" />
         <div className="pointer-events-none absolute -top-16 -right-16 h-[220px] w-[260px] rounded-full bg-accent-2/10 blur-[90px]" />
         <div className="relative flex flex-wrap justify-center gap-4 text-xs font-mono uppercase tracking-wider text-paper/50 mb-8">
-          <span>March 12, 2027</span>
+          <span>March 12, 2026</span>
           <Countdown className="text-signal" />
           <span>Austin, Texas</span>
         </div>
