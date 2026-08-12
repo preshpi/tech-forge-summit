@@ -217,7 +217,7 @@ export default function CheckoutFlow() {
             </h1>
             <p className="mt-4 text-paper/60 max-w-sm mx-auto">
               A confirmation for {qty} × {tier.name} is on its way to {email || "your inbox"}.
-              See you in Austin on March 12, 2027.
+              See you in Austin on March 12, 2026.
             </p>
             <Link
               href="/"

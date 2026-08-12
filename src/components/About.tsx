@@ -150,7 +150,7 @@ export default function About() {
             className="max-w-5xl font-display text-[26px] font-bold leading-[1.14] tracking-tight sm:text-[34px] md:text-[42px] lg:w-400 lg:max-w-none lg:text-justify lg:text-[64px] lg:leading-[74px]"
           >
             <span className="relative inline-block">
-              The TechForge <ImageText image="/tf1.jpg">2027</ImageText>
+              The TechForge <ImageText image="/tf1.jpg">2026</ImageText>
               <svg
                 className="absolute left-0 -bottom-2 w-full"
                 viewBox="0 0 200 14"
@@ -198,7 +198,7 @@ export default function About() {
                 No vendor pitches, no recycled slides. Every session is curated
                 around what&apos;s working right now: agent architectures,
                 evals, distribution, fundraising, and the real economics of
-                building an AI company in 2027.
+                building an AI company in 2026.
               </p>
               <div className="ticket-switcher">
                 <Link
