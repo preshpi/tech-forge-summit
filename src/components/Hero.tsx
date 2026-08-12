@@ -31,7 +31,7 @@ function TypewriterText({
       {Array.from(children).map((character, index) => (
         <span
           key={`${character}-${index}`}
-          className="hero-typewriter-character"
+          className="hero-typewriter-character text-3xl lg:text-[56px]"
           style={{
             animationDelay: `${
               typewriterDelayMs + (startIndex + index) * typewriterStaggerMs
@@ -157,7 +157,7 @@ export default function Hero() {
                 <span
                   className={`vertical-word-stack ${
                     isTransitioning ? "vertical-word-stack-moving" : ""
-                  }`}
+                  }  text-3xl lg:text-[56px]`}
                   style={{
                     transform: `translateY(-${wordDisplayIndex * 1.05}em)`,
                     transitionDuration: isTransitioning

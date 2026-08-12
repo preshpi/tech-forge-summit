@@ -497,7 +497,7 @@ body {
 .vertical-word-stack {
   display: flex;
   flex-direction: column;
-  line-height: 1.05;
+  line-height: 1..06;
   transition-property: transform;
   transition-timing-function: cubic-bezier(0.72, 0, 0.28, 1);
   transition-duration: 0ms;
@@ -509,7 +509,7 @@ body {
 }
 
 .vertical-word-stack > span {
-  height: 1.05em;
+  height: 1.06em;
   white-space: nowrap;
 }
 
