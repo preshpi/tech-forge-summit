@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ArrowUpRight, Grid2x2, Menu, X } from "lucide-react";
+import Link from "next/link";
 
 const links = [
   { label: "Speakers", href: "#speakers" },
@@ -70,8 +71,9 @@ export default function Navbar() {
 
         <div className="hidden md:block">
           <div className="ticket-switcher">
-            <a
+            <Link
               href="/checkout?tier=general"
+              transitionTypes={["nav-forward"]}
               style={{ backgroundColor: "white" }}
               className="ticket-switch-button ticket-switch-primary"
             >
@@ -80,9 +82,10 @@ export default function Navbar() {
                 className="ticket-switch-symbol h-4 w-4"
                 aria-hidden="true"
               />
-            </a>
-            <a
+            </Link>
+            <Link
               href="/checkout?tier=general"
+              transitionTypes={["nav-forward"]}
               aria-label="Get ticket"
               style={{ backgroundColor: "white" }}
               className="ticket-switch-button ticket-switch-secondary"
@@ -94,7 +97,7 @@ export default function Navbar() {
               <span className="ticket-switch-text" aria-hidden="true">
                 Get ticket
               </span>
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -134,14 +137,15 @@ export default function Navbar() {
               </a>
             ))}
 
-            <a
+            <Link
               href="/checkout?tier=general"
+              transitionTypes={["nav-forward"]}
               onClick={() => setMenuOpen(false)}
               className="mt-7 inline-flex w-fit items-center gap-2 rounded-full bg-paper px-5 py-2.5 text-sm font-bold text-ink"
             >
               Get ticket
               <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-            </a>
+            </Link>
           </nav>
         </div>
       ) : null}

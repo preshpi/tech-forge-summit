@@ -50,7 +50,11 @@ export default function CheckoutFlow() {
     <div className="flex-1 flex flex-col">
       <div className="border-b border-line">
         <div className="mx-auto max-w-2xl px-4 sm:px-6 py-5 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 font-display font-bold">
+          <Link
+            href="/"
+            transitionTypes={["nav-back"]}
+            className="flex items-center gap-2 font-display font-bold"
+          >
             <span className="inline-block h-2.5 w-2.5 rounded-full bg-signal" />
             The TechForge
           </Link>
@@ -217,6 +221,7 @@ export default function CheckoutFlow() {
             </p>
             <Link
               href="/"
+              transitionTypes={["nav-back"]}
               className="mt-10 inline-block rounded-full border border-line px-5 py-2.5 text-xs font-semibold transition-colors hover:border-signal/50 md:px-6 md:py-3 md:text-sm"
             >
               Back to homepage

@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AboutMedia from "./AboutMedia";
 import { Icons } from "@/lib/icons";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -269,8 +270,9 @@ export default function About() {
                 building an AI company in 2027.
               </p>
               <div className="ticket-switcher">
-                <a
+                <Link
                   href="/checkout?tier=general"
+                  transitionTypes={["nav-forward"]}
                   className="ticket-switch-button ticket-switch-primary"
                 >
                   <span className="ticket-switch-text">Get ticket</span>
@@ -278,9 +280,10 @@ export default function About() {
                     className="ticket-switch-symbol h-4 w-4"
                     aria-hidden="true"
                   />
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/checkout?tier=general"
+                  transitionTypes={["nav-forward"]}
                   aria-label="Get ticket"
                   className="ticket-switch-button ticket-switch-secondary"
                 >
@@ -291,7 +294,7 @@ export default function About() {
                   <span className="ticket-switch-text" aria-hidden="true">
                     Get ticket
                   </span>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

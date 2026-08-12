@@ -1,5 +1,6 @@
 import { Check, Globe, Crown, Users, ArrowUpRight, type LucideIcon } from "lucide-react";
 import type { TierId } from "@/lib/tickets";
+import Link from "next/link";
 
 const tiers: {
   id: TierId;
@@ -153,15 +154,17 @@ export default function Pricing() {
 
                 {/* Split Pill Button */}
                 <div className="ticket-switcher">
-              <a
+              <Link
                 href="/checkout?tier=general"
+                transitionTypes={["nav-forward"]}
                 className="ticket-switch-button ticket-switch-primary"
               >
                 <span className="ticket-switch-text">Buy ticket</span>
                 <ArrowUpRight className="ticket-switch-symbol h-4 w-4" aria-hidden="true" />
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/checkout?tier=general"
+                transitionTypes={["nav-forward"]}
                 aria-label="Get ticket"
                 className="ticket-switch-button ticket-switch-secondary"
               >
@@ -169,7 +172,7 @@ export default function Pricing() {
                 <span className="ticket-switch-text" aria-hidden="true">
                   Buy ticket
                 </span>
-              </a>
+              </Link>
             </div>
               </div>
             </div>
