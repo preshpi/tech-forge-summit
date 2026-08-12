@@ -141,12 +141,12 @@ export default function Hero() {
           >
             <span aria-hidden="true">
               <span className="whitespace-nowrap">
-                <TypewriterText>The TechForge</TypewriterText>
+                <TypewriterText>Behind everything worth</TypewriterText>
               </span>
               <br />
               <span className="whitespace-nowrap">
                 <TypewriterText startIndex={"The TechForge".length}>
-                  for all the
+                  building are the
                 </TypewriterText>
               </span>{" "}
               <span

@@ -22,9 +22,9 @@ export default function Home() {
         <Audience />
         <Speakers />
         <Agenda />
-        <Sponsors />
         <Hosts />
         <Pricing />
+        <Sponsors />
         <FAQ />
       </main>
       <Footer />
