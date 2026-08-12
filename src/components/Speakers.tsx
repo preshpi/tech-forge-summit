@@ -198,9 +198,9 @@ export default function Speakers() {
   const speaker = speakers[active];
 
   return (
-    <section id="speakers" className="bg-white  py-24 md:py-32">
+    <section id="speakers" className="bg-white  py-24 md:py-16">
       <div className="px-12">
-        <p className="flex items-center text-black gap-2 font-mono text-xs uppercase tracking-widest mb-14">
+        <p className="flex items-center text-black gap-2 font-mono text-xs uppercase tracking-widest mb-8">
           <span className="text-ink">✦</span> Meet the speakers
         </p>
 
@@ -280,8 +280,8 @@ export default function Speakers() {
           </div>
         </div>
 
-        <div className="hidden gap-12 md:grid md:grid-cols-[340px_1fr] md:gap-32 lg:gap-48">
-          <div className="md:sticky md:top-32 self-start">
+        <div className="hidden gap-12 md:grid md:grid-cols-[250px_1fr] md:gap-32 lg:gap-48">
+          <div className="self-start md:sticky md:top-32 md:h-fit">
             <div
               className="relative aspect-[3/4.2] overflow-hidden rounded-3xl border border-ink/10"
               style={{ background: gradientFor(speaker.name) }}
@@ -299,7 +299,7 @@ export default function Speakers() {
                       alt={item.name}
                       fill
                       loading="eager"
-                      sizes="(min-width: 768px) 340px, calc(100vw - 2rem)"
+                      sizes="(min-width: 768px) 250px, calc(100vw - 2rem)"
                       className="object-cover"
                     />
                   ) : (
@@ -328,14 +328,14 @@ export default function Speakers() {
             </div>
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col md:pb-[34vh]">
             {speakers.map((s, i) => (
               <div
                 key={s.name}
                 ref={(el) => {
                   rowRefs.current[i] = el;
                 }}
-                className={`py-4 md:py-6 flex items-center gap-4 ${i === active ? "px-12" : "px-0"}`}
+                className={`flex items-center gap-4 py-4 md:min-h-[22vh] md:py-6 lg:min-h-[24vh] ${i === active ? "px-12" : "px-0"}`}
               >
                 <ArrowRight
                   className={`h-8 w-8 md:h-10 md:w-10 shrink-0 text-signal-dim transition-all duration-300 ${

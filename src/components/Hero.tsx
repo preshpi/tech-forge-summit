@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Countdown from "./Countdown";
 import HeroBackdrop from "./HeroBackdrop";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 const words = ["Founders", "Engineers", "Researchers", "Operators", "Investors"];
 const slideCount = words.length;
@@ -140,12 +141,12 @@ export default function Hero() {
           >
             <span aria-hidden="true">
               <span className="whitespace-nowrap">
-                <TypewriterText>The TechForge</TypewriterText>
+                <TypewriterText>Behind everything worth</TypewriterText>
               </span>
               <br />
               <span className="whitespace-nowrap">
                 <TypewriterText startIndex={"The TechForge".length}>
-                  for all the
+                  building are the
                 </TypewriterText>
               </span>{" "}
               <span
@@ -174,15 +175,17 @@ export default function Hero() {
 
           <div className="mt-7 flex w-full items-center justify-between gap-3 sm:mt-10">
             <div className="ticket-switcher">
-              <a
+              <Link
                 href="/checkout?tier=general"
+                transitionTypes={["nav-forward"]}
                 className="ticket-switch-button ticket-switch-primary"
               >
                 <span className="ticket-switch-text">Get ticket</span>
                 <ArrowUpRight className="ticket-switch-symbol h-4 w-4" aria-hidden="true" />
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/checkout?tier=general"
+                transitionTypes={["nav-forward"]}
                 aria-label="Get ticket"
                 className="ticket-switch-button ticket-switch-secondary"
               >
@@ -190,7 +193,7 @@ export default function Hero() {
                 <span className="ticket-switch-text" aria-hidden="true">
                   Get ticket
                 </span>
-              </a>
+              </Link>
             </div>
             <a
               href="#about"

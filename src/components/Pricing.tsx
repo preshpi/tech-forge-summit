@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import type { TierId } from "@/lib/tickets";
+import Link from "next/link";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -312,7 +313,7 @@ export default function Pricing() {
                     <div
                       className={`h-10 w-10 rounded-xl flex items-center justify-center ${
                         t.highlight
-                          ? "bg-[#86efac] text-black"
+                          ? "bg-primary text-black"
                           : "bg-black text-white"
                       }`}
                     >
@@ -321,7 +322,7 @@ export default function Pricing() {
                     <span
                       className={`font-mono text-[10px] font-bold tracking-wider px-2.5 py-1 rounded-md uppercase ${
                         t.highlight
-                          ? "bg-zinc-800 text-[#86efac]"
+                          ? "bg-zinc-800 text-primary"
                           : "bg-zinc-300/70 text-zinc-700"
                       }`}
                     >

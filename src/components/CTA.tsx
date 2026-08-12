@@ -1,4 +1,5 @@
 import Countdown from "./Countdown";
+import Link from "next/link";
 
 export default function CTA() {
   return (
@@ -14,12 +15,13 @@ export default function CTA() {
         <h2 className="relative font-display text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight max-w-3xl mx-auto">
           Let&apos;s make an impact together
         </h2>
-        <a
+        <Link
           href="/checkout?tier=general"
+          transitionTypes={["nav-forward"]}
           className="relative inline-block mt-10 rounded-full bg-signal text-ink font-semibold px-8 py-4 text-sm hover:bg-signal-dim transition-colors"
         >
           Get ticket
-        </a>
+        </Link>
       </div>
     </section>
   );

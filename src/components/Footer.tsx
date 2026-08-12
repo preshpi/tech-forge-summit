@@ -3,6 +3,7 @@
 import type { PointerEvent } from "react";
 import { useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowUp, ArrowUpRight, Link2, Mail } from "lucide-react";
 import Countdown from "./Countdown";
 
@@ -97,8 +98,9 @@ export default function Footer() {
             </h2>
 
             <div className="mt-6 ticket-switcher md:mt-8">
-              <a
+              <Link
                 href="/checkout?tier=general"
+                transitionTypes={["nav-forward"]}
                 className="ticket-switch-button ticket-switch-primary"
               >
                 <span className="ticket-switch-text">Get ticket</span>
@@ -106,9 +108,10 @@ export default function Footer() {
                   className="ticket-switch-symbol h-4 w-4"
                   aria-hidden="true"
                 />
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/checkout?tier=general"
+                transitionTypes={["nav-forward"]}
                 aria-label="Get ticket"
                 className="ticket-switch-button ticket-switch-secondary"
               >
@@ -119,7 +122,7 @@ export default function Footer() {
                 <span className="ticket-switch-text" aria-hidden="true">
                   Get ticket
                 </span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

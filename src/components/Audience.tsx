@@ -115,7 +115,7 @@ export default function Audience() {
       </div>
 
       {/* signature orbit element, now its own row below the stack */}
-      <div className="mx-auto mt-16 flex max-w-7xl justify-center px-4 sm:mt-24 sm:px-6">
+      {/* <div className="mx-auto mt-16 flex max-w-7xl justify-center px-4 sm:mt-24 sm:px-6">
         <div className="relative mx-auto flex h-[clamp(20rem,92vw,32.5rem)] w-[clamp(20rem,92vw,32.5rem)] items-center justify-center">
           <div className="absolute inset-0 rounded-full border border-line" />
           <div className="absolute inset-9 rounded-full border border-line sm:inset-12 lg:inset-14" />
@@ -146,7 +146,7 @@ export default function Audience() {
             );
           })}
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }

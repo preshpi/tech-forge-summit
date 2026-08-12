@@ -2,6 +2,7 @@
 
 import type { PointerEvent } from "react";
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 
 export default function AboutMedia() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -106,9 +107,10 @@ export default function AboutMedia() {
             }}
           />
           <div className="absolute inset-0 pointer-events-none">
-            <a
+            <Link
               ref={ctaRef}
               href="/checkout?tier=general"
+              transitionTypes={["nav-forward"]}
               className="absolute cursor-none rounded-full bg-primary text-ink font-semibold px-8 py-14 text-sm transition-[background-color,opacity,transform] duration-200"
               style={{
                 left: ctaPosition.hasPointer ? ctaPosition.x : "50%",
@@ -119,7 +121,7 @@ export default function AboutMedia() {
               }}
             >
               Get tickets
-            </a>
+            </Link>
           </div>
         </div>
       </div>
