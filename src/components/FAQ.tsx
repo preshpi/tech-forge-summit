@@ -10,28 +10,36 @@ gsap.registerPlugin(ScrollTrigger);
 
 const faqs = [
   {
-    q: "When and where is Synthik 2026?",
-    a: "14 October 2026 at the Marina Bay Sands Convention Centre, Singapore. Doors open at 8:30am.",
+    q: "What is The TechForge 2026?",
+    a: "The TechForge 2026 is a one-day tech event bringing together people exploring tech and those already working in the industry. It’s a space to learn from real experiences, ask questions, meet other people in the ecosystem, and get a clearer picture of what’s possible in tech.",
   },
   {
-    q: "What's included with my ticket?",
-    a: "Full access to every keynote, workshop, and networking session, plus lunch, refreshments, and the closing after-party.",
+    q: "When is The TechForge 2026?",
+    a: "The TechForge 2026 is scheduled for December 5, 2026",
   },
   {
-    q: "Are talks recorded?",
-    a: "Yes — every main-stage talk is recorded and shared with ticket holders within two weeks of the event.",
+    q: "Who is The TechForge for?",
+    a: "It’s for students, people exploring tech, developers, engineers, designers, founders, product professionals, and others interested in building or growing within the tech ecosystem. You don’t need years of experience to be in the room.",
   },
   {
-    q: "Can I get a refund?",
-    a: "Tickets are fully refundable up to 30 days before the event. After that, they're transferable to another attendee.",
+    q: "I’m new to tech. Should I attend?",
+    a: "Yes. One of the reasons The TechForge exists is to help people who are interested in tech but aren’t sure where to begin or what direction to take.",
   },
   {
-    q: "Is there a student or non-profit discount?",
-    a: "We offer 40% off for students and registered non-profits. Email us with proof of status for a code.",
+    q: "What should I expect?",
+    a: "one day of talks, panels, and hands-on sessions from people working in tech, plus room to ask questions, meet others in the ecosystem, and make connections that continue long after the event.",
   },
   {
     q: "Will there be a virtual option?",
-    a: "A live stream of the main stage is included with every ticket, so you can join remotely if you can't make it in person.",
+    a: "Yes. A live stream of the main stage is included with every ticket, so you can follow both day remotely if you can't make it in person.",
+  },
+  {
+    q: "Will there be a pre-event?",
+    a: "Yes.",
+  },
+  {
+    q: "How can I contact The TechForge team?",
+    a: "For enquiries, email info.techforge@gmail.com or call +234 707 365 9187.",
   },
 ];
 
@@ -152,7 +160,7 @@ export default function FAQ() {
           <div className="rounded-[24px] bg-[#1a1a1a] p-4 sm:p-5 border border-zinc-800/80 flex items-center gap-5 max-w-md">
             <div className="relative h-28 w-28 rounded-[16px] overflow-hidden shrink-0 border border-zinc-700/50">
               <Image
-                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400"
+                src="/tf3.jpg"
                 alt="Support representative"
                 fill
                 className="object-cover"
@@ -182,7 +190,8 @@ export default function FAQ() {
                   />
                 </a>
                 <a
-                  href="#contact"
+                  href="https://wa.me/2347073659187"
+                  target="_blank"
                   aria-label="Contact us"
                   className="ticket-switch-button ticket-switch-secondary"
                 >

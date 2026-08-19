@@ -48,11 +48,11 @@ const tiers: {
   {
     id: "general",
     name: "General Admission",
-    price: "$299",
+    price: "₦15,000",
     unit: "Per attendee",
-    desc: "Full access to all main-stage talks and the official networking event.",
+    desc: "Full access to all main-stage talks and the official neonerking event.",
     features: [
-      "All Day 2 main-stage sessions",
+      "Main-stage sessions",
       "Lunch & refreshments included",
       "Evening networking event",
       "Post-event session recordings",
@@ -63,11 +63,11 @@ const tiers: {
   {
     id: "vip",
     name: "VIP Pass",
-    price: "$599",
+    price: "₦30,000",
     unit: "Per attendee",
     desc: "Everything in General plus workshops, reserved seating, and the founders dinner.",
     features: [
-      "All 3 days including workshops",
+      "All 3 day including workshops",
       "Reserved front-section seating",
       "Private founders dinner invite",
       "1:1 speaker office hours access",
@@ -78,7 +78,7 @@ const tiers: {
   {
     id: "team",
     name: "Team Pass",
-    price: "$1299",
+    price: "₦65,000",
     unit: "for 5 attendees",
     desc: "Bring your team. Five VIP-level passes at a meaningful discount.",
     features: [
@@ -280,8 +280,8 @@ export default function Pricing() {
                 className="w-[28px] h-[16px] opacity-20 rounded-lg overflow-hidden relative shrink-0 border border-zinc-200/60 shadow-sm inline-block my-auto"
               >
                 <Image
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800"
-                  alt="Networking attendees"
+                  src="/tf18.jpg"
+                  alt="Neonerking attendees"
                   fill
                   className="object-cover"
                 />

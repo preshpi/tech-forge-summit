@@ -8,22 +8,22 @@ gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
   {
-    value: 1400,
+    value: 1000,
     suffix: "+",
-    label: "Builders",
-    desc: "A curated room of founders, engineers, designers, and AI-native operators.",
+    label: "Attendees",
+    desc: "People from across tech, all in one room to learn, connect, and exchange ideas.",
   },
   {
-    value: 90,
+    value: 20,
     suffix: "+",
-    label: "Startups",
-    desc: "Teams shipping the next wave of products, tools, and infrastructure.",
+    label: "Speakers",
+    desc: "Experienced voices sharing practical lessons, real stories, and industry insight.",
   },
   {
-    value: 22,
+    value: 1,
     suffix: "",
-    label: "Sessions",
-    desc: "Keynotes, panels, workshops, and demos built for depth, not filler.",
+    label: "Day",
+    desc: "One full day of talks, conversations, learning, and meaningful connections.",
   },
 ];
 
@@ -73,8 +73,7 @@ export default function Stats() {
             autoAlpha: 0,
             x: (index) => ((index % 3) - 1) * (44 + index * 5),
             y: (index) => (index % 2 === 0 ? -58 : 62) - index * 3,
-            rotation: (index) =>
-              (index % 2 === 0 ? -1 : 1) * (18 + index * 5),
+            rotation: (index) => (index % 2 === 0 ? -1 : 1) * (18 + index * 5),
             filter: "blur(10px)",
             transformOrigin: "50% 50%",
           });
@@ -169,7 +168,7 @@ export default function Stats() {
                     0{s.suffix}
                   </span>
                 </p>
-                <p className="mt-1 text-[38px] font-bold leading-[0.9] text-[#464646] sm:-mt-1 sm:text-[52px] md:-mt-2 md:text-[68px] lg:-mt-14 lg:text-[148px] lg:leading-normal">
+                <p className="mt-1 text-[38px] font-bold leading-[0.9] text-[#464646] sm:-mt-1 sm:text-[52px] md:-mt-2 md:text-[68px] lg:-mt-14 lg:text-[130px] lg:leading-normal">
                   <span className="sr-only">{s.label}</span>
                   <span aria-hidden="true" className="inline-block">
                     {Array.from(s.label).map((letter, index) => (

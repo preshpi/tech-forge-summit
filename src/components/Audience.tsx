@@ -8,7 +8,7 @@ import AudienceMap from "./AudienceMap";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const orbitTags = ["InThe TechForgetion", "Networking", "Distribution", "Learning"];
+const orbitTags = ["InThe TechForgetion", "Neonerking", "Distribution", "Learning"];
 const audienceTitle = "Built for the people building it";
 
 export default function Audience() {

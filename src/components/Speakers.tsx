@@ -24,14 +24,14 @@ const speakers = [
     org: "Sails",
     image: "/koo.jpg",
   },
-  {
-    name: "Daniel Okafor",
-    role: "Principal Engineer",
-    org: "Insight Analytics",
-    image: "/daniel.jpeg",
-  },
-  { name: "Sofia Andersson", role: "VP of Research", org: "TechSphere" },
-  { name: "Wei Liu", role: "Co-Founder", org: "FutureTech Labs" },
+  // {
+  //   name: "Daniel Okafor",
+  //   role: "Principal Engineer",
+  //   org: "Insight Analytics",
+  //   image: "/daniel.jpeg",
+  // },
+  // { name: "Sofia Andersson", role: "VP of Research", org: "TechSphere" },
+  // { name: "Wei Liu", role: "Co-Founder", org: "FutureTech Labs" },
 ];
 
 function SocialIcons({ onImage = false }: { onImage?: boolean }) {

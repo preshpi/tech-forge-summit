@@ -1,15 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ArrowUpRight, Grid2x2, Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import Link from "next/link";
+import Logo from "./Logo";
 
 const links = [
   { label: "Speakers", href: "#speakers" },
   { label: "Agenda", href: "#agenda" },
   { label: "Venue", href: "#venue" },
+  { label: "Get DP", href: "/dp" },
   { label: "Contact", href: "#faq" },
 ];
+
+const isRoute = (href: string) => href.startsWith("/");
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -50,23 +54,30 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-6 sm:px-10 py-6 flex items-center justify-between">
         <a
           href="#top"
-          className="flex items-center gap-2.5"
+          className="flex items-center"
           onClick={() => setMenuOpen(false)}
+          aria-label="The TechForge — home"
         >
-          <span className="h-8 w-8 rounded-lg bg-paper/10 flex items-center justify-center">
-            <Grid2x2 className="h-4 w-4" strokeWidth={2} />
-          </span>
-          <span className="font-display text-lg font-bold tracking-tight sm:text-xl">
-            The TechForge
-          </span>
+          <Logo imgClassName="h-8 w-auto sm:h-9" eager />
         </a>
 
-        <nav className="hidden md:flex items-center gap-10 text-[15px] font-medium text-paper/90">
-          {links.map((l) => (
-            <a key={l.href} href={l.href} className="hover:text-signal transition-colors">
-              {l.label}
-            </a>
-          ))}
+        <nav className="hidden md:flex items-center gap-7 text-[15px] font-medium text-paper/90 lg:gap-10">
+          {links.map((l) =>
+            isRoute(l.href) ? (
+              <Link
+                key={l.href}
+                href={l.href}
+                transitionTypes={["nav-forward"]}
+                className="hover:text-signal transition-colors"
+              >
+                {l.label}
+              </Link>
+            ) : (
+              <a key={l.href} href={l.href} className="hover:text-signal transition-colors">
+                {l.label}
+              </a>
+            )
+          )}
         </nav>
 
         <div className="hidden md:block">
@@ -126,16 +137,28 @@ export default function Navbar() {
             aria-label="Mobile navigation"
             className="mx-auto flex max-w-7xl flex-col"
           >
-            {links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="border-b border-paper/10 py-4 font-display text-3xl font-bold tracking-tight text-paper transition-colors hover:text-signal"
-              >
-                {link.label}
-              </a>
-            ))}
+            {links.map((link) =>
+              isRoute(link.href) ? (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  transitionTypes={["nav-forward"]}
+                  onClick={() => setMenuOpen(false)}
+                  className="border-b border-paper/10 py-4 font-display text-3xl font-bold tracking-tight text-paper transition-colors hover:text-signal"
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="border-b border-paper/10 py-4 font-display text-3xl font-bold tracking-tight text-paper transition-colors hover:text-signal"
+                >
+                  {link.label}
+                </a>
+              )
+            )}
 
             <Link
               href="/checkout?tier=general"

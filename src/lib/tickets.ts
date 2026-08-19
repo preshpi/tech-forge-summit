@@ -6,19 +6,19 @@ export const tiers: Record<
 > = {
   general: {
     name: "General Admission",
-    price: 299,
+    price: 15000,
     unit: "per attendee",
-    desc: "Full access to all main-stage talks and the official networking event.",
+    desc: "Full access to all main-stage talks and the official neonerking event.",
   },
   vip: {
     name: "VIP Pass",
-    price: 599,
+    price: 30000,
     unit: "per attendee",
     desc: "Everything in General, plus workshops, reserved seating, and the founders dinner.",
   },
   team: {
     name: "Team Pass",
-    price: 1299,
+    price: 65000,
     unit: "for 5 attendees",
     desc: "Bring your team. Five VIP-level passes at a meaningful discount.",
   },

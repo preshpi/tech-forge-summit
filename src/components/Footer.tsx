@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUp, ArrowUpRight, Link2, Mail } from "lucide-react";
 import Countdown from "./Countdown";
+import Logo from "./Logo";
 
 const sitemap = [
   { label: "About", href: "#about" },
@@ -129,7 +130,7 @@ export default function Footer() {
 
         <div className="mt-14 grid grid-cols-1 gap-12 md:mt-20 md:grid-cols-2 md:gap-0">
           <div className="flex flex-col gap-2 font-display text-lg font-bold md:mt-20">
-            The TechForge
+            <Logo className="self-start" imgClassName="h-9 w-auto" />
             <div className="mt-2 flex gap-4 text-paper/55">
               <Link2 className="h-5 w-5 transition-colors hover:text-signal" />
               <Mail className="h-5 w-5 transition-colors hover:text-signal" />

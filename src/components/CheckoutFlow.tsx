@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Check, ChevronLeft, CreditCard, Loader2 } from "lucide-react";
 import { tiers, type TierId } from "@/lib/tickets";
+import Logo from "./Logo";
 
 type Step = "review" | "details" | "payment" | "success";
 
@@ -53,10 +54,10 @@ export default function CheckoutFlow() {
           <Link
             href="/"
             transitionTypes={["nav-back"]}
-            className="flex items-center gap-2 font-display font-bold"
+            className="flex items-center"
+            aria-label="The TechForge — home"
           >
-            <span className="inline-block h-2.5 w-2.5 rounded-full bg-signal" />
-            The TechForge
+            <Logo imgClassName="h-8 w-auto" />
           </Link>
           <div className="flex items-center gap-1.5">
             {steps.slice(0, 3).map((s, i) => (
@@ -110,7 +111,7 @@ export default function CheckoutFlow() {
                       <p className="text-sm text-paper/50 mt-1 max-w-sm">{t.desc}</p>
                     </div>
                     <div className="text-right shrink-0">
-                      <div className="font-display font-bold text-lg">${t.price}</div>
+                      <div className="font-display font-bold text-lg">₦{t.price}</div>
                       <div className="text-xs text-paper/40 font-mono">{t.unit}</div>
                     </div>
                   </button>
@@ -143,7 +144,7 @@ export default function CheckoutFlow() {
               onClick={next}
               className="mt-10 w-full rounded-full bg-signal py-3 text-xs font-semibold text-ink transition-colors hover:bg-signal-dim md:py-3.5 md:text-sm"
             >
-              Continue — ${total.toLocaleString()}
+              Continue — ₦{total.toLocaleString()}
             </button>
           </div>
         )}
@@ -185,7 +186,7 @@ export default function CheckoutFlow() {
               <span className="text-paper/60">
                 {qty} × {tier.name}
               </span>
-              <span className="font-display font-bold">${total.toLocaleString()}</span>
+              <span className="font-display font-bold">₦{total.toLocaleString()}</span>
             </div>
 
             <button
@@ -198,7 +199,7 @@ export default function CheckoutFlow() {
                   <Loader2 className="h-4 w-4 animate-spin" /> Processing
                 </>
               ) : (
-                `Pay $${total.toLocaleString()}`
+                `Pay ₦${total.toLocaleString()}`
               )}
             </button>
             <p className="mt-4 text-xs text-paper/30 text-center font-mono">
@@ -217,7 +218,7 @@ export default function CheckoutFlow() {
             </h1>
             <p className="mt-4 text-paper/60 max-w-sm mx-auto">
               A confirmation for {qty} × {tier.name} is on its way to {email || "your inbox"}.
-              See you in Austin on March 12, 2026.
+              See you in Lagos on December 5, 2026.
             </p>
             <Link
               href="/"
