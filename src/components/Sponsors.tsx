@@ -158,8 +158,7 @@ export default function Sponsors() {
             className="font-sans font-bold text-4xl sm:text-5xl md:text-6xl tracking-tight leading-[1.1]"
           >
             <span aria-hidden="true">
-              <AnimatedWord>Meet</AnimatedWord>{" "}
-              <AnimatedWord>our</AnimatedWord>{" "}
+              <AnimatedWord>Meet</AnimatedWord> <AnimatedWord>our</AnimatedWord>{" "}
               <span className="relative inline-block">
                 <AnimatedWord>session</AnimatedWord>
                 {/* Green Scribble/Underline SVG Accent */}
@@ -187,14 +186,20 @@ export default function Sponsors() {
         {/* Right Column: Text & Contact CTA */}
         <div className="lg:col-span-5 lg:pt-8 flex flex-col justify-between space-y-6">
           <p className="text-zinc-300 text-sm sm:text-base leading-relaxed font-normal">
-            Synthik gives your business a platform to stand out, build
-            meaningful connections, and engage with enterprises, platforms,
-            start-ups, and ambitious teams driving the next wave of growth.
+            The TechForge 2026 is expected to bring together more than 1,000
+            developers, founders, designers, students, product professionals,
+            and people building careers across tech.
+          </p>
+          <p className="text-zinc-300 text-sm sm:text-base leading-relaxed font-normal">
+            For sponsors, it’s a chance to meet this audience directly, support
+            the growth of Nigeria’s tech ecosystem, discover talent, and put
+            your company in front of people already interested in technology,
+            products, careers, and the companies behind them.
           </p>
 
           <div className="pt-2">
             <p className="font-mono text-[10px] uppercase tracking-widest text-zinc-400 font-semibold mb-3">
-              INTERESTED IN BECOMING A SPONSOR?
+              Want to sponsor The TechForge 2026?
             </p>
 
             {/* Split Pill Button */}

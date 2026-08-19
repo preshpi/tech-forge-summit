@@ -3,11 +3,12 @@
 import Image from "next/image";
 
 const slides = [
-  { image: "/tf6.jpg", label: "Business", eyebrow: "01 / operators" },
-  { image: "/tf7.jpg", label: "Investors", eyebrow: "02 / capital" },
-  { image: "/tf8.jpg", label: "Founders", eyebrow: "03 / builders" },
-  { image: "/tf9.jpg", label: "Engineers", eyebrow: "04 / systems" },
-  { image: "/tf10.jpg", label: "AI Teams", eyebrow: "05 / momentum" },
+  { image: "/tf6.jpg", label: "Exploring Tech", eyebrow: "01 / Newbie" },
+  { image: "/tf7.jpg", label: "Developers & Engineers", eyebrow: "02 / Systems" },
+  { image: "/tf8.jpg", label: "Designers & Product People", eyebrow: "03 / Product" },
+  { image: "/tf9.jpg", label: "Founders & Builders", eyebrow: "04 / Builders" },
+  { image: "/tf10.jpg", label: "Tech Professionals", eyebrow: "05 / Experts" },
+  { image: "/tf11.jpg", label: "Students", eyebrow: "06 / Early age" },
 ];
 
 export default function AudienceMap() {

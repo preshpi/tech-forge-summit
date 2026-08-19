@@ -93,13 +93,17 @@ export default function About() {
 
       gsap
         .timeline({ repeat: -1 })
-        .to(primaryIcons, {
-          autoAlpha: 0,
-          y: -6,
-          rotate: 15,
-          duration: 0.28,
-          ease: "power2.in",
-        }, 1.72)
+        .to(
+          primaryIcons,
+          {
+            autoAlpha: 0,
+            y: -6,
+            rotate: 15,
+            duration: 0.28,
+            ease: "power2.in",
+          },
+          1.72,
+        )
         .to(
           alternateIcons,
           {
@@ -111,13 +115,17 @@ export default function About() {
           },
           1.72,
         )
-        .to(alternateIcons, {
-          autoAlpha: 0,
-          y: 6,
-          rotate: -15,
-          duration: 0.28,
-          ease: "power2.in",
-        }, 3.72)
+        .to(
+          alternateIcons,
+          {
+            autoAlpha: 0,
+            y: 6,
+            rotate: -15,
+            duration: 0.28,
+            ease: "power2.in",
+          },
+          3.72,
+        )
         .to(
           primaryIcons,
           {
@@ -146,11 +154,10 @@ export default function About() {
         </p>
 
         <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-52">
-          <h2
-            className="max-w-5xl font-display text-[26px] font-bold leading-[1.14] tracking-tight sm:text-[34px] md:text-[42px] lg:w-400 lg:max-w-none lg:text-justify lg:text-[64px] lg:leading-[74px]"
-          >
+          <h2 className="max-w-5xl font-display text-[26px] font-bold leading-[1.14] tracking-tight sm:text-[34px] md:text-[42px] lg:w-400 lg:max-w-none lg:text-justify lg:text-[64px] lg:leading-[74px]">
             <span className="relative inline-block">
-              The TechForge <ImageText image="/tf1.jpg">2026</ImageText>
+              The TechForge is returning in{" "}
+              <ImageText image="/tf1.jpg">2026,</ImageText>
               <svg
                 className="absolute left-0 -bottom-2 w-full"
                 viewBox="0 0 200 14"
@@ -166,19 +173,20 @@ export default function About() {
                 />
               </svg>
             </span>{" "}
-            brings together the people actually shipping AI products{" "}
+            bringing together thousands of people who are learning,
             <IconBadge
               icon={ArrowUpRight}
               alternateIcon={Zap}
               className="text-[var(--color-accent-2)]"
             />{" "}
-            founders, researchers, engineers, and operators{" "}
+            building, working, and finding their direction in tech.
             <IconBadge
               icon={Zap}
               alternateIcon={ArrowUpRight}
               className="text-[var(--color-accent-3)]"
             />{" "}
-            for one focused day in <ImageText image="/tf4.jpg">Austin</ImageText>.
+            For one focused day in <ImageText image="/tf4.jpg">Lagos</ImageText>
+            .
           </h2>
           <div className="w-full max-w-xl lg:mx-auto lg:mt-14 lg:w-200 lg:max-w-none lg:px-6">
             {/* <div className="rounded-3xl overflow-hidden border border-line bg-ink-soft aspect-[4/3] relative">
@@ -190,15 +198,17 @@ export default function About() {
 
             <div className="space-y-5 text-sm leading-relaxed text-paper/70 sm:text-base lg:space-y-6 lg:pt-2">
               <p>
-                Expect unfiltered talks, hands-on workshops, and the kind of
-                hallway conversations that turn into your next hire, customer,
-                or co-founder.
+                The first edition showed us how much people value a space where
+                they can ask real questions, hear directly from people in the
+                industry, and meet others figuring things out too. The TechForge
+                2026 is taking that further with a bigger room, more voices, and
+                one day built around learning, conversations, and connection.
               </p>
               <p>
-                No vendor pitches, no recycled slides. Every session is curated
-                around what&apos;s working right now: agent architectures,
-                evals, distribution, fundraising, and the real economics of
-                building an AI company in 2026.
+                This December, over 1,000 attendees and 20+ speakers will come
+                together for one day of practical conversations about
+                technology, careers, building, and the realities of working in
+                the industry.
               </p>
               <div className="ticket-switcher">
                 <Link

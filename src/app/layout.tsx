@@ -11,7 +11,7 @@ const BDOGrotesk = localFont({
 export const metadata: Metadata = {
   title: "The TechForge 2026 — The Builders Summit",
   description:
-    "A one-day gathering in Austin for founders, engineers, and researchers actually shipping AI products. March 12, 2026.",
+    "A one-day tech gathering in Lagos for people learning, building, and growing their careers in tech. December 5, 2026.",
 };
 
 export default function RootLayout({

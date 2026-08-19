@@ -7,11 +7,11 @@ const EVENT_DATE = new Date("2026-12-05T09:00:00-06:00").getTime();
 function getRemaining() {
   const now = Date.now();
   const diff = Math.max(0, EVENT_DATE - now);
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const day = Math.floor(diff / (1000 * 60 * 60 * 24));
   const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
   const minutes = Math.floor((diff / (1000 * 60)) % 60);
   const seconds = Math.floor((diff / 1000) % 60);
-  return { days, hours, minutes, seconds };
+  return { day, hours, minutes, seconds };
 }
 
 export default function Countdown({ className = "" }: { className?: string }) {
@@ -32,7 +32,7 @@ export default function Countdown({ className = "" }: { className?: string }) {
 
   return (
     <span className={`font-mono tabular-nums ${className}`}>
-      {String(time.days).padStart(2, "0")}D.
+      {String(time.day).padStart(2, "0")}D.
       {String(time.hours).padStart(2, "0")}H.
       {String(time.minutes).padStart(2, "0")}M.
       {String(time.seconds).padStart(2, "0")}s
