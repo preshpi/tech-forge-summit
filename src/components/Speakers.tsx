@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { gradientFor } from "@/lib/avatar";
 import Image from "next/image";
+import Link from "next/link";
 
 const speakers = [
   {
@@ -71,6 +72,41 @@ function SocialIcons({ onImage = false }: { onImage?: boolean }) {
           />
         </svg>
       </span>
+    </div>
+  );
+}
+
+function ApplyToSpeakButton() {
+  return (
+    <div className="ticket-switcher scale-110">
+      <Link
+        href="https://forms.gle/pcEGTq4QFJkVZyG99"
+        target="_blank"
+        aria-label="Apply To Speak"
+        transitionTypes={["nav-forward"]}
+        className="ticket-switch-button ticket-switch-primary w-[10rem]"
+      >
+        <span className="ticket-switch-text max-w-none!">Apply To Speak</span>
+        <ArrowUpRight
+          className="ticket-switch-symbol h-4 w-4"
+          aria-hidden="true"
+        />
+      </Link>
+      <Link
+        href="https://forms.gle/pcEGTq4QFJkVZyG99"
+        target="_blank"
+        aria-label="Apply To Speak"
+        transitionTypes={["nav-forward"]}
+        className="ticket-switch-button ticket-switch-secondary w-[10rem]"
+      >
+        <ArrowUpRight
+          className="ticket-switch-symbol h-4 w-4"
+          aria-hidden="true"
+        />
+        <span className="ticket-switch-text max-w-none!" aria-hidden="true">
+          Apply To Speak
+        </span>
+      </Link>
     </div>
   );
 }
@@ -278,6 +314,11 @@ export default function Speakers() {
               />
             ))}
           </div>
+
+          <div className="mt-8 flex flex-col items-center gap-4">
+            <p className="text-zinc-700">Want to speak?</p>
+            <ApplyToSpeakButton />
+          </div>
         </div>
 
         <div className="hidden gap-12 md:grid md:grid-cols-[250px_1fr] md:gap-32 lg:gap-48">
@@ -313,47 +354,54 @@ export default function Speakers() {
                 </div>
               ))}
             </div>
-            <div className="mt-6 flex items-center justify-between gap-3">
-              <div className="">
-                <div className="font-display font-bold text-lg text-ink">
-                  {speaker.role}
+                <div className="mt-6 flex items-center justify-between gap-3">
+                  <div className="">
+                    <div className="font-display font-bold text-lg text-ink">
+                      {speaker.role}
+                    </div>
+                    <div className="font-mono text-xs uppercase tracking-wide text-ink/40 mt-1">
+                      {speaker.org}
+                    </div>
+                  </div>
+                  <div className="mt-4">
+                    <SocialIcons />
+                  </div>
                 </div>
-                <div className="font-mono text-xs uppercase tracking-wide text-ink/40 mt-1">
-                  {speaker.org}
-                </div>
-              </div>
-              <div className="mt-4">
-                <SocialIcons />
-              </div>
-            </div>
           </div>
 
           <div className="flex flex-col md:pb-[34vh]">
-            {speakers.map((s, i) => (
-              <div
-                key={s.name}
-                ref={(el) => {
-                  rowRefs.current[i] = el;
-                }}
-                className={`flex items-center gap-4 py-4 md:min-h-[22vh] md:py-6 lg:min-h-[24vh] ${i === active ? "px-12" : "px-0"}`}
-              >
-                <ArrowRight
-                  className={`h-8 w-8 md:h-10 md:w-10 shrink-0 text-signal-dim transition-all duration-300 ${
-                    i === active
-                      ? "opacity-100 translate-x-0"
-                      : "opacity-0 -translate-x-3"
-                  }`}
-                  strokeWidth={2.5}
-                />
-                <span
-                  className={`font-display font-bold tracking-tight text-4xl sm:text-5xl md:text-5xl lg:text-6xl transition-colors duration-300 ${
-                    i === active ? "text-black" : "text-zinc-300"
-                  }`}
+            <div>
+              {speakers.map((s, i) => (
+                <div
+                  key={s.name}
+                  ref={(el) => {
+                    rowRefs.current[i] = el;
+                  }}
+                  className={`flex items-center gap-4 py-4 md:min-h-[22vh] md:py-6 lg:min-h-[24vh] ${i === active ? "px-12" : "px-0"}`}
                 >
-                  {s.name}
-                </span>
+                  <ArrowRight
+                    className={`h-8 w-8 md:h-10 md:w-10 shrink-0 text-signal-dim transition-all duration-300 ${
+                      i === active
+                        ? "opacity-100 translate-x-0"
+                        : "opacity-0 -translate-x-3"
+                    }`}
+                    strokeWidth={2.5}
+                  />
+                  <span
+                    className={`font-display font-bold tracking-tight text-4xl sm:text-5xl md:text-5xl lg:text-6xl transition-colors duration-300 ${
+                      i === active ? "text-black" : "text-zinc-300"
+                    }`}
+                  >
+                    {s.name}
+                  </span>
+                </div>
+              ))}
+
+              <div className="mt-12 flex flex-col gap-4 md:sticky md:bottom-8">
+                <p className="text-zinc-700">Want to speak?</p>
+                <ApplyToSpeakButton />
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </div>

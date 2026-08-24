@@ -5,8 +5,8 @@
   --color-ink-soft: #121215;
   --color-paper: #f2f2f0;
   --color-line: #232327;
-  --color-signal: #419bc2;
-  --color-signal-dim: #038ccd;
+  --color-signal: #3550B3;
+  --color-signal-dim: #3550B3;
   --color-accent-2: #b98cff;
   --color-accent-3: #ff6b4a;
   --color-muted: #9a9a94;
@@ -246,7 +246,7 @@ body {
   overflow: hidden;
   border-radius: 9999px;
   background-color: var(--color-signal);
-  color: #000;
+  color: #fff;
   font-size: 0.875rem;
   font-weight: 600;
   line-height: 1;

@@ -243,7 +243,7 @@ export default function FAQ() {
 
                 {/* Green Answer Speech Bubble */}
                 {isOpen && (
-                  <div className="w-full sm:w-[85%] bg-primary text-black rounded-[24px] p-5 font-semibold text-sm leading-relaxed self-end transition-all animate-in fade-in slide-in-from-top-2 duration-200">
+                  <div className="w-full sm:w-[85%] bg-primary text-white rounded-[24px] p-5 font-semibold text-sm leading-relaxed self-end transition-all animate-in fade-in slide-in-from-top-2 duration-200">
                     {f.a}
                   </div>
                 )}
