@@ -50,7 +50,7 @@ const tiers: {
     name: "General Admission",
     price: "₦15,000",
     unit: "Per attendee",
-    desc: "Full access to all main-stage talks and the official neonerking event.",
+    desc: "Full access to all main-stage talks and the official networking event.",
     features: [
       "Main-stage sessions",
       "Lunch & refreshments included",
@@ -281,7 +281,7 @@ export default function Pricing() {
               >
                 <Image
                   src="/tf18.jpg"
-                  alt="Neonerking attendees"
+                  alt="Networking attendees"
                   fill
                   className="object-cover"
                 />

@@ -50,10 +50,10 @@ const venueDetails = {
   name: "The Innovation Center",
   address: "500 Howard Street, San Francisco, CA 94105",
   googleMapsUrl:
-    "https://maps.google.com/?q=500+Howard+Street,+San+Francisco,+CA+94105",
+    "https://maps.app.goo.gl/nXKs2PqDhtL1fYTa6",
   // Google Maps Embed URL (Place your actual API embed URL or standard embed URL here)
   mapEmbedUrl:
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509374!2d-122.39867968468126!3d37.78815197975747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085807f311f925b%3A0xc3f8e5f22e831688!2s500%20Howard%20St%2C%20San%20Francisco%2C%20CA%2094105!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus",
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.7641261852677!2d3.374265073864627!3d6.551436122840391!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8d73a658782b%3A0x7a1de11d89cccc84!2sThe%20Zone!5e0!3m2!1sen!2sng!4v1787343862698!5m2!1sen!2sng",
   gallery: [
     {
       src: "https://thezone.ng/wp-content/uploads/2025/11/Emerald1.webp",
@@ -65,7 +65,7 @@ const venueDetails = {
     },
     {
       src: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=600",
-      alt: "Neonerking Area",
+      alt: "Networking Area",
     },
   ],
 };

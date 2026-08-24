@@ -8,7 +8,7 @@ export const tiers: Record<
     name: "General Admission",
     price: 15000,
     unit: "per attendee",
-    desc: "Full access to all main-stage talks and the official neonerking event.",
+    desc: "Full access to all main-stage talks and the official networking event.",
   },
   vip: {
     name: "VIP Pass",

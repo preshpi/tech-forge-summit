@@ -85,7 +85,7 @@ export default function Navbar() {
             <Link
               href="/checkout?tier=general"
               transitionTypes={["nav-forward"]}
-              style={{ backgroundColor: "white" }}
+              style={{ backgroundColor: "white", color: "black" }}
               className="ticket-switch-button ticket-switch-primary"
             >
               <span className="ticket-switch-text">Get ticket</span>
@@ -98,7 +98,7 @@ export default function Navbar() {
               href="/checkout?tier=general"
               transitionTypes={["nav-forward"]}
               aria-label="Get ticket"
-              style={{ backgroundColor: "white" }}
+              style={{ backgroundColor: "white", color: "black" }}
               className="ticket-switch-button ticket-switch-secondary"
             >
               <ArrowUpRight

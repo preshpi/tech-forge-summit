@@ -14,7 +14,7 @@ const stats = [
     desc: "People from across tech, all in one room to learn, connect, and exchange ideas.",
   },
   {
-    value: 20,
+    value: 10,
     suffix: "+",
     label: "Speakers",
     desc: "Experienced voices sharing practical lessons, real stories, and industry insight.",
