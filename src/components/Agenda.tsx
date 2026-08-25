@@ -47,16 +47,15 @@ const sessions = [
 ];
 
 const venueDetails = {
-  name: "The Innovation Center",
-  address: "500 Howard Street, San Francisco, CA 94105",
+  name: "The Zone",
+  address: "Plot 9, Gbagada Industrial Scheme, beside UPS, Gbagada-Oworonshoki Expressway, Lagos.",
   googleMapsUrl:
-    "https://maps.app.goo.gl/nXKs2PqDhtL1fYTa6",
-  // Google Maps Embed URL (Place your actual API embed URL or standard embed URL here)
+    "https://maps.app.goo.gl/xDF9umrXfCPCgpk37",
   mapEmbedUrl:
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.7641261852677!2d3.374265073864627!3d6.551436122840391!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8d73a658782b%3A0x7a1de11d89cccc84!2sThe%20Zone!5e0!3m2!1sen!2sng!4v1787343862698!5m2!1sen!2sng",
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.7641684755763!2d3.37684!3d6.551430799999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8d73a658782b%3A0x7a1de11d89cccc84!2sThe%20Zone!5e0!3m2!1sen!2sng!4v1787669874915!5m2!1sen!2sng",
   gallery: [
     {
-      src: "https://thezone.ng/wp-content/uploads/2025/11/Emerald1.webp",
+      src: "https://res.cloudinary.com/dgtc1iood/image/upload/v1787670226/Ruby3_qwd7mw.webp",
       alt: "Main Auditorium",
     },
     {
@@ -64,7 +63,7 @@ const venueDetails = {
       alt: "Workshop Space",
     },
     {
-      src: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=600",
+      src: "https://res.cloudinary.com/dgtc1iood/image/upload/v1787670232/ruby-hall-an-ideal-hall_iizqpw.webp",
       alt: "Networking Area",
     },
   ],
