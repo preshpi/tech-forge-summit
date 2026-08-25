@@ -17,6 +17,12 @@ const nextConfig: NextConfig = {
         hostname: "thezone.ng",
         port:"",
         pathname: "/**"
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        port:"",
+        pathname: "/**"
       }
     ],
   },

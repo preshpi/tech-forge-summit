@@ -81,8 +81,8 @@ export default function Footer() {
 
             <div>
               <p className="mb-2 text-paper/40">Location</p>
-              <p>Downtown</p>
-              <p className="mt-1 text-signal">Lagos, Nigeria</p>
+              <p>The Zone</p>
+              <p className="mt-1 text-signal">Plot 9, Gbagada Industrial Scheme, beside UPS, Gbagada-Oworonshoki Expressway, Lagos.</p>
             </div>
 
             <a
@@ -130,7 +130,7 @@ export default function Footer() {
 
         <div className="mt-14 grid grid-cols-1 gap-12 md:mt-20 md:grid-cols-2 md:gap-0">
           <div className="flex flex-col gap-2 font-display text-lg font-bold md:mt-20">
-            <Logo className="self-start" imgClassName="h-9 w-auto" />
+            <Logo className="self-start" imgClassName="h-24 w-auto" />
             <div className="mt-2 flex gap-4 text-paper/55">
               <Link2 className="h-5 w-5 transition-colors hover:text-signal" />
               <Mail className="h-5 w-5 transition-colors hover:text-signal" />

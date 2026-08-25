@@ -377,7 +377,7 @@ export default function Speakers() {
                   ref={(el) => {
                     rowRefs.current[i] = el;
                   }}
-                  className={`flex items-center gap-4 py-4 md:min-h-[22vh] md:py-6 lg:min-h-[24vh] ${i === active ? "px-12" : "px-0"}`}
+                  className={`flex items-center gap-4 py-4 md:min-h-[10vh] md:py-4 lg:min-h-[12vh] ${i === active ? "px-12" : "px-0"}`}
                 >
                   <ArrowRight
                     className={`h-8 w-8 md:h-10 md:w-10 shrink-0 text-signal-dim transition-all duration-300 ${
