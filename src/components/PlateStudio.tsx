@@ -352,13 +352,13 @@ export default function PlateStudio() {
         <dl className="mx-auto grid max-w-7xl grid-cols-2 gap-y-5 px-4 py-5 font-mono text-[10px] uppercase tracking-wider sm:px-6 md:grid-cols-4">
           {[
             ["Date", "Dec 5, 2026"],
-            ["Location", "Lagos, Nigeria"],
+            ["Location", "The Zone, Lagos, Nigeria"],
             ["Export", "1024 × 1024 PNG"],
             ["Editions", "Three"],
           ].map(([label, value]) => (
             <div key={label}>
               <dt className="text-paper/40">{label}</dt>
-              <dd className="mt-1.5 text-paper/75">{value}</dd>
+              <dd className="mt-1.5 text-paper/75 font-bold">{value}</dd>
             </div>
           ))}
         </dl>

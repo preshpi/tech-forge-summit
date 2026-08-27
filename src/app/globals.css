@@ -517,6 +517,7 @@ body {
 .session-time-cell {
   position: relative;
   display: inline-block;
+  flex-shrink: 0;
   height: 1.1em;
   overflow: hidden;
   vertical-align: bottom;

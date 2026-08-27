@@ -82,7 +82,7 @@ export default function Footer() {
             <div>
               <p className="mb-2 text-paper/40">Location</p>
               <p>The Zone</p>
-              <p className="mt-1 text-signal">Plot 9, Gbagada Industrial Scheme, beside UPS, Gbagada-Oworonshoki Expressway, Lagos.</p>
+              <p className="mt-1 ">Plot 9, Gbagada Industrial Scheme, beside UPS, Gbagada-Oworonshoki Expressway, Lagos.</p>
             </div>
 
             <a
