@@ -212,7 +212,7 @@ export default function About() {
               </p>
               <div className="ticket-switcher">
                 <Link
-                  href="/checkout?tier=general"
+                  href="#"
                   transitionTypes={["nav-forward"]}
                   className="ticket-switch-button ticket-switch-primary"
                 >
@@ -223,7 +223,7 @@ export default function About() {
                   />
                 </Link>
                 <Link
-                  href="/checkout?tier=general"
+                  href="#"
                   transitionTypes={["nav-forward"]}
                   aria-label="Get ticket"
                   className="ticket-switch-button ticket-switch-secondary"

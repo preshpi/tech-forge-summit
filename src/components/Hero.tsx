@@ -176,7 +176,7 @@ export default function Hero() {
           <div className="mt-7 flex w-full items-center justify-between gap-3 sm:mt-10">
             <div className="ticket-switcher">
               <Link
-                href="/checkout?tier=general"
+                href="#"
                 transitionTypes={["nav-forward"]}
                 className="ticket-switch-button ticket-switch-primary"
               >
@@ -184,7 +184,7 @@ export default function Hero() {
                 <ArrowUpRight className="ticket-switch-symbol h-4 w-4" aria-hidden="true" />
               </Link>
               <Link
-                href="/checkout?tier=general"
+                href="#"
                 transitionTypes={["nav-forward"]}
                 aria-label="Get ticket"
                 className="ticket-switch-button ticket-switch-secondary"

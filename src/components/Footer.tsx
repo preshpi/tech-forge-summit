@@ -82,7 +82,7 @@ export default function Footer() {
             <div>
               <p className="mb-2 text-paper/40">Location</p>
               <p>The Zone</p>
-              <p className="mt-1 text-signal">Plot 9, Gbagada Industrial Scheme, beside UPS, Gbagada-Oworonshoki Expressway, Lagos.</p>
+              <p className="mt-1 ">Plot 9, Gbagada Industrial Scheme, beside UPS, Gbagada-Oworonshoki Expressway, Lagos.</p>
             </div>
 
             <a
@@ -100,7 +100,7 @@ export default function Footer() {
 
             <div className="mt-6 ticket-switcher md:mt-8">
               <Link
-                href="/checkout?tier=general"
+                href="#"
                 transitionTypes={["nav-forward"]}
                 className="ticket-switch-button ticket-switch-primary"
               >
@@ -111,7 +111,7 @@ export default function Footer() {
                 />
               </Link>
               <Link
-                href="/checkout?tier=general"
+                href="#"
                 transitionTypes={["nav-forward"]}
                 aria-label="Get ticket"
                 className="ticket-switch-button ticket-switch-secondary"

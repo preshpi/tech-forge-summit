@@ -83,7 +83,7 @@ export default function Navbar() {
         <div className="hidden md:block">
           <div className="ticket-switcher">
             <Link
-              href="/checkout?tier=general"
+              href="#"
               transitionTypes={["nav-forward"]}
               style={{ backgroundColor: "white", color: "black" }}
               className="ticket-switch-button ticket-switch-primary"
@@ -95,7 +95,7 @@ export default function Navbar() {
               />
             </Link>
             <Link
-              href="/checkout?tier=general"
+              href="#"
               transitionTypes={["nav-forward"]}
               aria-label="Get ticket"
               style={{ backgroundColor: "white", color: "black" }}
@@ -161,7 +161,7 @@ export default function Navbar() {
             )}
 
             <Link
-              href="/checkout?tier=general"
+              href="#"
               transitionTypes={["nav-forward"]}
               onClick={() => setMenuOpen(false)}
               className="mt-7 inline-flex w-fit items-center gap-2 rounded-full bg-paper px-5 py-2.5 text-sm font-bold text-ink"
