@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import type { TierId } from "@/lib/tickets";
-import Link from "next/link";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -46,46 +45,41 @@ const tiers: {
   icon: LucideIcon;
 }[] = [
   {
-    id: "general",
-    name: "General Admission",
-    price: "₦15,000",
-    unit: "Per attendee",
-    desc: "Full access to all main-stage talks and the official networking event.",
-    features: [
-      "Main-stage sessions",
-      "Lunch & refreshments included",
-      "Evening networking event",
-      "Post-event session recordings",
-    ],
+    id: "builder",
+    name: "The Builder",
+    price: "Free",
+    unit: "Individual",
+    desc: "Access to all sessions and the expo/exhibition floor.",
+    features: ["Access to all sessions", "Expo/exhibition access"],
     highlight: false,
     icon: Globe,
   },
   {
-    id: "vip",
-    name: "VIP Pass",
-    price: "₦30,000",
-    unit: "Per attendee",
-    desc: "Everything in General plus workshops, reserved seating, and the founders dinner.",
+    id: "founder",
+    name: "The Founder",
+    price: "₦10,000",
+    unit: "Individual",
+    desc: "Everything in Builder, plus merch and front-row reserved seating.",
     features: [
-      "All 3 day including workshops",
-      "Reserved front-section seating",
-      "Private founders dinner invite",
-      "1:1 speaker office hours access",
+      "Access to all sessions",
+      "Expo/exhibition access",
+      "Merch",
+      "Front-row reserved seating",
     ],
     highlight: true,
     icon: Crown,
   },
   {
-    id: "team",
-    name: "Team Pass",
-    price: "₦65,000",
-    unit: "for 5 attendees",
-    desc: "Bring your team. Five VIP-level passes at a meaningful discount.",
+    id: "founder-squad",
+    name: "The Founder Squad",
+    price: "₦45,000",
+    unit: "Group (Founder tier) × 5",
+    desc: "Bring four others. Five Founder-tier passes at a group discount.",
     features: [
-      "5 × VIP-level passes",
-      "Dedicated team check-in",
-      "Group photo with speakers",
-      "Shared Slack channel access",
+      "Access to all sessions",
+      "Expo/exhibition access",
+      "Merch",
+      "Front-row reserved seating",
     ],
     highlight: false,
     icon: Users,

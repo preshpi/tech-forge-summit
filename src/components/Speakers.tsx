@@ -321,7 +321,7 @@ export default function Speakers() {
           </div>
         </div>
 
-        <div className="hidden gap-12 md:grid md:grid-cols-[250px_1fr] md:gap-32 lg:gap-48">
+        <div className="flex flex-col h-full md:pb-[14vh] gap-12 md:grid md:grid-cols-[250px_1fr] md:gap-32 lg:gap-48 justify-center">
           <div className="self-start md:sticky md:top-32 md:h-fit">
             <div
               className="relative aspect-[3/4.2] overflow-hidden rounded-3xl border border-ink/10"
@@ -369,7 +369,7 @@ export default function Speakers() {
                 </div>
           </div>
 
-          <div className="flex flex-col md:pb-[34vh]">
+          <div className="flex flex-col">
             <div>
               {speakers.map((s, i) => (
                 <div

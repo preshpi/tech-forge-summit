@@ -11,10 +11,10 @@ type Step = "review" | "details" | "payment" | "success";
 
 export default function CheckoutFlow() {
   const params = useSearchParams();
-  const initialTier = (params.get("tier") as TierId) || "general";
+  const initialTier = (params.get("tier") as TierId) || "builder";
 
   const [tierId, setTierId] = useState<TierId>(
-    initialTier in tiers ? initialTier : "general"
+    initialTier in tiers ? initialTier : "builder"
   );
   const [qty, setQty] = useState(1);
   const [step, setStep] = useState<Step>("review");
@@ -24,7 +24,14 @@ export default function CheckoutFlow() {
   const [company, setCompany] = useState("");
 
   const tier = tiers[tierId];
-  const total = useMemo(() => tier.price * qty, [tier, qty]);
+  const total = useMemo(
+    () => (tierId === "founder-squad" ? tier.price : tier.price * qty),
+    [tier, tierId, qty]
+  );
+
+  function formatPrice(price: number) {
+    return price === 0 ? "Free" : `₦${price.toLocaleString()}`;
+  }
 
   const steps: Step[] = ["review", "details", "payment", "success"];
   const stepIndex = steps.indexOf(step);
@@ -111,7 +118,9 @@ export default function CheckoutFlow() {
                       <p className="text-sm text-paper/50 mt-1 max-w-sm">{t.desc}</p>
                     </div>
                     <div className="text-right shrink-0">
-                      <div className="font-display font-bold text-lg">₦{t.price}</div>
+                      <div className="font-display font-bold text-lg">
+                        {formatPrice(t.price)}
+                      </div>
                       <div className="text-xs text-paper/40 font-mono">{t.unit}</div>
                     </div>
                   </button>
@@ -119,7 +128,7 @@ export default function CheckoutFlow() {
               })}
             </div>
 
-            {tierId !== "team" && (
+            {tierId !== "founder-squad" && (
               <div className="mt-8 flex items-center justify-between rounded-xl border border-line p-4 md:rounded-2xl md:p-5">
                 <span className="text-sm font-semibold">Quantity</span>
                 <div className="flex items-center gap-4">
@@ -144,7 +153,7 @@ export default function CheckoutFlow() {
               onClick={next}
               className="mt-10 w-full rounded-full bg-signal py-3 text-xs font-semibold text-ink transition-colors hover:bg-signal-dim md:py-3.5 md:text-sm"
             >
-              Continue — ₦{total.toLocaleString()}
+              Continue — {formatPrice(total)}
             </button>
           </div>
         )}
@@ -186,7 +195,7 @@ export default function CheckoutFlow() {
               <span className="text-paper/60">
                 {qty} × {tier.name}
               </span>
-              <span className="font-display font-bold">₦{total.toLocaleString()}</span>
+              <span className="font-display font-bold">{formatPrice(total)}</span>
             </div>
 
             <button
@@ -199,7 +208,7 @@ export default function CheckoutFlow() {
                   <Loader2 className="h-4 w-4 animate-spin" /> Processing
                 </>
               ) : (
-                `Pay ₦${total.toLocaleString()}`
+                `Pay ${formatPrice(total)}`
               )}
             </button>
             <p className="mt-4 text-xs text-paper/30 text-center font-mono">

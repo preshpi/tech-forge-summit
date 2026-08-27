@@ -7,50 +7,194 @@ import {
   MapPin,
   ExternalLink,
   Navigation,
+  ClipboardCheck,
+  Megaphone,
+  Mic,
+  Swords,
+  Cpu,
+  Coffee,
+  Layers,
+  ShieldCheck,
+  Users,
+  Gamepad2,
+  Rocket,
+  Compass,
+  Handshake,
+  Gift,
+  Puzzle,
+  Flag,
+  type LucideIcon,
 } from "lucide-react";
 import Image from "next/image";
 
-const sessions = [
+const sessions: {
+  time: string;
+  title: string;
+  desc: string;
+  speaker: string;
+  role: string;
+  image: string;
+  icon: LucideIcon;
+}[] = [
   {
-    time: "09:30 – 10:00",
-    title: "Building Production-Grade Agents",
-    desc: "Hands-on session covering tool use, memory, and reliability patterns for autonomous agents.",
-    speaker: "Daniel Okafor",
-    role: "Principal Eng.",
-    image:
-      "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1000",
-    avatar:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200",
+    time: "8:00 – 9:30 AM",
+    title: "Registration, Check-in, Expo & Networking",
+    desc: "Registration, ticket verification, merch collection, expo opening, sponsor booths and networking.",
+    speaker: "All Attendees",
+    role: "Expo & Check-in",
+    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1000",
+    icon: ClipboardCheck,
   },
   {
-    time: "10:15 – 11:00",
-    title: "Evals That Actually Catch Regressions",
-    desc: "A practical framework for offline and online evaluation across LLM-powered features.",
-    speaker: "Aiko Tanaka",
-    role: "Head of Research",
-    image:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=1000",
-    avatar:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200",
+    time: "9:30 – 9:45 AM",
+    title: "Opening Event & Energy Kickoff",
+    desc: "Welcome, housekeeping, introduction to Tech Forge and audience engagement.",
+    speaker: "Host & MC",
+    role: "Main Stage",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=1000",
+    icon: Megaphone,
   },
   {
-    time: "11:15 – 12:00",
-    title: "Shipping Agents Your Users Trust",
-    desc: "Guardrails, observability, and the UX patterns that keep agent behavior legible.",
-    speaker: "Priya Kapoor",
-    role: "Lead Scientist",
-    image:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1000",
-    avatar:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200",
+    time: "9:45 – 10:15 AM",
+    title: "Opening Keynote — The Builders' Blueprint",
+    desc: "Opening keynote setting the direction for the event theme.",
+    speaker: "Keynote Speaker",
+    role: "Main Stage",
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=1000",
+    icon: Mic,
+  },
+  {
+    time: "10:15 – 10:30 AM",
+    title: "Shadow Boxing",
+    desc: "High-energy interactive entertainment segment.",
+    speaker: "Entertainment",
+    role: "Main Stage",
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1000",
+    icon: Swords,
+  },
+  {
+    time: "10:30 – 10:55 AM",
+    title: "Building with AI",
+    desc: "AI, automation, responsible AI, LLMs, AI products and practical opportunities.",
+    speaker: "Sessional Speaker",
+    role: "Track Session",
+    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=1000",
+    icon: Cpu,
+  },
+  {
+    time: "10:55 – 11:15 AM",
+    title: "Networking",
+    desc: "Audience networking and informal interaction.",
+    speaker: "All Attendees",
+    role: "Expo Floor",
+    image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=80&w=1000",
+    icon: Coffee,
+  },
+  {
+    time: "11:15 – 11:40 AM",
+    title: "Engineering for Scale",
+    desc: "Software engineering, architecture, cloud, DevOps and reliable systems.",
+    speaker: "Sessional Speaker",
+    role: "Track Session",
+    image: "https://images.unsplash.com/photo-1531545514256-b1400bc00f31?auto=format&fit=crop&q=80&w=1000",
+    icon: Layers,
+  },
+  {
+    time: "11:40 – 12:05 PM",
+    title: "Building Trust",
+    desc: "Cybersecurity, privacy, secure systems, identity, fraud prevention and digital trust.",
+    speaker: "Sessional Speaker",
+    role: "Track Session",
+    image: "https://images.unsplash.com/photo-1573496799652-408c2ac9fe98?auto=format&fit=crop&q=80&w=1000",
+    icon: ShieldCheck,
+  },
+  {
+    time: "12:05 – 12:50 PM",
+    title: "Panel Session — Building for Tomorrow",
+    desc: "Four panel speakers explore skills, technology, innovation and building for the future.",
+    speaker: "Panel Speakers",
+    role: "Main Stage",
+    image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=1000",
+    icon: Users,
+  },
+  {
+    time: "12:50 – 1:05 PM",
+    title: "Short Break + Interactive Game",
+    desc: "A short audience game/activity to refresh attendees.",
+    speaker: "All Attendees",
+    role: "Interactive Break",
+    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1000",
+    icon: Gamepad2,
+  },
+  {
+    time: "1:05 – 1:30 PM",
+    title: "From Problem to Product",
+    desc: "Startups, entrepreneurship, product development, funding, business models and scaling.",
+    speaker: "Sessional Speaker",
+    role: "Track Session",
+    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=1000",
+    icon: Rocket,
+  },
+  {
+    time: "1:30 – 1:55 PM",
+    title: "The Future Builder",
+    desc: "Future-ready skills, careers, leadership, mentorship and the changing workplace.",
+    speaker: "Sessional Speaker",
+    role: "Track Session",
+    image: "https://images.unsplash.com/photo-1573497019236-17f8177b81e8?auto=format&fit=crop&q=80&w=1000",
+    icon: Compass,
+  },
+  {
+    time: "1:55 – 2:10 PM",
+    title: "Game / Audience Engagement",
+    desc: "Second interactive game/activity.",
+    speaker: "All Attendees",
+    role: "Interactive Break",
+    image: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&q=80&w=1000",
+    icon: Gamepad2,
+  },
+  {
+    time: "2:10 – 2:45 PM",
+    title: "Partnership Spotlight",
+    desc: "Selected sponsors/partners introduce their organisations, opportunities and value to attendees.",
+    speaker: "Sponsors & Partners",
+    role: "Sponsor Segment",
+    image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80&w=1000",
+    icon: Handshake,
+  },
+  {
+    time: "2:45 – 3:05 PM",
+    title: "Sponsor Activation + Giveaways",
+    desc: "Sponsor games, product activations, audience engagement and giveaways.",
+    speaker: "Sponsors & Partners",
+    role: "Sponsor Segment",
+    image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=1000",
+    icon: Gift,
+  },
+  {
+    time: "3:05 – 3:25 PM",
+    title: "Tech Challenge",
+    desc: "Interactive technology-themed challenge involving audience participation.",
+    speaker: "All Attendees",
+    role: "Interactive Challenge",
+    image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=1000",
+    icon: Puzzle,
+  },
+  {
+    time: "3:25 – 3:30 PM",
+    title: "General Programme Closing",
+    desc: "Brief closing and departure of General Admission attendees.",
+    speaker: "Host & MC",
+    role: "Main Stage",
+    image: "https://images.unsplash.com/photo-1573496358961-3c82861ab8f4?auto=format&fit=crop&q=80&w=1000",
+    icon: Flag,
   },
 ];
 
 const venueDetails = {
   name: "The Zone",
   address: "Plot 9, Gbagada Industrial Scheme, beside UPS, Gbagada-Oworonshoki Expressway, Lagos.",
-  googleMapsUrl:
-    "https://maps.app.goo.gl/xDF9umrXfCPCgpk37",
+  googleMapsUrl: "https://maps.app.goo.gl/xDF9umrXfCPCgpk37",
   mapEmbedUrl:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.7641684755763!2d3.37684!3d6.551430799999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8d73a658782b%3A0x7a1de11d89cccc84!2sThe%20Zone!5e0!3m2!1sen!2sng!4v1787669874915!5m2!1sen!2sng",
   gallery: [
@@ -179,14 +323,11 @@ export default function EventPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
             {/* Left & Middle Column Wrapper */}
             <div className="lg:col-span-7 flex flex-col justify-between space-y-12 lg:space-y-0">
-              {/* Top Row: DAY 01 & Title vs Session Title */}
+              {/* Top Row: Title vs Session Title */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <div>
-                  <p className="font-mono text-xs tracking-widest text-zinc-400 uppercase font-medium">
-                    Day 01
-                  </p>
                   <h3 className="font-sans font-bold text-4xl sm:text-5xl mt-4 tracking-tight text-white">
-                    Workshops
+                    Programme
                   </h3>
                 </div>
 
@@ -235,13 +376,8 @@ export default function EventPage() {
                   key={`speaker-${index}`}
                   className="flex items-center gap-3.5"
                 >
-                  <div className="relative h-11 w-11 rounded-full overflow-hidden shrink-0 border border-zinc-700">
-                    <Image
-                      src={s.avatar}
-                      alt={s.speaker}
-                      fill
-                      className="object-cover"
-                    />
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full shrink-0 border border-zinc-700 bg-[#1c1c1c]">
+                    <s.icon className="h-5 w-5 text-zinc-300" />
                   </div>
                   <div>
                     <div className="font-mono text-xs font-bold uppercase tracking-wider text-white">
