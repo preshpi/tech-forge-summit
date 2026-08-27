@@ -109,7 +109,7 @@ export default function AboutMedia() {
           <div className="absolute inset-0 pointer-events-none">
             <Link
               ref={ctaRef}
-              href="/checkout?tier=general"
+              href="#"
               transitionTypes={["nav-forward"]}
               className="absolute cursor-none rounded-full bg-primary text-ink font-semibold px-8 py-14 text-sm transition-[background-color,opacity,transform] duration-200"
               style={{

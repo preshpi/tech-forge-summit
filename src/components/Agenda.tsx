@@ -202,9 +202,9 @@ const venueDetails = {
       src: "https://res.cloudinary.com/dgtc1iood/image/upload/v1787670226/Ruby3_qwd7mw.webp",
       alt: "Main Auditorium",
     },
-    {
-      src: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=600",
-      alt: "Workshop Space",
+  {
+      src: "https://res.cloudinary.com/dgtc1iood/image/upload/v1787835868/5_1_gaxzbq.avif",
+      alt: "Front view of the auditorium",
     },
     {
       src: "https://res.cloudinary.com/dgtc1iood/image/upload/v1787670232/ruby-hall-an-ideal-hall_iizqpw.webp",

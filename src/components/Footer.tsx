@@ -100,7 +100,7 @@ export default function Footer() {
 
             <div className="mt-6 ticket-switcher md:mt-8">
               <Link
-                href="/checkout?tier=general"
+                href="#"
                 transitionTypes={["nav-forward"]}
                 className="ticket-switch-button ticket-switch-primary"
               >
@@ -111,7 +111,7 @@ export default function Footer() {
                 />
               </Link>
               <Link
-                href="/checkout?tier=general"
+                href="#"
                 transitionTypes={["nav-forward"]}
                 aria-label="Get ticket"
                 className="ticket-switch-button ticket-switch-secondary"
