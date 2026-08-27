@@ -1,25 +1,25 @@
-export type TierId = "general" | "vip" | "team";
+export type TierId = "builder" | "founder" | "founder-squad";
 
 export const tiers: Record<
   TierId,
   { name: string; price: number; unit: string; desc: string }
 > = {
-  general: {
-    name: "General Admission",
-    price: 15000,
+  builder: {
+    name: "The Builder",
+    price: 0,
     unit: "per attendee",
-    desc: "Full access to all main-stage talks and the official networking event.",
+    desc: "Access to all sessions and expo/exhibition access.",
   },
-  vip: {
-    name: "VIP Pass",
-    price: 30000,
+  founder: {
+    name: "The Founder",
+    price: 10000,
     unit: "per attendee",
-    desc: "Everything in General, plus workshops, reserved seating, and the founders dinner.",
+    desc: "Everything in Builder, plus merch and front-row reserved seating.",
   },
-  team: {
-    name: "Team Pass",
-    price: 65000,
-    unit: "for 5 attendees",
-    desc: "Bring your team. Five VIP-level passes at a meaningful discount.",
+  "founder-squad": {
+    name: "The Founder Squad",
+    price: 40000,
+    unit: "for 5 attendees (20% off)",
+    desc: "Bring four others. Five Founder-tier passes at a group discount.",
   },
 };
