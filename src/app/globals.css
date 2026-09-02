@@ -1,15 +1,30 @@
 @import "tailwindcss";
 
+/* 
+colors: 
+  - primary: #4845E2
+  - muted: #E5EBFC
+  - secondary: #FF0054
+  - decent: #C9D5f9
+  - signal: #FCDD01
+  - tertiary: #3862D2
+  - ink: #222728
+  -  white: #FEFFFE
+
+*/
+
 :root {
-  --color-ink: #0a0a0c;
-  --color-ink-soft: #121215;
-  --color-paper: #f2f2f0;
+  --color-primary: #4845e2;
+  --color-secondary: #ff0054;
+  --color-tertiary: #3862d2;
+  --color-ink: #222728;
+  --color-paper: #fefffe;
   --color-line: #232327;
-  --color-signal: #3550B3;
-  --color-signal-dim: #3550B3;
+  --color-signal: #fcdd01;
   --color-accent-2: #b98cff;
   --color-accent-3: #ff6b4a;
-  --color-muted: #9a9a94;
+  --color-muted: #e5ebfc;
+  --color-decent: #c9d5f9;
 
   /* Single typeface (BDOGrotesk, loaded locally via next/font) used for every
      role — display, body, and mono/eyebrow text — across the whole site. */
@@ -42,11 +57,11 @@
 }
 
 .text-primary {
-  color: var(--color-signal)
+  color: var(--color-signal);
 }
 
 .text-primary-dim {
-  color: var(--color-signal-dim)
+  color: var(--color-signal-dim);
 }
 
 html {
@@ -387,6 +402,7 @@ body {
 
 .hero-carousel-image {
   opacity: 0.9;
+  object-position: center 25%;
   transform: scale(1.04);
 }
 
@@ -443,31 +459,15 @@ body {
   }
 }
 
-/* Hero vertical word ticker */
+/* Hero typewriter */
 .hero-typewriter-character {
   display: inline-block;
   opacity: 0;
   filter: blur(12px);
   transform: translateY(0.3em) scale(0.96);
-  animation: hero-typewriter-character-in 520ms
-    cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: hero-typewriter-character-in 520ms cubic-bezier(0.16, 1, 0.3, 1)
+    both;
   will-change: filter, opacity, transform;
-}
-
-.hero-word-window.vertical-word-window {
-  opacity: 0;
-  filter: blur(12px);
-  transform: translateY(0.3em);
-  transition:
-    filter 520ms cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 360ms ease,
-    transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.hero-word-window-ready.vertical-word-window {
-  opacity: 1;
-  filter: blur(0);
-  transform: translateY(0.03em);
 }
 
 @keyframes hero-typewriter-character-in {
@@ -487,30 +487,66 @@ body {
   }
 }
 
-.vertical-word-window {
-  height: 1.05em;
-  min-width: 6.8ch;
-  overflow: hidden;
-  transform: translateY(0.03em);
-}
-
-.vertical-word-stack {
+/* Hero countdown ticker */
+.hero-countdown {
   display: flex;
-  flex-direction: column;
-  line-height: 1..06;
-  transition-property: transform;
-  transition-timing-function: cubic-bezier(0.72, 0, 0.28, 1);
-  transition-duration: 0ms;
-  will-change: transform;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: var(--color-paper);
 }
 
-.vertical-word-stack-moving {
-  transition-duration: 850ms;
+.hero-countdown-unit {
+  min-width: 3.5rem;
+  padding: 0.55rem 0.65rem 0.5rem;
+  border: 1px solid rgb(255 255 255 / 18%);
+  border-radius: 0.75rem;
+  background: rgb(10 10 12 / 32%);
+  text-align: center;
+  backdrop-filter: blur(8px);
 }
 
-.vertical-word-stack > span {
-  height: 1.06em;
-  white-space: nowrap;
+.hero-countdown-value-window {
+  display: block;
+  height: 1.2em;
+  overflow: hidden;
+  font-family: var(--font-mono), monospace;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-countdown-value {
+  display: block;
+  animation: hero-countdown-value-up 420ms cubic-bezier(0.16, 1, 0.3, 1)
+    both;
+}
+
+.hero-countdown-label {
+  display: block;
+  margin-top: 0.25rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.55rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 68%);
+}
+
+@keyframes hero-countdown-value-up {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
 }
 
 /* Agenda time counter */
@@ -650,10 +686,6 @@ body {
     animation: none;
   }
 
-  .vertical-word-stack {
-    transition-duration: 0ms;
-  }
-
   .hero-typewriter-character {
     opacity: 1;
     filter: none;
@@ -661,11 +693,8 @@ body {
     animation: none;
   }
 
-  .hero-word-window {
-    opacity: 1;
-    filter: none;
-    transform: translateY(0.03em);
-    transition: none;
+  .hero-countdown-value {
+    animation: none;
   }
 
   .session-time-value {

@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 // Intrinsic size of the cropped logo asset (public/techforge-logo-dark.png).
-const LOGO_WIDTH = 1372;
+const LOGO_WIDTH = 2002;
 const LOGO_HEIGHT = 912;
 
 type LogoProps = {
@@ -26,20 +26,18 @@ export default function Logo({
   eager = false,
 }: LogoProps) {
   return (
-    <span
-      className={`inline-flex items-center justify-center${
+    <div
+      className={`relative inline-flex items-center justify-center${
         className ? ` ${className}` : ""
       }`}
     >
+
       <Image
-        src="/techforge-logo-dark.png"
+        src="/tech-forge-white-logo.png"
         alt="The TechForge 2026"
-        width={LOGO_WIDTH}
-        height={LOGO_HEIGHT}
-        sizes="56px"
-        className={imgClassName}
+        fill
         loading={eager ? "eager" : "lazy"}
       />
-    </span>
+    </div>
   );
 }

@@ -7,7 +7,6 @@ import {
   Check,
   Globe,
   Crown,
-  Users,
   ArrowUpRight,
   type LucideIcon,
 } from "lucide-react";
@@ -47,49 +46,48 @@ const tiers: {
 }[] = [
   {
     id: "general",
-    name: "General Admission",
-    price: "₦15,000",
+    name: "The Builder Pass",
+    price: "FREE",
     unit: "Per attendee",
     desc: "Full access to all main-stage talks and the official networking event.",
     features: [
-      "Main-stage sessions",
-      "Lunch & refreshments included",
-      "Evening networking event",
-      "Post-event session recordings",
+      "Access to the complete General Programme",
+      "Networking event with speakers and attendees",
+      "Tech Challenge participation and prizes",
+      "General networking and community access",
     ],
     highlight: false,
     icon: Globe,
   },
   {
     id: "vip",
-    name: "VIP Pass",
-    price: "₦30,000",
+    name: "Forge Pass",
+    price: "₦10,000",
     unit: "Per attendee",
     desc: "Everything in General plus workshops, reserved seating, and the founders dinner.",
     features: [
-      "All 3 day including workshops",
-      "Reserved front-section seating",
-      "Private founders dinner invite",
-      "1:1 speaker office hours access",
+      "Everything in The Builder Pass",
+      "Reserved seating in the front rows of the main stage",
+      "Premium Lunch and Exclusive",
     ],
     highlight: true,
     icon: Crown,
   },
-  {
-    id: "team",
-    name: "Team Pass",
-    price: "₦65,000",
-    unit: "for 5 attendees",
-    desc: "Bring your team. Five VIP-level passes at a meaningful discount.",
-    features: [
-      "5 × VIP-level passes",
-      "Dedicated team check-in",
-      "Group photo with speakers",
-      "Shared Slack channel access",
-    ],
-    highlight: false,
-    icon: Users,
-  },
+  // {
+  //   id: "team",
+  //   name: "Team Pass",
+  //   price: "₦65,000",
+  //   unit: "for 5 attendees",
+  //   desc: "Bring your team. Five VIP-level passes at a meaningful discount.",
+  //   features: [
+  //     "5 × VIP-level passes",
+  //     "Dedicated team check-in",
+  //     "Group photo with speakers",
+  //     "Shared Slack channel access",
+  //   ],
+  //   highlight: false,
+  //   icon: Users,
+  // },
 ];
 
 export default function Pricing() {
@@ -295,8 +293,8 @@ export default function Pricing() {
 
       {/* 2. DEDICATED SEPARATE SECTION: Pricing Cards */}
       <section className="w-full flex items-center justify-center px-4 sm:px-6 lg:px-20 pb-20">
-        <div className="grid md:grid-cols-3 gap-6 items-stretch">
-          {tiers.map((t) => {
+        <div className="mx-auto grid w-full max-w-4xl items-stretch gap-6 md:grid-cols-2">
+          {tiers.map((t, idx) => {
             const Icon = t.icon;
             return (
               <div
@@ -383,31 +381,16 @@ export default function Pricing() {
                     </span>
                   </div>
 
-                  <div className="ticket-switcher">
-                    <a
-                      href={`/checkout?tier=${t.id}`}
-                      className="ticket-switch-button ticket-switch-primary"
-                    >
-                      <span className="ticket-switch-text">Buy ticket</span>
-                      <ArrowUpRight
-                        className="ticket-switch-symbol h-4 w-4"
-                        aria-hidden="true"
-                      />
-                    </a>
-                    <a
-                      href={`/checkout?tier=${t.id}`}
-                      aria-label="Get ticket"
-                      className="ticket-switch-button ticket-switch-secondary"
-                    >
-                      <ArrowUpRight
-                        className="ticket-switch-symbol h-4 w-4"
-                        aria-hidden="true"
-                      />
-                      <span className="ticket-switch-text" aria-hidden="true">
-                        Buy ticket
-                      </span>
-                    </a>
-                  </div>
+                  <Link
+                    href="https://tix.africa/discover/the-tech-forge"
+                    transitionTypes={["nav-forward"]}
+                    className={`mt-8 inline-flex items-center gap-3 rounded-full ${idx === 0 ? "bg-black text-white" : "bg-white text-black"} py-2 pl-5 pr-2 text-sm font-semibold  transition-colors hover:bg-zinc-800 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black`}
+                  >
+                    <span>Get your ticket</span>
+                    <span className={`flex h-9 w-9 items-center justify-center rounded-full ${idx === 0 ? "bg-[var(--color-signal)] text-black" : "bg-black text-white"}`}>
+                      <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+                    </span>
+                  </Link>
                 </div>
               </div>
             );

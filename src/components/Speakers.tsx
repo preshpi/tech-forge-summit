@@ -1,74 +1,74 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { gradientFor } from "@/lib/avatar";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { gradientFor } from "@/lib/avatar";
+import { mainEventSpeakers } from "@/lib/speakers";
 
-const speakers = [
-  {
-    name: "Imam Abubakar",
-    role: "Founder",
-    org: "Sqaleup Inc",
-    image: "/imam.jpeg",
-  },
-  {
-    name: "Folashade Blessing",
-    role: "Senior Product Designer",
-    org: "Interswitch Group",
-    image: "/folashade.jpeg",
-  },
-  {
-    name: "Dominus Kelvin",
-    role: "Lead maintainer",
-    org: "Sails",
-    image: "/koo.jpg",
-  },
-  // {
-  //   name: "Daniel Okafor",
-  //   role: "Principal Engineer",
-  //   org: "Insight Analytics",
-  //   image: "/daniel.jpeg",
-  // },
-  // { name: "Sofia Andersson", role: "VP of Research", org: "TechSphere" },
-  // { name: "Wei Liu", role: "Co-Founder", org: "FutureTech Labs" },
+gsap.registerPlugin(ScrollTrigger);
+
+type SpeakerSlot = (typeof mainEventSpeakers)[number] & {
+  id: string;
+  number: string;
+  reveal?: boolean;
+};
+
+const speakerSlots: SpeakerSlot[] = [
+  ...mainEventSpeakers.map((speaker, index) => ({
+    ...speaker,
+    id: `speaker-${index + 1}`,
+    number: String(index + 1).padStart(2, "0"),
+  })),
+  ...Array.from({ length: 13 }, (_, index) => {
+    const number = mainEventSpeakers.length + index + 1;
+
+    return {
+      id: `speaker-reveal-${number}`,
+      number: String(number).padStart(2, "0"),
+      name: "Speaker reveal",
+      role: "New voice joining the room",
+      org: "Coming soon",
+      image: "",
+      reveal: true,
+    };
+  }),
 ];
 
-function SocialIcons({ onImage = false }: { onImage?: boolean }) {
-  const iconClass = onImage
-    ? "flex h-9 w-9 items-center justify-center rounded-lg border border-white/15 bg-black/55 text-sm text-white backdrop-blur-md"
-    : "flex h-10 w-10 items-center justify-center rounded-lg bg-ink/5 text-black";
+const CARDS_PER_SLIDE = 8;
+const speakerSlides = Array.from(
+  { length: Math.ceil(speakerSlots.length / CARDS_PER_SLIDE) },
+  (_, index) =>
+    speakerSlots.slice(index * CARDS_PER_SLIDE, (index + 1) * CARDS_PER_SLIDE),
+);
+const SLIDE_COUNT = speakerSlides.length;
+
+function wrapIndex(value: number, total: number) {
+  return ((value % total) + total) % total;
+}
+
+function SocialIcons() {
+  const iconClass =
+    "flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-black/35 text-white backdrop-blur-md transition-colors group-hover/card:bg-black/60 sm:h-9 sm:w-9";
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-1.5" aria-hidden="true">
       <span className={iconClass}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="1em"
-          height="1em"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-        >
-          <path d="M0 0h24v24H0z" fill="none" />
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
           <path
-            fill="currentColor"
             d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37z"
+            fill="currentColor"
           />
         </svg>
       </span>
       <span className={iconClass}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="1em"
-          height="1em"
-          viewBox="0 0 14 14"
-          aria-hidden="true"
-        >
-          <path d="M0 0h14v14H0z" fill="none" />
+        <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
           <path
+            d="M11.025.656h2.147L8.482 6.03 14 13.344H9.68L6.294 8.909l-3.87 4.435H.275l5.016-5.75L0 .657h4.43L7.486 4.71zm-.755 11.4h1.19L3.78 1.877H2.504z"
             fill="currentColor"
-            d="M11.025.656h2.147L8.482 6.03L14 13.344H9.68L6.294 8.909l-3.87 4.435H.275l5.016-5.75L0 .657h4.43L7.486 4.71zm-.755 11.4h1.19L3.78 1.877H2.504z"
           />
         </svg>
       </span>
@@ -78,332 +78,436 @@ function SocialIcons({ onImage = false }: { onImage?: boolean }) {
 
 function ApplyToSpeakButton() {
   return (
-    <div className="ticket-switcher scale-110">
-      <Link
-        href="https://forms.gle/pcEGTq4QFJkVZyG99"
-        target="_blank"
-        aria-label="Apply To Speak"
-        transitionTypes={["nav-forward"]}
-        className="ticket-switch-button ticket-switch-primary w-[10rem]"
-      >
-        <span className="ticket-switch-text max-w-none!">Apply To Speak</span>
-        <ArrowUpRight
-          className="ticket-switch-symbol h-4 w-4"
-          aria-hidden="true"
-        />
-      </Link>
-      <Link
-        href="https://forms.gle/pcEGTq4QFJkVZyG99"
-        target="_blank"
-        aria-label="Apply To Speak"
-        transitionTypes={["nav-forward"]}
-        className="ticket-switch-button ticket-switch-secondary w-[10rem]"
-      >
-        <ArrowUpRight
-          className="ticket-switch-symbol h-4 w-4"
-          aria-hidden="true"
-        />
-        <span className="ticket-switch-text max-w-none!" aria-hidden="true">
-          Apply To Speak
-        </span>
-      </Link>
-    </div>
+    <Link
+      href="https://forms.gle/pcEGTq4QFJkVZyG99"
+      transitionTypes={["nav-forward"]}
+      className="inline-flex w-fit items-center gap-3 rounded-full bg-black py-2 pl-5 pr-2 text-sm font-semibold text-white transition-colors hover:bg-zinc-800 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black"
+    >
+      <span>Apply to speak</span>
+      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-signal)] text-black">
+        <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+      </span>
+    </Link>
   );
 }
 
 export default function Speakers() {
-  const [active, setActive] = useState(0);
-  const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [mobileActive, setMobileActive] = useState(0);
-  const trackRef = useRef<HTMLDivElement | null>(null);
-  const slideRefs = useRef<(HTMLElement | null)[]>([]);
-
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    let frame = 0;
-
-    function updateMobileActive() {
-      if (!track) return;
-      const trackCenter = track.scrollLeft + track.clientWidth / 2;
-      let closestIndex = 0;
-      let closestDistance = Number.POSITIVE_INFINITY;
-
-      slideRefs.current.forEach((slide, index) => {
-        if (!slide) return;
-        const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
-        const distance = Math.abs(slideCenter - trackCenter);
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestIndex = index;
-        }
-      });
-
-      setMobileActive((current) =>
-        current === closestIndex ? current : closestIndex,
-      );
-    }
-
-    function scheduleUpdate() {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(updateMobileActive);
-    }
-
-    track.addEventListener("scroll", scheduleUpdate, { passive: true });
-    return () => {
-      cancelAnimationFrame(frame);
-      track.removeEventListener("scroll", scheduleUpdate);
-    };
-  }, []);
-
-  function goToSlide(index: number) {
-    const track = trackRef.current;
-    const slide = slideRefs.current[index];
-    if (!track || !slide) return;
-
-    const targetLeft =
-      slide.offsetLeft - (track.clientWidth - slide.offsetWidth) / 2;
-
-    track.scrollTo({ left: targetLeft, behavior: "smooth" });
-  }
-
+  const sectionRef = useRef<HTMLElement | null>(null);
   const isInteractingRef = useRef(false);
+  const resumeTimerRef = useRef<number | null>(null);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (isInteractingRef.current) return;
-      goToSlide((mobileActive + 1) % speakers.length);
-    }, 3500);
+    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updatePreference = () => setReduceMotion(query.matches);
 
-    return () => clearInterval(interval);
-  }, [mobileActive]);
+    updatePreference();
+    query.addEventListener("change", updatePreference);
+    return () => query.removeEventListener("change", updatePreference);
+  }, []);
 
-  function pauseAutoplay() {
+  const moveSlide = useCallback((direction: number) => {
+    setActiveSlide((current) => wrapIndex(current + direction, SLIDE_COUNT));
+  }, []);
+
+  const goToSlide = useCallback((slide: number) => {
+    setActiveSlide(wrapIndex(slide, SLIDE_COUNT));
+  }, []);
+
+  const pauseAutoplay = useCallback(() => {
     isInteractingRef.current = true;
-  }
+    if (resumeTimerRef.current !== null) {
+      window.clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = null;
+    }
+  }, []);
 
-  function resumeAutoplay() {
-    window.setTimeout(() => {
+  const resumeAutoplay = useCallback(() => {
+    if (resumeTimerRef.current !== null) {
+      window.clearTimeout(resumeTimerRef.current);
+    }
+
+    resumeTimerRef.current = window.setTimeout(() => {
       isInteractingRef.current = false;
-    }, 4000);
-  }
+      resumeTimerRef.current = null;
+    }, 1600);
+  }, []);
 
   useEffect(() => {
-    let frame = 0;
+    if (reduceMotion) return;
 
-    function updateActiveSpeaker() {
-      const viewportCenter = window.innerHeight / 2;
-      let closestIndex = 0;
-      let closestDistance = Number.POSITIVE_INFINITY;
+    const interval = window.setInterval(() => {
+      if (!isInteractingRef.current) moveSlide(1);
+    }, 5200);
 
-      rowRefs.current.forEach((row, index) => {
-        if (!row) return;
+    return () => window.clearInterval(interval);
+  }, [moveSlide, reduceMotion]);
 
-        const rect = row.getBoundingClientRect();
-        const rowCenter = rect.top + rect.height / 2;
-        const distance = Math.abs(rowCenter - viewportCenter);
-
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestIndex = index;
-        }
-      });
-
-      setActive((current) =>
-        current === closestIndex ? current : closestIndex,
-      );
-    }
-
-    function scheduleUpdate() {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(updateActiveSpeaker);
-    }
-
-    updateActiveSpeaker();
-    window.addEventListener("scroll", scheduleUpdate, { passive: true });
-    window.addEventListener("resize", scheduleUpdate);
-
+  useEffect(() => {
     return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", scheduleUpdate);
-      window.removeEventListener("resize", scheduleUpdate);
+      if (resumeTimerRef.current !== null) {
+        window.clearTimeout(resumeTimerRef.current);
+      }
     };
   }, []);
 
-  const speaker = speakers[active];
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    const ctx = gsap.context(() => {
+      const intro = section.querySelector("[data-speaker-intro]");
+      const footer = section.querySelector("[data-speaker-footer]");
+      const surfaces = gsap.utils.toArray<HTMLElement>(
+        "[data-speaker-surface]",
+        section,
+      );
+
+      if (prefersReducedMotion) {
+        gsap.set([intro, footer, ...surfaces], {
+          clearProps: "all",
+        });
+        return;
+      }
+
+      const animatedElements = [intro, footer, ...surfaces];
+
+      function reveal(direction: number) {
+        gsap.killTweensOf(animatedElements);
+
+        gsap
+          .timeline()
+          .fromTo(
+            intro,
+            { autoAlpha: 0, y: direction * 42, filter: "blur(12px)" },
+            {
+              autoAlpha: 1,
+              y: 0,
+              filter: "blur(0px)",
+              duration: 0.8,
+              ease: "power3.out",
+            },
+            0.04,
+          )
+          .fromTo(
+            surfaces,
+            {
+              autoAlpha: 0,
+              y: direction * 84,
+              scale: 0.86,
+              rotateX: direction * 14,
+              filter: "blur(14px)",
+              clipPath: "inset(16% 8% 16% 8% round 28px)",
+              transformPerspective: 900,
+            },
+            {
+              autoAlpha: 1,
+              y: 0,
+              scale: 1,
+              rotateX: 0,
+              filter: "blur(0px)",
+              clipPath: "inset(0% 0% 0% 0% round 20px)",
+              duration: 1.05,
+              ease: "expo.out",
+              stagger: {
+                amount: 0.68,
+                grid: "auto",
+                from: "center",
+              },
+            },
+            0.1,
+          )
+          .fromTo(
+            footer,
+            {
+              autoAlpha: 0,
+              y: direction * 28,
+              filter: "blur(8px)",
+            },
+            {
+              autoAlpha: 1,
+              y: 0,
+              filter: "blur(0px)",
+              duration: 0.65,
+              ease: "power3.out",
+            },
+            0.58,
+          );
+      }
+
+      function leave(direction: number) {
+        gsap.killTweensOf(animatedElements);
+
+        gsap
+          .timeline()
+          .to(
+            surfaces,
+            {
+              autoAlpha: 0,
+              y: direction * -58,
+              scale: 0.91,
+              rotateX: direction * -10,
+              filter: "blur(10px)",
+              duration: 1,
+              ease: "power2.inOut",
+              stagger: {
+                amount: 0.45,
+                grid: "auto",
+                from: direction > 0 ? "end" : "start",
+              },
+            },
+            0,
+          )
+          .to(
+            [intro, footer],
+            {
+              autoAlpha: 0,
+              y: direction * -24,
+              filter: "blur(8px)",
+              duration: 0.75,
+              ease: "power2.inOut",
+            },
+            0.08,
+          );
+      }
+
+      gsap.set([intro, footer, ...surfaces], { autoAlpha: 0 });
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top 76%",
+        endTrigger: footer ?? section,
+        end: "bottom 8%",
+        onEnter: () => reveal(1),
+        onLeave: () => leave(1),
+        onEnterBack: () => reveal(-1),
+        onLeaveBack: () => leave(-1),
+      });
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section id="speakers" className="bg-white  py-24 md:py-16">
-      <div className="px-12">
-        <p className="flex items-center text-black gap-2 font-mono text-xs uppercase tracking-widest mb-8">
-          <span className="text-ink">✦</span> Meet the speakers
-        </p>
-
-        <div className="md:hidden">
-          <div
-            ref={trackRef}
-            onPointerDown={pauseAutoplay}
-            onPointerUp={resumeAutoplay}
-            onPointerCancel={resumeAutoplay}
-            onTouchStart={pauseAutoplay}
-            onTouchEnd={resumeAutoplay}
-            className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2 -mx-12 px-12 scrollbar-none"
-          >
-            {speakers.map((item, index) => (
-              <article
-                key={item.name}
-                ref={(el) => {
-                  slideRefs.current[index] = el;
-                }}
-                className="w-[82%] shrink-0 snap-center"
-              >
-                <div
-                  className="relative aspect-4/5 overflow-hidden rounded-2xl"
-                  style={{ background: gradientFor(item.name) }}
-                >
-                  {item.image ? (
-                    <Image
-                      src={item.image}
-                      alt={item.name}
-                      fill
-                      sizes="(max-width: 767px) calc(100vw - 2rem), 340px"
-                      className="object-cover"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center">
-                      <span className="font-display text-6xl font-bold text-black/15">
-                        {item.name
-                          .split(" ")
-                          .map((name) => name[0])
-                          .join("")}
-                      </span>
-                    </div>
-                  )}
-
-                  <div className="absolute bottom-3 right-3">
-                    <SocialIcons onImage />
-                  </div>
-                </div>
-
-                <div className="pt-4 text-black">
-                  <h3 className="font-display text-2xl font-bold leading-tight">
-                    {item.name}
-                  </h3>
-                  <p className="mt-1.5 text-sm text-zinc-600">
-                    {item.role} <span className="text-zinc-400">at</span>{" "}
-                    {item.org}
-                  </p>
-                </div>
-              </article>
-            ))}
+    <section
+      ref={sectionRef}
+      id="speakers" 
+      aria-labelledby="speakers-heading"
+      className="relative isolate overflow-hidden bg-[#f5f4ff] py-20 text-ink sm:py-24 lg:py-32"
+    >
+      <div className="mx-auto max-w-8xl px-4 sm:px-6 lg:px-10">
+        <header
+          data-speaker-intro
+          className="mb-10 flex flex-col gap-8 sm:mb-14 lg:flex-row lg:items-end lg:justify-between"
+        >
+          <div>
+            <p className="mb-5 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.18em] text-[var(--color-primary)]">
+              <span aria-hidden="true">✦</span>
+              Meet the speakers
+            </p>
+            <h2
+              id="speakers-heading"
+              className="max-w-3xl font-display text-[32px] font-bold leading-[0.98] tracking-[-0.04em] lg:text-[72px]"
+            >
+              The voices shaping what comes next.
+            </h2>
+            <p className="mt-5 max-w-xl text-sm leading-relaxed text-zinc-600 sm:text-base">
+              Builders, operators, and creative minds sharing the lessons behind
+              the work—not just the highlight reel.
+            </p>
           </div>
 
-          <div className="mt-6 flex items-center justify-center gap-2">
-            {speakers.map((item, index) => (
-              <button
-                key={item.name}
-                type="button"
-                aria-label={`Go to ${item.name}`}
-                onClick={() => goToSlide(index)}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  index === mobileActive
-                    ? "w-6 bg-signal-dim"
-                    : "w-1.5 bg-ink/15"
-                }`}
-              />
-            ))}
-          </div>
-
-          <div className="mt-8 flex flex-col items-center gap-4">
-            <p className="text-zinc-700">Want to speak?</p>
+          <div className="hidden shrink-0 sm:block">
+            <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-500">
+              Want to join the lineup?
+            </p>
             <ApplyToSpeakButton />
           </div>
-        </div>
+        </header>
 
-        <div className="hidden gap-12 md:grid md:grid-cols-[250px_1fr] md:gap-32 lg:gap-48">
-          <div className="self-start md:sticky md:top-32 md:h-fit">
-            <div
-              className="relative aspect-[3/4.2] overflow-hidden rounded-3xl border border-ink/10"
-              style={{ background: gradientFor(speaker.name) }}
-            >
-              {speakers.map((item, index) => (
-                <div
-                  key={item.name}
-                  className={`absolute inset-0 items-center justify-center ${
-                    index === active ? "flex" : "hidden"
-                  }`}
-                >
-                  {item.image ? (
-                    <Image
-                      src={item.image}
-                      alt={item.name}
-                      fill
-                      loading="eager"
-                      sizes="(min-width: 768px) 250px, calc(100vw - 2rem)"
-                      className="object-cover"
-                    />
-                  ) : (
-                    <span className="font-display text-6xl font-bold text-black/15">
-                      {item.name
-                        .split(" ")
-                        .map((name) => name[0])
-                        .join("")}
-                    </span>
-                  )}
-                </div>
-              ))}
-            </div>
-                <div className="mt-6 flex items-center justify-between gap-3">
-                  <div className="">
-                    <div className="font-display font-bold text-lg text-ink">
-                      {speaker.role}
-                    </div>
-                    <div className="font-mono text-xs uppercase tracking-wide text-ink/40 mt-1">
-                      {speaker.org}
-                    </div>
-                  </div>
-                  <div className="mt-4">
-                    <SocialIcons />
-                  </div>
-                </div>
-          </div>
-
-          <div className="flex flex-col md:pb-[34vh]">
-            <div>
-              {speakers.map((s, i) => (
-                <div
-                  key={s.name}
-                  ref={(el) => {
-                    rowRefs.current[i] = el;
-                  }}
-                  className={`flex items-center gap-4 py-4 md:min-h-[22vh] md:py-6 lg:min-h-[24vh] ${i === active ? "px-12" : "px-0"}`}
-                >
-                  <ArrowRight
-                    className={`h-8 w-8 md:h-10 md:w-10 shrink-0 text-signal-dim transition-all duration-300 ${
-                      i === active
-                        ? "opacity-100 translate-x-0"
-                        : "opacity-0 -translate-x-3"
-                    }`}
-                    strokeWidth={2.5}
-                  />
-                  <span
-                    className={`font-display font-bold tracking-tight text-4xl sm:text-5xl md:text-5xl lg:text-6xl transition-colors duration-300 ${
-                      i === active ? "text-black" : "text-zinc-300"
-                    }`}
+        <div
+          aria-label="Speaker lineup"
+          onPointerEnter={pauseAutoplay}
+          onPointerLeave={resumeAutoplay}
+          onFocusCapture={pauseAutoplay}
+          onBlurCapture={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+              resumeAutoplay();
+            }
+          }}
+          className="overflow-hidden [perspective:1200px]"
+        >
+          <div
+            className={`flex items-start will-change-transform ${
+              reduceMotion
+                ? ""
+                : "transition-transform duration-1000 ease-[cubic-bezier(0.76,0,0.24,1)]"
+            }`}
+            style={{
+              transform: `translate3d(-${activeSlide * 100}%, 0, 0)`,
+            }}
+          >
+            {speakerSlides.map((slide, slideIndex) => (
+              <div
+                key={`speaker-slide-${slideIndex}`}
+                role="list"
+                aria-label={`Speaker slide ${slideIndex + 1} of ${SLIDE_COUNT}`}
+                aria-hidden={activeSlide !== slideIndex}
+                className="grid w-full shrink-0 grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4 lg:gap-6"
+              >
+                {slide.map((item) => (
+                  <article
+                    key={item.id}
+                    role="listitem"
+                    data-speaker-card
+                    aria-label={
+                      item.reveal ? `${item.name} ${item.number}` : item.name
+                    }
+                    className="min-w-0"
                   >
-                    {s.name}
-                  </span>
-                </div>
-              ))}
+                    <div data-speaker-surface className="h-full">
+                      <div
+                        className="group/card relative aspect-[4/5] h-full overflow-hidden rounded-[18px] bg-zinc-900 shadow-[0_18px_55px_rgba(40,38,92,0.12)] ring-1 ring-black/5 sm:rounded-[24px]"
+                        style={{ background: gradientFor(item.id) }}
+                      >
+                        {item.reveal ? (
+                          <>
+                            <div
+                              className="absolute inset-0 opacity-80"
+                              style={{
+                                background:
+                                  "radial-gradient(circle at 18% 15%, rgba(255,255,255,.28), transparent 28%), radial-gradient(circle at 90% 90%, rgba(252,221,1,.32), transparent 34%), linear-gradient(145deg, rgba(72,69,226,.88), rgba(28,27,74,.96))",
+                              }}
+                            />
+                            <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full border border-white/15 sm:h-52 sm:w-52" />
+                            <div className="absolute -right-4 -top-4 h-24 w-24 rounded-full border border-white/15 sm:h-32 sm:w-32" />
+                            <span className="absolute left-4 top-4 rounded-full border border-white/20 bg-white/10 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.14em] text-white/80 backdrop-blur sm:left-5 sm:top-5 sm:text-[10px]">
+                              Reveal soon
+                            </span>
+                            <span
+                              className="absolute right-3 top-10 font-display text-[76px] font-bold leading-none text-white/8 sm:right-5 sm:top-14 sm:text-[116px]"
+                              aria-hidden="true"
+                            >
+                              {item.number}
+                            </span>
+                            <div className="absolute inset-x-0 bottom-0 p-4 text-white sm:p-6">
+                              <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-[var(--color-signal)] sm:text-[10px]">
+                                Speaker {item.number}
+                              </p>
+                              <h3 className="mt-2 font-display text-lg font-bold leading-tight sm:text-2xl">
+                                {item.name}
+                              </h3>
+                              <p className="mt-1.5 text-[10px] text-white/65 sm:text-xs">
+                                {item.role}
+                              </p>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <Image
+                              src={item.image}
+                              alt={item.name}
+                              fill
+                              sizes="(max-width: 1023px) 50vw, 25vw"
+                              className="object-cover transition-transform duration-700 ease-out group-hover/card:scale-[1.045]"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-black/5" />
+                            <span className="absolute left-4 top-4 rounded-full border border-white/20 bg-black/25 px-2.5 py-1 font-mono text-[9px] tracking-[0.14em] text-white backdrop-blur sm:left-5 sm:top-5 sm:text-[10px]">
+                              {item.number}
+                            </span>
+                            <div className="absolute right-3 top-3 opacity-0 transition-opacity duration-300 group-hover/card:opacity-100 sm:right-4 sm:top-4 lg:opacity-100">
+                              <SocialIcons />
+                            </div>
+                            <div className="absolute inset-x-0 bottom-0 p-4 text-white sm:p-6">
+                              <h3 className="font-display text-lg font-bold leading-tight sm:text-2xl">
+                                {item.name}
+                              </h3>
+                              <p className="mt-1.5 text-[10px] leading-relaxed text-white/70 sm:text-xs">
+                                {item.role}{" "}
+                                <span className="text-white/40">at</span>{" "}
+                                {item.org}
+                              </p>
+                            </div>
+                          </>
+                        )}
 
-              <div className="mt-12 flex flex-col gap-4 md:sticky md:bottom-8">
-                <p className="text-zinc-700">Want to speak?</p>
-                <ApplyToSpeakButton />
+                        <div className="pointer-events-none absolute inset-0 rounded-[inherit] ring-1 ring-inset ring-white/10" />
+                      </div>
+                    </div>
+                  </article>
+                ))}
               </div>
-            </div>
+            ))}
           </div>
         </div>
+
+        <footer
+          data-speaker-footer
+          className="mt-8 flex flex-col gap-6 border-t border-black/10 pt-6 sm:mt-10 sm:flex-row sm:items-center sm:justify-between"
+        >
+          <div className="flex items-center gap-4">
+            <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-zinc-500">
+              Slide {String(activeSlide + 1).padStart(2, "0")} /{" "}
+              {String(SLIDE_COUNT).padStart(2, "0")}
+            </span>
+            <div
+              className="flex items-center gap-1.5"
+              aria-label="Carousel slides"
+            >
+              {Array.from({ length: SLIDE_COUNT }, (_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  aria-label={`Show speaker slide ${index + 1}`}
+                  aria-current={activeSlide === index ? "true" : undefined}
+                  onClick={() => goToSlide(index)}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    activeSlide === index
+                      ? "w-8 bg-[var(--color-primary)]"
+                      : "w-2 bg-black/15 hover:bg-black/30"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between gap-3 sm:justify-end">
+            <div className="sm:hidden">
+              <ApplyToSpeakButton />
+            </div>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                aria-label="Show previous speaker slide"
+                onClick={() => moveSlide(-1)}
+                onPointerDown={pauseAutoplay}
+                onPointerUp={resumeAutoplay}
+                className="flex h-12 w-12 items-center justify-center rounded-full border border-black/15 bg-white text-black transition-[background-color,transform] hover:-translate-x-1 hover:bg-black hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+              >
+                <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                aria-label="Show next speaker slide"
+                onClick={() => moveSlide(1)}
+                onPointerDown={pauseAutoplay}
+                onPointerUp={resumeAutoplay}
+                className="flex h-12 w-12 items-center justify-center rounded-full bg-black text-white transition-transform hover:translate-x-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+              >
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+
+          <span className="sr-only" aria-live="polite">
+            Speaker slide {activeSlide + 1} of {SLIDE_COUNT}
+          </span>
+        </footer>
       </div>
     </section>
   );

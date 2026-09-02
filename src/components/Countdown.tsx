@@ -39,3 +39,53 @@ export default function Countdown({ className = "" }: { className?: string }) {
     </span>
   );
 }
+
+type CountdownTickerProps = {
+  className?: string;
+};
+
+export function CountdownTicker({ className = "" }: CountdownTickerProps) {
+  const [time, setTime] = useState<ReturnType<typeof getRemaining> | null>(null);
+
+  useEffect(() => {
+    const updateTime = () => setTime(getRemaining());
+    const id = window.setInterval(updateTime, 1000);
+
+    Promise.resolve().then(updateTime);
+    return () => window.clearInterval(id);
+  }, []);
+
+  const units = [
+    { label: "Days", value: time?.day },
+    { label: "Hours", value: time?.hours },
+    { label: "Minutes", value: time?.minutes },
+    { label: "Seconds", value: time?.seconds },
+  ];
+
+  const accessibleTime = time
+    ? `${time.day} days, ${time.hours} hours, ${time.minutes} minutes, ${time.seconds} seconds until TechForge`
+    : "Countdown loading";
+
+  return (
+    <div
+      className={`hero-countdown ${className}`}
+      role="timer"
+      aria-label={accessibleTime}
+    >
+      {units.map(({ label, value }) => {
+        const displayValue = value == null ? "--" : String(value).padStart(2, "0");
+
+        return (
+          <div key={label} className="hero-countdown-unit" aria-hidden="true">
+            <span className="hero-countdown-value-window">
+              <span key={displayValue} className="hero-countdown-value">
+                {displayValue}
+              </span>
+            </span>
+            <span className="hero-countdown-label">{label}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}

@@ -9,11 +9,12 @@ import Countdown from "./Countdown";
 import Logo from "./Logo";
 
 const sitemap = [
-  { label: "About", href: "#about" },
-  { label: "Speakers", href: "#speakers" },
-  { label: "Agenda", href: "#agenda" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "FAQs", href: "#faq" },
+  { label: "About", href: "/#about" },
+  { label: "Speakers", href: "/speakers" },
+  { label: "Agenda", href: "/#agenda" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Pricing", href: "/#pricing" },
+  { label: "FAQs", href: "/#faq" },
 ];
 
 const legal = [
@@ -98,42 +99,35 @@ export default function Footer() {
               Let&apos;s make an impact together
             </h2>
 
-            <div className="mt-6 ticket-switcher md:mt-8">
-              <Link
-                href="/checkout?tier=general"
-                transitionTypes={["nav-forward"]}
-                className="ticket-switch-button ticket-switch-primary"
-              >
-                <span className="ticket-switch-text">Get ticket</span>
-                <ArrowUpRight
-                  className="ticket-switch-symbol h-4 w-4"
-                  aria-hidden="true"
-                />
-              </Link>
-              <Link
-                href="/checkout?tier=general"
-                transitionTypes={["nav-forward"]}
-                aria-label="Get ticket"
-                className="ticket-switch-button ticket-switch-secondary"
-              >
-                <ArrowUpRight
-                  className="ticket-switch-symbol h-4 w-4"
-                  aria-hidden="true"
-                />
-                <span className="ticket-switch-text" aria-hidden="true">
-                  Get ticket
-                </span>
-              </Link>
-            </div>
+            <a
+              href="https://tix.africa/discover/the-tech-forge"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 lg:mt-8 text-sm pointer-events-auto inline-flex items-center gap-2 rounded-full bg-white p-3 pl-5 pr-2  font-semibold text-black transition-colors hover:bg-zinc-200"
+            >
+              <span>Get Your Ticket</span>
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-white">
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </div>
+            </a>
           </div>
         </div>
 
         <div className="mt-14 grid grid-cols-1 gap-12 md:mt-20 md:grid-cols-2 md:gap-0">
           <div className="flex flex-col gap-2 font-display text-lg font-bold md:mt-20">
-            <Logo className="self-start" imgClassName="h-9 w-auto" />
+            <Link
+              href="/"
+              transitionTypes={["nav-back"]}
+              aria-label="The TechForge — home"
+              className="self-start"
+            >
+              <Logo imgClassName="h-9 w-auto" />
+            </Link>
             <div className="mt-2 flex gap-4 text-paper/55">
-              <Link2 className="h-5 w-5 transition-colors hover:text-signal" />
-              <Mail className="h-5 w-5 transition-colors hover:text-signal" />
+              {/* <Link2 className="h-5 w-5 transition-colors hover:text-signal" /> */}
+              <a href="mailto:empress@techforgesummit.com">
+                <Mail className="h-5 w-5 transition-colors hover:text-signal" />
+              </a>
             </div>
           </div>
 

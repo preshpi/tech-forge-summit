@@ -147,17 +147,17 @@ export default function Stats() {
         <h2 className="mb-10 max-w-xl font-display text-xl font-bold sm:mb-14 sm:text-2xl lg:text-3xl">
           The numbers behind a day at The TechForge
         </h2>
-        <div className="flex flex-col gap-8 sm:gap-10">
+        <div className="flex flex-col gap-8 sm:gap-10 lg:flex-row lg:gap-8">
           {stats.map((s) => (
             <div
               key={s.label}
               data-stat-row
-              className="flex flex-col items-start gap-5 border-t border-line border-zinc-800 pt-6 md:flex-row md:gap-10 lg:gap-56"
+              className="flex flex-col items-start gap-5 border-t border-line border-zinc-800 pt-6 lg:min-w-0 lg:flex-1"
             >
-              <div className="min-w-0 md:flex-1">
+              <div className="min-w-0">
                 <p
                   aria-label={`${s.value.toLocaleString("en-US")}${s.suffix}`}
-                  className="text-[52px] font-bold leading-none sm:text-[68px] md:text-[88px] lg:text-[180px] lg:leading-[normal]"
+                  className="text-[42px] font-bold leading-none lg:text-[76px]"
                 >
                   <span
                     aria-hidden="true"
@@ -168,7 +168,7 @@ export default function Stats() {
                     0{s.suffix}
                   </span>
                 </p>
-                <p className="mt-1 text-[38px] font-bold leading-[0.9] text-[#464646] sm:-mt-1 sm:text-[52px] md:-mt-2 md:text-[68px] lg:-mt-14 lg:text-[130px] lg:leading-normal">
+                <p className="mt-1 text-[38px] font-bold leading-[0.9] text-[#464646] lg:text-[54px]">
                   <span className="sr-only">{s.label}</span>
                   <span aria-hidden="true" className="inline-block">
                     {Array.from(s.label).map((letter, index) => (
@@ -183,7 +183,7 @@ export default function Stats() {
                   </span>
                 </p>
               </div>
-              <p className="max-w-md text-sm font-bold leading-relaxed text-paper/50 sm:text-base md:mt-8 md:w-64 md:shrink-0 lg:mt-14 lg:w-70">
+              <p className="max-w-md text-sm font-bold leading-relaxed text-paper/50 sm:text-base">
                 {s.desc}
               </p>
             </div>

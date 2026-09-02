@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import type { Metadata } from "next";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
 
 
 const BDOGrotesk = localFont({
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${BDOGrotesk.variable} ${BDOGrotesk.className} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-[#0a0a0c] text-[#f2f2f0]">
+        <Navbar />
         {children}
       </body>
       

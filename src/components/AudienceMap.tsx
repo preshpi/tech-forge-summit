@@ -20,7 +20,7 @@ export default function AudienceMap() {
         {slides.map((slide) => (
           <article
             key={slide.image}
-            className="relative aspect-4/5 w-[82%] shrink-0 snap-start overflow-hidden rounded-2xl border border-paper/10 bg-ink shadow-2xl shadow-black/45 sm:w-[44%] lg:w-[30%]"
+            className="relative aspect-4/5 w-[82%] shrink-0 snap-start overflow-hidden rounded-2xl border border-black/10 bg-ink shadow-2xl shadow-black/15 sm:w-[44%] lg:w-[30%]"
           >
             <Image
               src={slide.image}
@@ -31,7 +31,7 @@ export default function AudienceMap() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/16 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
-              <p className="font-mono text-[11px] uppercase tracking-widest text-paper/50">
+              <p className="font-mono text-[11px] uppercase tracking-widest text-paper/75">
                 {slide.eyebrow}
               </p>
               <h3 className="mt-1 font-display text-xl font-bold text-paper sm:text-2xl">
