@@ -11,9 +11,9 @@ export const Icons = () => {
         <path
           fill="#038ccd"
           stroke="#038ccd"
-          stroke-linecap="square"
-          stroke-linejoin="round"
-          stroke-width="4"
+          strokeLinecap="square"
+          strokeLinejoin="round"
+          strokeWidth="4"
           d="m40 12l7.92 20.08L68 40l-20.08 7.92L40 68l-7.92-20.08L12 40l20.08-7.92z"
         />
       </svg>

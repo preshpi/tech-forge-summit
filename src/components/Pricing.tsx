@@ -35,7 +35,7 @@ function AnimatedWord({ children }: { children: string }) {
 }
 
 const tiers: {
-  id: TierId;
+  id: string;
   name: string;
   price: string;
   unit: string;

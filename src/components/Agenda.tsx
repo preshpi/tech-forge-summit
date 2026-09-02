@@ -7,10 +7,37 @@ import {
   MapPin,
   ExternalLink,
   Navigation,
+  ClipboardCheck,
+  Megaphone,
+  Mic,
+  Swords,
+  Cpu,
+  Coffee,
+  Layers,
+  ShieldCheck,
+  Users,
+  Gamepad2,
+  Rocket,
+  Compass,
+  Handshake,
+  Gift,
+  Puzzle,
+  Flag,
+  type LucideIcon,
 } from "lucide-react";
 import Image from "next/image";
 
-const sessions = [
+const sessions: {
+  programme: string;
+  time: string;
+  title: string;
+  desc: string;
+  speaker: string;
+  role: string;
+  image: string;
+  icon?: LucideIcon;
+  avatar: string;
+}[] = [
   {
     programme: "General Programme",
     time: "08:00 – 9:30",
@@ -219,18 +246,18 @@ const venueDetails = {
   googleMapsUrl: "https://maps.app.goo.gl/nXKs2PqDhtL1fYTa6",
   // Google Maps Embed URL (Place your actual API embed URL or standard embed URL here)
   mapEmbedUrl:
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.7641261852677!2d3.374265073864627!3d6.551436122840391!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8d73a658782b%3A0x7a1de11d89cccc84!2sThe%20Zone!5e0!3m2!1sen!2sng!4v1787343862698!5m2!1sen!2sng",
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.7641684755763!2d3.37684!3d6.551430799999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8d73a658782b%3A0x7a1de11d89cccc84!2sThe%20Zone!5e0!3m2!1sen!2sng!4v1787669874915!5m2!1sen!2sng",
   gallery: [
     {
-      src: "https://thezone.ng/wp-content/uploads/2025/11/Emerald1.webp",
+      src: "https://res.cloudinary.com/dgtc1iood/image/upload/v1787670226/Ruby3_qwd7mw.webp",
       alt: "Main Auditorium",
     },
     {
-      src: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=600",
-      alt: "Workshop Space",
+      src: "https://res.cloudinary.com/dgtc1iood/image/upload/v1787835868/5_1_gaxzbq.avif",
+      alt: "Front view of the auditorium",
     },
     {
-      src: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=600",
+      src: "https://res.cloudinary.com/dgtc1iood/image/upload/v1787670232/ruby-hall-an-ideal-hall_iizqpw.webp",
       alt: "Networking Area",
     },
   ],
@@ -349,7 +376,7 @@ export default function EventPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
             {/* Left & Middle Column Wrapper */}
             <div className="lg:col-span-7 flex flex-col justify-between space-y-12 lg:space-y-0">
-              {/* Top Row: DAY 01 & Title vs Session Title */}
+              {/* Top Row: Title vs Session Title */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <div>
                   <p className="font-mono text-xs tracking-widest text-zinc-400 uppercase font-medium">
@@ -410,13 +437,8 @@ export default function EventPage() {
                   key={`speaker-${index}`}
                   className="flex items-center gap-3.5"
                 >
-                  <div className="relative h-11 w-11 rounded-full overflow-hidden shrink-0 border border-zinc-700">
-                    <Image
-                      src={s.avatar}
-                      alt={s.speaker}
-                      fill
-                      className="object-cover"
-                    />
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full shrink-0 border border-zinc-700 bg-[#1c1c1c]">
+                    {s.icon && <s.icon className="h-5 w-5 text-zinc-300" />}
                   </div>
                   <div>
                     <div className="font-mono text-xs font-bold uppercase tracking-wider text-white">

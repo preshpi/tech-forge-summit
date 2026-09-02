@@ -16,7 +16,7 @@ export default function CTA() {
           Let&apos;s make an impact together
         </h2>
         <Link
-          href="/checkout?tier=general"
+          href="#"
           transitionTypes={["nav-forward"]}
           className="relative inline-block mt-10 rounded-full bg-signal text-ink font-semibold px-8 py-4 text-sm hover:bg-signal-dim transition-colors"
         >
