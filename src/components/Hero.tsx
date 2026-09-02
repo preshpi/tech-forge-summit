@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Countdown from "./Countdown";
+import { CountdownTicker } from "./Countdown";
 import HeroBackdrop from "./HeroBackdrop";
-import { ArrowUpRight } from "lucide-react";
-import Link from "next/link";
+import { ArrowUpRight, Fan } from "lucide-react";
 
-const words = ["Founders", "Engineers", "Researchers", "Operators", "Investors"];
+const words = ["Skills", "Strategy", "Innovation"];
 const slideCount = words.length;
 const slideHoldMs = 2400;
 const transitionMs = 850;
@@ -19,7 +18,9 @@ const typewriterTotalMs =
   (typewriterText.length - 1) * typewriterStaggerMs +
   typewriterRevealMs;
 
-function TypewriterText({
+const verticalWordsColors = ["#ff0054", "#fcdd01", "#ff6b4a"];
+
+export function TypewriterText({
   children,
   startIndex = 0,
 }: {
@@ -31,7 +32,7 @@ function TypewriterText({
       {Array.from(children).map((character, index) => (
         <span
           key={`${character}-${index}`}
-          className="hero-typewriter-character text-[28px] lg:text-[56px]"
+          className="hero-typewriter-character"
           style={{
             animationDelay: `${
               typewriterDelayMs + (startIndex + index) * typewriterStaggerMs
@@ -73,7 +74,9 @@ export default function Hero() {
   useEffect(() => {
     if (!introComplete) return;
 
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
 
     if (prefersReducedMotion) {
       return;
@@ -98,16 +101,10 @@ export default function Hero() {
     return () => window.clearTimeout(startTransition);
   }, [activeIndex, introComplete, isTransitioning, nextIndex]);
 
-  const wordDisplayIndex = isTransitioning
-    ? nextIndex === 0
-      ? words.length
-      : nextIndex
-    : activeIndex;
-
   return (
     <section
       id="top"
-      className="relative flex min-h-svh flex-col justify-between overflow-hidden pb-6 pt-24 sm:min-h-screen sm:pb-10 sm:pt-32"
+      className="relative flex h-[60vh] lg:h-screen flex-col justify-between overflow-hidden"
     >
       <HeroBackdrop
         activeIndex={activeIndex}
@@ -117,9 +114,86 @@ export default function Hero() {
         transitionMs={transitionMs}
       />
 
-      <div className="relative mx-auto flex w-full max-w-8xl flex-1 flex-col px-4 sm:px-10">
-        {/* date / location meta, upper third */}
-        <div className="mt-6 flex w-full max-w-125 items-start justify-between gap-6 font-mono text-[10px] uppercase tracking-wider text-paper/80 sm:mt-16">
+      <div className="relative mx-auto flex w-full h-full max-w-8xl px-4 sm:px-10 ">
+        {/* headline anchored to the bottom of the viewport */}
+        <div className="mt-auto w-full h-full flex flex-col items-center justify-center">
+          <div className="px-5 py-2 mb-10 text-[10px] lg:text-sm bg-white rounded-full text-ink flex gap-3 items-center">
+            <Fan
+              className="animate-[spin_1.2s_linear_infinite] motion-reduce:animate-none"
+              aria-hidden="true"
+            />
+            <span>TechForge 2.0: Forging Impact Through Innovation</span>
+            <Fan
+              className="animate-[spin_1.2s_linear_infinite] [animation-direction:reverse] motion-reduce:animate-none"
+              aria-hidden="true"
+            />
+          </div>
+          {/* <Marquee /> */}
+          <h1
+            aria-label={`The TechForge for all the ${words.join(", ")}`}
+            className="text-[24px] lg:text-[75px] text-center font-bold leading-[1.08] tracking-tight text-paper drop-shadow-[0_2px_8px_rgba(10,10,12,0.55)] lg:leading-[1.2]"
+          >
+            <span aria-hidden="true">
+              <span className="whitespace-nowrap">
+                <TypewriterText>The Builder&apos;s Blueprint </TypewriterText>
+              </span>
+            </span>
+            <div className="mt-2 flex flex-wrap items-baseline justify-center gap-x-2 gap-y-1 text-[18px] font-medium lg:text-[30px]">
+              {words.map((word, index) => (
+                <span
+                  key={word}
+                  className="whitespace-nowrap"
+                  style={{
+                    color:
+                      verticalWordsColors[index % verticalWordsColors.length],
+                  }}
+                >
+                  {word}
+                  {index < words.length - 2
+                    ? ","
+                    : index === words.length - 2
+                      ? " &"
+                      : ""}
+                </span>
+              ))}
+              <span className="whitespace-nowrap">for the future</span>
+            </div>
+          </h1>
+
+          <div className="flex w-full flex-col items-center justify-center">
+            <a
+              href="https://tix.africa/discover/the-tech-forge"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm pointer-events-auto mt-2 lg:mt-6 inline-flex items-center gap-2 rounded-full bg-white p-2 lg:p-3 pl-5 pr-2  font-semibold text-black transition-colors hover:bg-zinc-200"
+            >
+              <span>Get Your Ticket</span>
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-white">
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </div>
+            </a>
+
+            <CountdownTicker className="mt-5" />
+
+            {/* <a
+              href="#about"
+              className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap text-xs font-medium text-paper/90 drop-shadow-[0_1px_4px_rgba(10,10,12,0.75)] transition-colors hover:text-paper sm:text-sm"
+            >
+              Scroll to explore
+              <span className="inline-block animate-bounce">↓</span>
+            </a> */}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+{
+  /* date / location meta, upper third */
+}
+{
+  /* <div className="mt-6 flex w-full max-w-125 items-start justify-between gap-6 font-mono text-[10px] uppercase tracking-wider text-paper/80 sm:mt-16">
           <div className="space-y-1">
             <div>December 5, 2026</div>
             <div className="text-signal">
@@ -127,84 +201,8 @@ export default function Hero() {
             </div>
           </div>
           <div className="text-right space-y-1">
-            <div>The Zone</div>
+            <div>Downtown</div>
             <div>Lagos, Nigeria</div>
           </div>
-        </div>
-
-        {/* headline anchored to the bottom of the viewport */}
-        <div className="mt-auto pt-12 sm:pt-16">
-          {/* <Marquee /> */}
-          <h1
-            aria-label={`The TechForge for all the ${words.join(", ")}`}
-            className="max-w-5xl text-[34px] font-bold leading-[1.08] tracking-tight text-paper sm:text-[42px] md:text-[48px] lg:text-[56px] lg:leading-[1.2]"
-          >
-            <span aria-hidden="true">
-              <span className="whitespace-nowrap">
-                <TypewriterText>Behind everything worth</TypewriterText>
-              </span>
-              <br />
-              <span className="whitespace-nowrap">
-                <TypewriterText startIndex={"The TechForge".length}>
-                  building are the
-                </TypewriterText>
-              </span>{" "}
-              <span
-                className={`hero-word-window vertical-word-window inline-flex align-baseline ${
-                  introComplete ? "hero-word-window-ready" : ""
-                }`}
-              >
-                <span
-                  className={`vertical-word-stack ${
-                    isTransitioning ? "vertical-word-stack-moving" : ""
-                  }  text-[28px] lg:text-[56px]`}
-                  style={{
-                    transform: `translateY(-${wordDisplayIndex * 1.05}em)`,
-                    transitionDuration: isTransitioning
-                      ? `${transitionMs}ms`
-                      : "0ms",
-                  }}
-                >
-                  {[...words, words[0]].map((word, index) => (
-                    <span key={`${word}-${index}`}>{word}</span>
-                  ))}
-                </span>
-              </span>
-            </span>
-          </h1>
-
-          <div className="mt-7 flex w-full items-center justify-between gap-3 sm:mt-10">
-            <div className="ticket-switcher">
-              <Link
-                href="#"
-                transitionTypes={["nav-forward"]}
-                className="ticket-switch-button ticket-switch-primary"
-              >
-                <span className="ticket-switch-text">Get ticket</span>
-                <ArrowUpRight className="ticket-switch-symbol h-4 w-4" aria-hidden="true" />
-              </Link>
-              <Link
-                href="#"
-                transitionTypes={["nav-forward"]}
-                aria-label="Get ticket"
-                className="ticket-switch-button ticket-switch-secondary"
-              >
-                <ArrowUpRight className="ticket-switch-symbol h-4 w-4" aria-hidden="true" />
-                <span className="ticket-switch-text" aria-hidden="true">
-                  Get ticket
-                </span>
-              </Link>
-            </div>
-            <a
-              href="#about"
-              className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap text-xs font-medium text-paper/70 transition-colors hover:text-paper sm:text-sm"
-            >
-              Scroll to explore
-              <span className="inline-block animate-bounce">↓</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+        </div> */
 }

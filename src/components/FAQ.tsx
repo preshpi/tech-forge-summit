@@ -178,32 +178,17 @@ export default function FAQ() {
                 </p>
               </div>
 
-              <div className="mt-4 ticket-switcher">
-                <a
-                  href="#contact"
-                  className="ticket-switch-button ticket-switch-primary"
-                >
-                  <span className="ticket-switch-text">Contact us</span>
-                  <ArrowUpRight
-                    className="ticket-switch-symbol h-4 w-4"
-                    aria-hidden="true"
-                  />
-                </a>
-                <a
-                  href="https://wa.me/2347073659187"
-                  target="_blank"
-                  aria-label="Contact us"
-                  className="ticket-switch-button ticket-switch-secondary"
-                >
-                  <ArrowUpRight
-                    className="ticket-switch-symbol h-4 w-4"
-                    aria-hidden="true"
-                  />
-                  <span className="ticket-switch-text" aria-hidden="true">
-                    Contact us
-                  </span>
-                </a>
-              </div>
+              <a
+                href="https://wa.me/2347073659187"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm pointer-events-auto mt-2 lg:mt-6 inline-flex items-center gap-2 rounded-full bg-white p-2 lg:py-1.5 pl-4 pr-2 w-fit font-semibold text-black transition-colors hover:bg-zinc-200"
+              >
+                <span>Contact us</span>
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-white">
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </div>
+              </a>
             </div>
           </div>
         </div>
@@ -243,7 +228,7 @@ export default function FAQ() {
 
                 {/* Green Answer Speech Bubble */}
                 {isOpen && (
-                  <div className="w-full sm:w-[85%] bg-primary text-white rounded-[24px] p-5 font-semibold text-sm leading-relaxed self-end transition-all animate-in fade-in slide-in-from-top-2 duration-200">
+                  <div className="w-full sm:w-[85%] bg-[var(--color-primary)] text-white rounded-[24px] p-5 font-semibold text-sm leading-relaxed self-end transition-all animate-in fade-in slide-in-from-top-2 duration-200">
                     {f.a}
                   </div>
                 )}

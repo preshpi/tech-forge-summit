@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 const heroImages = [
-  { src: "/tf1.jpg" },
+  { src: "/tf20.jpg" },
   { src: "/tf2.jpg" },
   { src: "/tf3.jpg" },
   { src: "/tf4.jpg" },
@@ -59,14 +59,12 @@ export default function HeroBackdrop({
         ) : null}
       </div>
 
-      {/* warm key light, upper right — stands in for a stage spotlight */}
-      <div className="absolute -top-24 right-[-10%] h-155 w-155 rounded-full bg-[radial-gradient(closest-side,rgba(198,255,61,0.16),transparent_70%)]" />
-      {/* cool fill light, left */}
-      <div className="absolute top-1/3 -left-32 h-120 w-120 rounded-full bg-[radial-gradient(closest-side,rgba(185,140,255,0.12),transparent_70%)]" />
+      {/* A richer primary wash gives every slide the TechForge purple tone. */}
+      <div className="absolute inset-0 bg-[var(--color-primary)]/35" />
 
-      {/* vignette so the headline stays legible over the crowd */}
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,12,0.2)_0%,rgba(10,10,12,0.55)_45%,rgba(10,10,12,0.95)_78%,#0a0a0c_100%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,10,12,0.55)_0%,transparent_35%,transparent_65%,rgba(10,10,12,0.4)_100%)]" />
+      {/* A deep vignette keeps the hero content crisp over brighter images. */}
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,12,0.42)_0%,rgba(10,10,12,0.52)_45%,rgba(10,10,12,0.82)_78%,rgba(10,10,12,0.95)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(10,10,12,0.42)_0%,rgba(10,10,12,0.16)_35%,rgba(10,10,12,0.16)_65%,rgba(10,10,12,0.38)_100%)]" />
     </div>
   );
 }

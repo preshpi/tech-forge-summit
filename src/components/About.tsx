@@ -1,249 +1,75 @@
-"use client";
-
-import { useEffect, useRef, type ReactNode } from "react";
-import { ArrowUpRight, Zap } from "lucide-react";
-import gsap from "gsap";
-import AboutMedia from "./AboutMedia";
-import { Icons } from "@/lib/icons";
+import Image from "next/image";
 import Link from "next/link";
-
-function ImageText({
-  children,
-  image,
-}: {
-  children: ReactNode;
-  image: string;
-}) {
-  return (
-    <span
-      className="image-text-fill"
-      style={{
-        backgroundImage: `url(${image})`,
-      }}
-    >
-      {children}
-    </span>
-  );
-}
-
-function IconBadge({
-  icon: Icon,
-  alternateIcon: AlternateIcon,
-  className,
-}: {
-  icon: typeof ArrowUpRight;
-  alternateIcon: typeof ArrowUpRight;
-  className?: string;
-}) {
-  return (
-    <span
-      data-about-icon-pair
-      className={`relative mx-1.5 inline-flex h-[0.7em] w-[0.7em] -translate-y-[0.05em] align-middle ${className}`}
-    >
-      <Icon
-        data-about-icon-primary
-        className="absolute inset-0 h-full w-full"
-        strokeWidth={2.5}
-        aria-hidden="true"
-      />
-      <AlternateIcon
-        data-about-icon-alternate
-        className="absolute inset-0 h-full w-full opacity-0"
-        strokeWidth={2.5}
-        aria-hidden="true"
-      />
-    </span>
-  );
-}
+import { ArrowUpRight, Fan } from "lucide-react";
+import { Icons } from "@/lib/icons";
 
 export default function About() {
-  const introRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const intro = introRef.current;
-    if (!intro) return;
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    const primaryIcons = gsap.utils.toArray<SVGElement>(
-      "[data-about-icon-primary]",
-      intro,
-    );
-    const alternateIcons = gsap.utils.toArray<SVGElement>(
-      "[data-about-icon-alternate]",
-      intro,
-    );
-
-    const ctx = gsap.context(() => {
-      gsap.set(primaryIcons, { autoAlpha: 1, y: 0, rotate: 0 });
-      gsap.set(alternateIcons, { autoAlpha: 0, y: 6, rotate: -15 });
-
-      if (reduceMotion) {
-        gsap.set(intro, { y: 0 });
-        return;
-      }
-
-      gsap.to(intro, {
-        y: -6,
-        duration: 3.2,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true,
-      });
-
-      gsap
-        .timeline({ repeat: -1 })
-        .to(
-          primaryIcons,
-          {
-            autoAlpha: 0,
-            y: -6,
-            rotate: 15,
-            duration: 0.28,
-            ease: "power2.in",
-          },
-          1.72,
-        )
-        .to(
-          alternateIcons,
-          {
-            autoAlpha: 1,
-            y: 0,
-            rotate: 0,
-            duration: 0.28,
-            ease: "power3.out",
-          },
-          1.72,
-        )
-        .to(
-          alternateIcons,
-          {
-            autoAlpha: 0,
-            y: 6,
-            rotate: -15,
-            duration: 0.28,
-            ease: "power2.in",
-          },
-          3.72,
-        )
-        .to(
-          primaryIcons,
-          {
-            autoAlpha: 1,
-            y: 0,
-            rotate: 0,
-            duration: 0.28,
-            ease: "power3.out",
-          },
-          3.72,
-        );
-    }, intro);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section id="about" className="overflow-x-clip">
-      <div
-        ref={introRef}
-        className="mx-auto min-h-svh max-w-8xl px-4 pt-20 sm:px-6 sm:pt-24 md:pt-32"
-      >
-        <p className="eyebrow mb-8 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-signal">
-          {Icons().sparkel}
-          About The TechForge 2026
-        </p>
+    <section
+      id="about"
+      className="overflow-x-clip bg-white text-ink"
+    >
+      <div className="mx-auto max-w-8xl px-4 sm:px-6 py-5 lg:py-10">
+        <div className="px-5 py-2 mb-5 lg:mb-10 text-sm lg:text-lg bg-muted w-fit rounded-full text-ink flex gap-3 items-center">
+            <Fan
+              className="animate-[spin_1.2s_linear_infinite] motion-reduce:animate-none"
+              aria-hidden="true"
+            />
+            <span>Get To Know The TechForge</span>
+            <Fan
+              className="animate-[spin_1.2s_linear_infinite] [animation-direction:reverse] motion-reduce:animate-none"
+              aria-hidden="true"
+            />
+          </div>
 
-        <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-52">
-          <h2 className="max-w-5xl font-display text-[26px] font-bold leading-[1.14] tracking-tight sm:text-[34px] md:text-[42px] lg:w-400 lg:max-w-none lg:text-justify lg:text-[64px] lg:leading-[74px]">
-            <span className="relative inline-block">
-              The TechForge is returning in{" "}
-              <ImageText image="/tf1.jpg">2026,</ImageText>
-              <svg
-                className="absolute left-0 -bottom-2 w-full"
-                viewBox="0 0 200 14"
-                preserveAspectRatio="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M0 10 Q20 2 45 8 T95 6 T150 9 T200 4"
-                  fill="none"
-                  stroke="var(--color-signal)"
-                  strokeWidth="4"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>{" "}
-            bringing together thousands of people who are learning,
-            <IconBadge
-              icon={ArrowUpRight}
-              alternateIcon={Zap}
-              className="text-[var(--color-accent-2)]"
-            />{" "}
-            building, working, and finding their direction in tech.
-            <IconBadge
-              icon={Zap}
-              alternateIcon={ArrowUpRight}
-              className="text-[var(--color-accent-3)]"
-            />{" "}
-            For one focused day in <ImageText image="/tf4.jpg">Lagos</ImageText>
-            .
-          </h2>
-          <div className="w-full max-w-xl lg:mx-auto lg:mt-14 lg:w-200 lg:max-w-none lg:px-6">
-            {/* <div className="rounded-3xl overflow-hidden border border-line bg-ink-soft aspect-[4/3] relative">
-          <div
-            className="absolute inset-0"
-            style={{ background: gradientFor("about-preview") }}
-          />
-        </div> */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 lg:items-center">
+          <div className="relative aspect-[4/3] overflow-hidden bg-ink lg:col-start-1 lg:col-end-8 lg:row-start-1 lg:h-[620px] lg:aspect-auto">
+            <Image
+              src="/tf12.jpg"
+              alt="Attendees at The TechForge summit"
+              fill
+              sizes="(max-width: 1023px) calc(100vw - 2rem), 58vw"
+              className="object-cover object-[center_25%]"
+            />
+            <div
+              className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/10 via-transparent to-black/15"
+              aria-hidden="true"
+            />
+          </div>
 
-            <div className="space-y-5 text-sm leading-relaxed text-paper/70 sm:text-base lg:space-y-6 lg:pt-2">
+          <article className="relative z-10 mx-4 -mt-12 bg-white p-6 sm:mx-8 sm:-mt-16 sm:p-10 lg:col-start-7 lg:col-end-13 lg:row-start-1 lg:mx-0 lg:mt-0 lg:p-12 xl:p-16">
+            <p className="mb-5 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--color-primary)]">
+              Lagos · December 2026
+            </p>
+            <h2 className="max-w-xl font-display text-[24px] font-bold leading-[1.02] tracking-tight text-ink sm:text-[48px] lg:text-[44px]">
+              The TechForge is returning in 2026.
+            </h2>
+
+            <div className="mt-7 space-y-5 text-sm leading-relaxed text-zinc-600 sm:text-base">
               <p>
                 The first edition showed us how much people value a space where
                 they can ask real questions, hear directly from people in the
-                industry, and meet others figuring things out too. The TechForge
-                2026 is taking that further with a bigger room, more voices, and
-                one day built around learning, conversations, and connection.
+                industry, and meet others figuring things out too.
               </p>
               <p>
-                This December, over 1,000 attendees and 20+ speakers will come
-                together for one day of practical conversations about
-                technology, careers, building, and the realities of working in
-                the industry.
+                This December, over 1,000 attendees and 10+ speakers will come
+                together for one focused day of practical conversations about
+                technology, careers, building, and meaningful connection.
               </p>
-              <div className="ticket-switcher">
-                <Link
-                  href="#"
-                  transitionTypes={["nav-forward"]}
-                  className="ticket-switch-button ticket-switch-primary"
-                >
-                  <span className="ticket-switch-text">Get ticket</span>
-                  <ArrowUpRight
-                    className="ticket-switch-symbol h-4 w-4"
-                    aria-hidden="true"
-                  />
-                </Link>
-                <Link
-                  href="#"
-                  transitionTypes={["nav-forward"]}
-                  aria-label="Get ticket"
-                  className="ticket-switch-button ticket-switch-secondary"
-                >
-                  <ArrowUpRight
-                    className="ticket-switch-symbol h-4 w-4"
-                    aria-hidden="true"
-                  />
-                  <span className="ticket-switch-text" aria-hidden="true">
-                    Get ticket
-                  </span>
-                </Link>
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
 
-      <div className="mt-2">
-        <AboutMedia />
+            <Link
+              href="https://tix.africa/discover/the-tech-forge"
+              transitionTypes={["nav-forward"]}
+              className="mt-8 inline-flex items-center gap-3 rounded-full bg-black py-2 pl-5 pr-2 text-sm font-semibold text-white transition-colors hover:bg-zinc-800 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black"
+            >
+              <span>Get your ticket</span>
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-signal)] text-black">
+                <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              </span>
+            </Link>
+          </article>
+        </div>
       </div>
     </section>
   );

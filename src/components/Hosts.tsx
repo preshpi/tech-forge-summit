@@ -119,15 +119,13 @@ export default function Hosts() {
   }, []);
 
   return (
-    <section
-      id="hosts"
-      className="mx-auto max-w-7xl px-4 sm:px-6 py-16 bg-black text-white"
-    >
+    <section id="hosts" className="w-full bg-white text-ink">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
       {/* Top Header Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-12">
         {/* Left Headline Column */}
         <div className="lg:col-span-7 space-y-4">
-          <div className="flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-zinc-400 font-semibold">
+          <div className="flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-widest text-ink/50">
             <Plus className="h-3.5 w-3.5 text-[#86efac]" />
             <span>Host</span>
           </div>
@@ -163,7 +161,7 @@ export default function Hosts() {
               <AnimatedWord>builders.</AnimatedWord>
             </span>
           </h2>
-          <p className="mt-6 text-paper/60 leading-relaxed max-w-md">
+          <p className="mt-6 max-w-md leading-relaxed text-ink/65">
             The TechForge 2026 is hosted by The Infinite Community, a community
             focused on helping developers and people in tech learn, collaborate,
             build, and grow through practical experiences and shared knowledge.
@@ -176,9 +174,9 @@ export default function Hosts() {
       </div>
 
       {/* Image Bento Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 h-auto md:h-[620px]">
+      <div className="grid h-auto grid-cols-1 gap-4 sm:gap-6 md:h-[620px] md:grid-cols-12">
         {/* Column 1: Tall Vertical Image */}
-        <div className="md:col-span-4 relative min-h-[380px] md:min-h-0 rounded-[28px] overflow-hidden border border-zinc-800/60">
+        <div className="relative min-h-[380px] overflow-hidden rounded-[28px] border border-black/10 md:col-span-4 md:min-h-0">
           <Image
             src="/tf12.jpg"
             alt="Team collaborating at table"
@@ -190,7 +188,7 @@ export default function Hosts() {
         {/* Column 2: one Stacked Images */}
         <div className="md:col-span-4 flex flex-col gap-4 sm:gap-6">
           {/* Top Wide Photo */}
-          <div className="relative h-[200px] md:h-[220px] rounded-[24px] overflow-hidden border border-zinc-800/60 shrink-0">
+          <div className="relative h-[200px] shrink-0 overflow-hidden rounded-[24px] border border-black/10 md:h-[220px]">
             <Image
               src="/tf16.jpg"
               alt="Group selfie of the team"
@@ -200,7 +198,7 @@ export default function Hosts() {
           </div>
 
           {/* Bottom Tall Photo */}
-          <div className="relative flex-1 min-h-[260px] md:min-h-0 rounded-[28px] overflow-hidden border border-zinc-800/60">
+          <div className="relative min-h-[260px] flex-1 overflow-hidden rounded-[28px] border border-black/10 md:min-h-0">
             <Image
               src="/tf13.jpg"
               alt="Researcher sitting in red seats"
@@ -213,7 +211,7 @@ export default function Hosts() {
         {/* Column 3: one Stacked Images */}
         <div className="md:col-span-4 flex flex-col gap-4 sm:gap-6">
           {/* Top Tall Photo */}
-          <div className="relative flex-1 min-h-[300px] md:min-h-0 rounded-[28px] overflow-hidden border border-zinc-800/60">
+          <div className="relative min-h-[300px] flex-1 overflow-hidden rounded-[28px] border border-black/10 md:min-h-0">
             <Image
               src="/tf14.jpg"
               alt="Co-founders working outside"
@@ -223,7 +221,7 @@ export default function Hosts() {
           </div>
 
           {/* Bottom Wide Photo */}
-          <div className="relative h-[180px] md:h-[190px] rounded-[24px] overflow-hidden border border-zinc-800/60 shrink-0">
+          <div className="relative h-[180px] shrink-0 overflow-hidden rounded-[24px] border border-black/10 md:h-[190px]">
             <Image
               src="/tf15.jpg"
               alt="Panel speakers at conference"
@@ -232,6 +230,7 @@ export default function Hosts() {
             />
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

@@ -28,173 +28,223 @@ import {
 import Image from "next/image";
 
 const sessions: {
+  programme: string;
   time: string;
   title: string;
   desc: string;
   speaker: string;
   role: string;
   image: string;
-  icon: LucideIcon;
+  icon?: LucideIcon;
+  avatar: string;
 }[] = [
   {
-    time: "8:00 – 9:30 AM",
+    programme: "General Programme",
+    time: "08:00 – 9:30",
     title: "Registration, Check-in, Expo & Networking",
-    desc: "Registration, ticket verification, merch collection, expo opening, sponsor booths and networking.",
-    speaker: "All Attendees",
-    role: "Expo & Check-in",
-    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1000",
-    icon: ClipboardCheck,
+    desc: "Registration, ticket verification, merch collection, expo opening, sponsor booths and attendee networking.",
+    speaker: "",
+    role: "",
+    image:
+      "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1000",
+    avatar:
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200",
   },
   {
-    time: "9:30 – 9:45 AM",
+    programme: "General Programme",
+    time: "09:30 – 9:45",
     title: "Opening Event & Energy Kickoff",
     desc: "Welcome, housekeeping, introduction to Tech Forge and audience engagement.",
-    speaker: "Host & MC",
-    role: "Main Stage",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=1000",
-    icon: Megaphone,
+    speaker: "Compere",
+    role: "",
+    image:
+      "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=1000",
+    avatar:
+      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200",
   },
   {
-    time: "9:45 – 10:15 AM",
-    title: "Opening Keynote — The Builders' Blueprint",
-    desc: "Opening keynote setting the direction for the event theme.",
-    speaker: "Keynote Speaker",
-    role: "Main Stage",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=1000",
-    icon: Mic,
+    programme: "General Programme",
+    time: "09:45 – 10:15",
+    title: "GAME — Shadow Boxing",
+    desc: "High-energy interactive entertainment segment to energise the audience.",
+    speaker: "Attendees",
+    role: "",
+    image:
+      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=1000",
+    avatar:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200",
   },
   {
-    time: "10:15 – 10:30 AM",
-    title: "Shadow Boxing",
-    desc: "High-energy interactive entertainment segment.",
-    speaker: "Entertainment",
-    role: "Main Stage",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1000",
-    icon: Swords,
+    programme: "General Programme",
+    time: "10:30 – 10:55",
+    title: "The Architecture of a Future-Proof Tech Career",
+    desc: "Explores how to build a sustainable career in technology by developing strong fundamentals, adaptability, continuous learning, and skills that remain valuable as tools, roles, and industry trends evolve.",
+    speaker: "Dominus Kelvin",
+    role: "Lead Maintainer, Sails",
+    image:
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1000",
+    avatar:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200",
   },
   {
-    time: "10:30 – 10:55 AM",
-    title: "Building with AI",
-    desc: "AI, automation, responsible AI, LLMs, AI products and practical opportunities.",
-    speaker: "Sessional Speaker",
-    role: "Track Session",
-    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=1000",
-    icon: Cpu,
-  },
-  {
-    time: "10:55 – 11:15 AM",
+    programme: "General Programme",
+    time: "10:55 – 11:15",
     title: "Networking",
-    desc: "Audience networking and informal interaction.",
+    desc: "Informal networking and attendee-to-attendee interaction.",
     speaker: "All Attendees",
-    role: "Expo Floor",
-    image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=80&w=1000",
-    icon: Coffee,
+    role: "",
+    image:
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1000",
+    avatar:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200",
   },
   {
-    time: "11:15 – 11:40 AM",
-    title: "Engineering for Scale",
-    desc: "Software engineering, architecture, cloud, DevOps and reliable systems.",
-    speaker: "Sessional Speaker",
-    role: "Track Session",
-    image: "https://images.unsplash.com/photo-1531545514256-b1400bc00f31?auto=format&fit=crop&q=80&w=1000",
-    icon: Layers,
+    programme: "General Programme",
+    time: "11:15 – 11:40",
+    title: "Section 2 — Engineering for Scale".split("—")[0].trim(),
+    desc: "",
+    speaker: "Sessional Speaker 2",
+    role: "All Attendees",
+    image: "/tf5.jpg",
+    avatar: "/techforge-logo.png",
   },
   {
-    time: "11:40 – 12:05 PM",
-    title: "Building Trust",
-    desc: "Cybersecurity, privacy, secure systems, identity, fraud prevention and digital trust.",
-    speaker: "Sessional Speaker",
-    role: "Track Session",
-    image: "https://images.unsplash.com/photo-1573496799652-408c2ac9fe98?auto=format&fit=crop&q=80&w=1000",
-    icon: ShieldCheck,
+    programme: "General Programme",
+    time: "11:40 – 12:05",
+    title: "Section 3 — Building Trust".split("—")[0].trim(),
+    desc: "",
+    speaker: "Sessional Speaker 3",
+    role: "All Attendees",
+    image: "/tf4.jpg",
+    avatar: "/techforge-logo.png",
   },
   {
-    time: "12:05 – 12:50 PM",
+    programme: "General Programme",
+    time: "12:05 – 12:50",
     title: "Panel Session — Building for Tomorrow",
-    desc: "Four panel speakers explore skills, technology, innovation and building for the future.",
-    speaker: "Panel Speakers",
-    role: "Main Stage",
-    image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=1000",
-    icon: Users,
+    desc: "A four-person panel exploring technology, skills, innovation and what it takes to build for the future.",
+    speaker: "Moderator + 4 Panel Speakers",
+    role: "All Attendees",
+    image: "/tf8.jpg",
+    avatar: "/techforge-logo.png",
   },
   {
-    time: "12:50 – 1:05 PM",
+    programme: "General Programme",
+    time: "12:50 – 1:05",
     title: "Short Break + Interactive Game",
-    desc: "A short audience game/activity to refresh attendees.",
-    speaker: "All Attendees",
-    role: "Interactive Break",
-    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1000",
-    icon: Gamepad2,
+    desc: "Short audience game/activity to refresh attendees and transition into the next programme block.",
+    speaker: "Activity Team",
+    role: "All Attendees",
+    image: "/tf9.jpg",
+    avatar: "/techforge-logo.png",
   },
   {
-    time: "1:05 – 1:30 PM",
-    title: "From Problem to Product",
-    desc: "Startups, entrepreneurship, product development, funding, business models and scaling.",
-    speaker: "Sessional Speaker",
-    role: "Track Session",
-    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=1000",
-    icon: Rocket,
+    programme: "General Programme",
+    time: "1:05 – 1:30",
+    title: "Section 4 — From Problem to Product".split("—")[0].trim(),
+    desc: "",
+    speaker: "Sessional Speaker 4",
+    role: "All Attendees",
+    image: "/tf12.jpg",
+    avatar: "/techforge-logo.png",
   },
   {
-    time: "1:30 – 1:55 PM",
-    title: "The Future Builder",
-    desc: "Future-ready skills, careers, leadership, mentorship and the changing workplace.",
-    speaker: "Sessional Speaker",
-    role: "Track Session",
-    image: "https://images.unsplash.com/photo-1573497019236-17f8177b81e8?auto=format&fit=crop&q=80&w=1000",
-    icon: Compass,
+    programme: "General Programme",
+    time: "1:30 – 1:55",
+    title: "Section 5 — The Future Builder".split("—")[0].trim(),
+    desc: "",
+    speaker: "Sessional Speaker 5",
+    role: "All Attendees",
+    image: "/tf13.jpg",
+    avatar: "/techforge-logo.png",
   },
   {
-    time: "1:55 – 2:10 PM",
+    programme: "General Programme",
+    time: "1:55 – 2:10",
     title: "Game / Audience Engagement",
-    desc: "Second interactive game/activity.",
-    speaker: "All Attendees",
-    role: "Interactive Break",
-    image: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&q=80&w=1000",
-    icon: Gamepad2,
+    desc: "Second interactive game or audience activity to maintain energy and participation.",
+    speaker: "Activity Team",
+    role: "All Attendees",
+    image: "/tf14.jpg",
+    avatar: "/techforge-logo.png",
   },
   {
-    time: "2:10 – 2:45 PM",
+    programme: "General Programme",
+    time: "2:10 – 2:45",
     title: "Partnership Spotlight",
-    desc: "Selected sponsors/partners introduce their organisations, opportunities and value to attendees.",
-    speaker: "Sponsors & Partners",
-    role: "Sponsor Segment",
-    image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80&w=1000",
-    icon: Handshake,
+    desc: "Selected partners/sponsors introduce their organisations, opportunities and value to the tech community.",
+    speaker: "Selected Sponsors / Partners",
+    role: "All Attendees",
+    image: "/tf15.jpg",
+    avatar: "/techforge-logo.png",
   },
   {
-    time: "2:45 – 3:05 PM",
+    programme: "General Programme",
+    time: "2:45 – 3:05",
     title: "Sponsor Activation + Giveaways",
-    desc: "Sponsor games, product activations, audience engagement and giveaways.",
-    speaker: "Sponsors & Partners",
-    role: "Sponsor Segment",
-    image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=1000",
-    icon: Gift,
+    desc: "Sponsor-led activities, product engagement, audience participation and giveaways.",
+    speaker: "Sponsors / MC",
+    role: "All Attendees",
+    image: "/tf16.jpg",
+    avatar: "/techforge-logo.png",
   },
   {
-    time: "3:05 – 3:25 PM",
+    programme: "General Programme",
+    time: "3:05 – 3:25",
     title: "Tech Challenge",
     desc: "Interactive technology-themed challenge involving audience participation.",
-    speaker: "All Attendees",
-    role: "Interactive Challenge",
-    image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=1000",
-    icon: Puzzle,
+    speaker: "Activity Team",
+    role: "All Attendees",
+    image: "/tf17.jpg",
+    avatar: "/techforge-logo.png",
   },
   {
-    time: "3:25 – 3:30 PM",
+    programme: "General Programme",
+    time: "3:25 – 3:30",
     title: "General Programme Closing",
-    desc: "Brief closing and departure of General Admission attendees.",
-    speaker: "Host & MC",
-    role: "Main Stage",
-    image: "https://images.unsplash.com/photo-1573496358961-3c82861ab8f4?auto=format&fit=crop&q=80&w=1000",
-    icon: Flag,
+    desc: "Brief closing and official departure point for Free Ticket attendees.",
+    speaker: "MC / Organising Team",
+    role: "All Attendees",
+    image: "/tf18.jpg",
+    avatar: "/techforge-logo.png",
+  },
+  {
+    programme: "Premium Experience",
+    time: "3:30 – 4:15",
+    title: "Premium Lunch",
+    desc: "Exclusive lunch experience for ₦10,000 ticket holders.",
+    speaker: "Organising Team",
+    role: "₦10,000 Ticket Holders",
+    image: "/tf19.jpg",
+    avatar: "/techforge-logo.png",
+  },
+  {
+    programme: "Premium Experience",
+    time: "4:15 – 5:00",
+    title: "Exclusive Speaker Networking",
+    desc: "Dedicated networking and interaction between paid attendees and Tech Forge speakers.",
+    speaker: "Speakers + Organising Team",
+    role: "₦10,000 Ticket Holders",
+    image: "/tf20.jpg",
+    avatar: "/techforge-logo.png",
+  },
+  {
+    programme: "Premium Experience",
+    time: "5:00",
+    title: "Official End of Tech Forge 2026",
+    desc: "Conclusion of the official event.",
+    speaker: "All Remaining Attendees",
+    role: "",
+    image: "/tf7.jpg",
+    avatar: "/techforge-logo.png",
   },
 ];
 
 const venueDetails = {
-  name: "The Zone",
-  address: "Plot 9, Gbagada Industrial Scheme, beside UPS, Gbagada-Oworonshoki Expressway, Lagos.",
-  googleMapsUrl: "https://maps.app.goo.gl/xDF9umrXfCPCgpk37",
+  name: "The Innovation Center",
+  address: "500 Howard Street, San Francisco, CA 94105",
+  googleMapsUrl: "https://maps.app.goo.gl/nXKs2PqDhtL1fYTa6",
+  // Google Maps Embed URL (Place your actual API embed URL or standard embed URL here)
   mapEmbedUrl:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.7641684755763!2d3.37684!3d6.551430799999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8d73a658782b%3A0x7a1de11d89cccc84!2sThe%20Zone!5e0!3m2!1sen!2sng!4v1787669874915!5m2!1sen!2sng",
   gallery: [
@@ -202,7 +252,7 @@ const venueDetails = {
       src: "https://res.cloudinary.com/dgtc1iood/image/upload/v1787670226/Ruby3_qwd7mw.webp",
       alt: "Main Auditorium",
     },
-  {
+    {
       src: "https://res.cloudinary.com/dgtc1iood/image/upload/v1787835868/5_1_gaxzbq.avif",
       alt: "Front view of the auditorium",
     },
@@ -266,7 +316,11 @@ function VerticalTime({
         {Array.from(current).map((character, index) => {
           const previousCharacter = Array.from(previous)[index] ?? " ";
           const width =
-            character === " " ? "0.34em" : character === "–" ? "0.78em" : "0.62em";
+            character === " "
+              ? "0.34em"
+              : character === "–"
+                ? "0.78em"
+                : "0.62em";
           const delay = index * 18;
 
           return (
@@ -307,8 +361,7 @@ export default function EventPage() {
   const [index, setIndex] = useState(1);
   const [direction, setDirection] = useState<1 | -1>(1);
   const s = sessions[index];
-  const previousIndex =
-    (index - direction + sessions.length) % sessions.length;
+  const previousIndex = (index - direction + sessions.length) % sessions.length;
 
   function go(dir: 1 | -1) {
     setDirection(dir);
@@ -326,16 +379,24 @@ export default function EventPage() {
               {/* Top Row: Title vs Session Title */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="font-sans font-bold text-4xl sm:text-5xl mt-4 tracking-tight text-white">
-                    Programme
+                  <p className="font-mono text-xs tracking-widest text-zinc-400 uppercase font-medium">
+                    AGENDA
+                  </p>
+                  <h3
+                    key={s.programme}
+                    className="font-sans font-bold text-4xl sm:text-5xl mt-4 tracking-tight text-white"
+                  >
+                    {s.programme}
                   </h3>
                 </div>
 
                 <div>
                   <AnimatedSessionTitle key={index} title={s.title} />
-                  <p className="mt-4 text-sm text-zinc-400 leading-relaxed max-w-sm">
-                    {s.desc}
-                  </p>
+                  {s.desc ? (
+                    <p className="mt-4 text-sm text-zinc-400 leading-relaxed max-w-sm">
+                      {s.desc}
+                    </p>
+                  ) : null}
                 </div>
               </div>
 
@@ -377,7 +438,7 @@ export default function EventPage() {
                   className="flex items-center gap-3.5"
                 >
                   <div className="flex h-11 w-11 items-center justify-center rounded-full shrink-0 border border-zinc-700 bg-[#1c1c1c]">
-                    <s.icon className="h-5 w-5 text-zinc-300" />
+                    {s.icon && <s.icon className="h-5 w-5 text-zinc-300" />}
                   </div>
                   <div>
                     <div className="font-mono text-xs font-bold uppercase tracking-wider text-white">

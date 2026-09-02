@@ -6,11 +6,12 @@ import Link from "next/link";
 import Logo from "./Logo";
 
 const links = [
-  { label: "Speakers", href: "#speakers" },
-  { label: "Agenda", href: "#agenda" },
-  { label: "Venue", href: "#venue" },
+  { label: "Speakers", href: "/speakers" },
+  { label: "Agenda", href: "/#agenda" },
+  { label: "Venue", href: "/#venue" },
+  { label: "Gallery", href: "/gallery" },
   { label: "Get DP", href: "/dp" },
-  { label: "Contact", href: "#faq" },
+  { label: "Contact", href: "/#faq" },
 ];
 
 const isRoute = (href: string) => href.startsWith("/");
@@ -51,15 +52,16 @@ export default function Navbar() {
           : ""
       }`}
     >
-      <div className="mx-auto max-w-7xl px-6 sm:px-10 py-6 flex items-center justify-between">
-        <a
-          href="#top"
+      <div className="mx-auto max-w-7xl px-6 sm:px-10 flex items-center justify-between">
+        <Link
+          href="/"
+          transitionTypes={["nav-back"]}
           className="flex items-center"
           onClick={() => setMenuOpen(false)}
           aria-label="The TechForge — home"
         >
-          <Logo imgClassName="h-8 w-auto sm:h-9" eager />
-        </a>
+          <Logo className="h-24 w-24" eager />
+        </Link>
 
         <nav className="hidden md:flex items-center gap-7 text-[15px] font-medium text-paper/90 lg:gap-10">
           {links.map((l) =>
@@ -73,43 +75,29 @@ export default function Navbar() {
                 {l.label}
               </Link>
             ) : (
-              <a key={l.href} href={l.href} className="hover:text-signal transition-colors">
+              <a
+                key={l.href}
+                href={l.href}
+                className="hover:text-signal transition-colors"
+              >
                 {l.label}
               </a>
-            )
+            ),
           )}
         </nav>
 
         <div className="hidden md:block">
-          <div className="ticket-switcher">
-            <Link
-              href="#"
-              transitionTypes={["nav-forward"]}
-              style={{ backgroundColor: "white", color: "black" }}
-              className="ticket-switch-button ticket-switch-primary"
-            >
-              <span className="ticket-switch-text">Get ticket</span>
-              <ArrowUpRight
-                className="ticket-switch-symbol h-4 w-4"
-                aria-hidden="true"
-              />
-            </Link>
-            <Link
-              href="#"
-              transitionTypes={["nav-forward"]}
-              aria-label="Get ticket"
-              style={{ backgroundColor: "white", color: "black" }}
-              className="ticket-switch-button ticket-switch-secondary"
-            >
-              <ArrowUpRight
-                className="ticket-switch-symbol h-4 w-4"
-                aria-hidden="true"
-              />
-              <span className="ticket-switch-text" aria-hidden="true">
-                Get ticket
-              </span>
-            </Link>
-          </div>
+          <a
+            href="https://tix.africa/discover/the-tech-forge"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm pointer-events-auto inline-flex items-center gap-2 rounded-full bg-white p-3 pl-5 pr-2  font-semibold text-black transition-colors hover:bg-zinc-200"
+          >
+            <span>Get Your Ticket</span>
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-white">
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </div>
+          </a>
         </div>
 
         <button
@@ -157,18 +145,20 @@ export default function Navbar() {
                 >
                   {link.label}
                 </a>
-              )
+              ),
             )}
 
-            <Link
-              href="#"
-              transitionTypes={["nav-forward"]}
-              onClick={() => setMenuOpen(false)}
-              className="mt-7 inline-flex w-fit items-center gap-2 rounded-full bg-paper px-5 py-2.5 text-sm font-bold text-ink"
+            <a
+              href="https://tix.africa/discover/the-tech-forge"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm pointer-events-auto mt-2 lg:mt-6 inline-flex items-center gap-2 rounded-full bg-white p-2 lg:p-3 pl-5 pr-2 w-fit font-semibold text-black transition-colors hover:bg-zinc-200"
             >
-              Get ticket
-              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
+              <span>Get Your Ticket</span>
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-white">
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </div>
+            </a>
           </nav>
         </div>
       ) : null}

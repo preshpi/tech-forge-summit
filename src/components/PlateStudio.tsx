@@ -602,7 +602,7 @@ export default function PlateStudio() {
               type="button"
               onClick={download}
               disabled={!source || saving}
-              className="flex w-full items-center justify-center gap-2 rounded-full bg-signal py-3 text-xs font-bold text-ink transition-colors hover:bg-signal-dim disabled:cursor-not-allowed disabled:opacity-30 md:py-3.5 md:text-sm"
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-[var(--color-primary)] py-3 text-xs font-bold text-ink transition-colors hover:bg-signal-dim disabled:cursor-not-allowed disabled:opacity-30 md:py-3.5 md:text-sm"
             >
               {saving ? (
                 <>

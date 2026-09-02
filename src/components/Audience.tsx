@@ -78,9 +78,9 @@ export default function Audience() {
   }, []);
 
   return (
-    <section className="overflow-x-clip py-20 sm:py-24 md:py-32 lg:overflow-visible">
+    <section className="overflow-x-clip bg-white py-20 text-ink sm:py-24 md:py-32 lg:overflow-visible">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <p className="mb-6 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-signal">
+        <p className="mb-6 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[var(--color-primary)]">
           {Icons().sparkel} For whom?
         </p>
         <h2
