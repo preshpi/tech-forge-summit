@@ -60,6 +60,8 @@ export default function GalleryFooter() {
         </div>
         <Link
           href="https://tix.africa/discover/the-tech-forge"
+          target="_blank"
+          rel="noopener noreferrer"
           transitionTypes={["nav-forward"]}
           className="group inline-flex items-center gap-3 rounded-full bg-paper py-2 pl-5 pr-2 text-sm font-semibold text-ink transition-transform hover:-translate-y-1"
         >

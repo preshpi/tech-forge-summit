@@ -241,8 +241,8 @@ const sessions: {
 ];
 
 const venueDetails = {
-  name: "The Innovation Center",
-  address: "500 Howard Street, San Francisco, CA 94105",
+  name: "The Zone",
+  address: "Plot 9 Gbagada Industrial Scheme, Beside UPS, Gbagada Expressway, Lagos",
   googleMapsUrl: "https://maps.app.goo.gl/nXKs2PqDhtL1fYTa6",
   // Google Maps Embed URL (Place your actual API embed URL or standard embed URL here)
   mapEmbedUrl:
@@ -371,7 +371,7 @@ export default function EventPage() {
   return (
     <div className="space-y-12">
       {/* ================= AGENDA SECTION ================= */}
-      <section id="agenda" className="mx-auto max-w-7xl px-4 sm:px-6 py-8">
+      <section id="agenda" className="hidden mx-auto max-w-7xl px-4 sm:px-6 py-8">
         <div className="rounded-[32px] bg-[#141414] p-8 sm:p-12 lg:p-14 text-white shadow-2xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
             {/* Left & Middle Column Wrapper */}
