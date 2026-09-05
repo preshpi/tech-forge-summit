@@ -82,7 +82,7 @@ export default function Footer() {
 
             <div>
               <p className="mb-2 text-paper/40">Location</p>
-              <p>Downtown</p>
+              <p>The Zone</p>
               <p className="mt-1 text-signal">Lagos, Nigeria</p>
             </div>
 

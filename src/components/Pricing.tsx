@@ -383,6 +383,8 @@ export default function Pricing() {
 
                   <Link
                     href="https://tix.africa/discover/the-tech-forge"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     transitionTypes={["nav-forward"]}
                     className={`mt-8 inline-flex items-center gap-3 rounded-full ${idx === 0 ? "bg-black text-white" : "bg-white text-black"} py-2 pl-5 pr-2 text-sm font-semibold  transition-colors hover:bg-zinc-800 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black`}
                   >

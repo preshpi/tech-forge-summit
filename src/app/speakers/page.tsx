@@ -7,7 +7,6 @@ import {
   CalendarDays,
   Fan,
   Mic2,
-  Sparkles,
 } from "lucide-react";
 import Footer from "@/components/Footer";
 import { gradientFor } from "@/lib/avatar";
@@ -91,7 +90,7 @@ function Eyebrow({
           : "border border-black/10 bg-black/5 text-ink/70"
       }`}
     >
-      <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+      <Mic2 className="h-3.5 w-3.5" aria-hidden="true" />
       {children}
     </p>
   );
