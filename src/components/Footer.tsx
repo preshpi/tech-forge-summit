@@ -4,14 +4,16 @@ import type { PointerEvent } from "react";
 import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUp, ArrowUpRight, Link2, Mail } from "lucide-react";
+import { ArrowUp, ArrowUpRight, 
+  Mail } from "lucide-react";
+import { FaInstagram } from "react-icons/fa";
 import Countdown from "./Countdown";
 import Logo from "./Logo";
 
 const sitemap = [
   { label: "About", href: "/#about" },
   { label: "Speakers", href: "/speakers" },
-  { label: "Agenda", href: "/#agenda" },
+  // { label: "Agenda", href: "/#agenda" },
   { label: "Gallery", href: "/gallery" },
   { label: "Pricing", href: "/#pricing" },
   { label: "FAQs", href: "/#faq" },
@@ -128,6 +130,9 @@ export default function Footer() {
               <a href="mailto:empress@techforgesummit.com">
                 <Mail className="h-5 w-5 transition-colors hover:text-signal" />
               </a>
+              <a href="https://www.instagram.com/theinfinitecommunity" target="_blank" rel="noopener noreferrer">
+                <FaInstagram className="h-5 w-5 transition-colors hover:text-signal" />
+              </a>
             </div>
           </div>
 
@@ -150,7 +155,7 @@ export default function Footer() {
               </ul>
             </div>
 
-            <div>
+           {/* <div>
               <div className="mb-5 font-mono text-xs font-bold uppercase tracking-widest text-paper/45">
                 Legal
               </div>
@@ -166,7 +171,7 @@ export default function Footer() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
