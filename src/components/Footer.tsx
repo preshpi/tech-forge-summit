@@ -150,7 +150,7 @@ export default function Footer() {
               </ul>
             </div>
 
-            <div>
+           {/* <div>
               <div className="mb-5 font-mono text-xs font-bold uppercase tracking-widest text-paper/45">
                 Legal
               </div>
@@ -166,7 +166,7 @@ export default function Footer() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

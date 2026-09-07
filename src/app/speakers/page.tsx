@@ -248,7 +248,7 @@ export default function SpeakersPage() {
             <h1 className="text-[24px] lg:text-[75px] text-center font-bold leading-[1.08] tracking-tight text-paper drop-shadow-[0_2px_8px_rgba(10,10,12,0.55)] lg:leading-[1.2]">
               <span aria-hidden="true">
                 <WrappingTypewriterText>
-                  The voices before the spark and inside the forge.
+                  The voices forging the future
                 </WrappingTypewriterText>
               </span>
             </h1>
@@ -258,7 +258,7 @@ export default function SpeakersPage() {
                 lineup follows with the builders, operators and product thinkers
                 carrying the summit programme.
               </p>
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+              {/* <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
                 <a
                   href="#pre-event"
                   className="inline-flex items-center gap-3 rounded-full bg-white px-5 py-3 text-sm font-semibold text-ink transition-colors hover:text-white hover:bg-[var(--color-primary)]"
@@ -273,7 +273,7 @@ export default function SpeakersPage() {
                   Main event lineup
                   <ArrowDownRight className="h-4 w-4" aria-hidden="true" />
                 </a>
-              </div>
+              </div> */}
             </div>
           </div>
         </section>
