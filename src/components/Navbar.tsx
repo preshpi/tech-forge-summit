@@ -7,7 +7,7 @@ import Logo from "./Logo";
 
 const links = [
   { label: "Speakers", href: "/speakers" },
-  { label: "Agenda", href: "/#agenda" },
+  // { label: "Agenda", href: "/#agenda" },
   { label: "Venue", href: "/#venue" },
   { label: "Gallery", href: "/gallery" },
   { label: "Get DP", href: "/dp" },
