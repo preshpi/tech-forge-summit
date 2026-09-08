@@ -1,32 +1,68 @@
-import localFont from "next/font/local";
-import type { Metadata } from "next";
-import "./globals.css";
+import './globals.css';
+import './styles.css';
+import './motion.css';
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import type { Metadata } from 'next';
+import Script from 'next/script';
+import MotionHandler from "@/components/MotionHandler";
+import { Caveat, Plus_Jakarta_Sans } from "next/font/google";
 
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-caveat",
+  weight: ["600", "700"],
+});
 
-const BDOGrotesk = localFont({
-  src: "../../public/font/BDOGrotesk-VF.ttf",
-  variable: "--font-bdo-grotesk",
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-jakarta",
+  weight: ["500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
-  title: "The TechForge 2026 — The Builders Summit",
-  description:
-    "A one-day tech gathering in Lagos for people learning, building, and growing their careers in tech. December 5, 2026.",
+  title: "Tech Forge 2026 — The Builders' Blueprint",
+  description: "Tech Forge brings together builders across Africa for a full day of skills, strategy and innovation. December 5, 2026 · Lagos.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" className={`${BDOGrotesk.variable} ${BDOGrotesk.className} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-[#0a0a0c] text-[#f2f2f0]">
+    <html lang="en" className={`${caveat.variable} ${plusJakartaSans.variable}`}>
+      <head>
+        <Script
+          id="motion-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                try {
+                  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                    document.documentElement.classList.add("motion-on");
+                    window.setTimeout(function () {
+                      if (!window.__tfMotionBooted) {
+                        document.documentElement.classList.remove("motion-on");
+                      }
+                    }, 1600);
+                  } else {
+                    document.documentElement.classList.add("motion-reduce");
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body>
+        <MotionHandler />
         <Navbar />
         {children}
+        <Footer />
+        <Script src="/home-motion.js" strategy="afterInteractive" />
       </body>
-      
     </html>
   );
 }

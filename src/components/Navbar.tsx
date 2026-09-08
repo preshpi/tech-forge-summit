@@ -1,167 +1,79 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { ArrowUpRight, Menu, X } from "lucide-react";
-import Link from "next/link";
-import Logo from "./Logo";
-
-const links = [
-  { label: "Speakers", href: "/speakers" },
-  { label: "Agenda", href: "/#agenda" },
-  { label: "Venue", href: "/#venue" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Get DP", href: "/dp" },
-  { label: "Contact", href: "/#faq" },
-];
-
-const isRoute = (href: string) => href.startsWith("/");
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    if (!menuOpen) return;
-
-    const previousOverflow = document.body.style.overflow;
-
-    function closeOnEscape(event: KeyboardEvent) {
-      if (event.key === "Escape") setMenuOpen(false);
-    }
-
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", closeOnEscape);
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", closeOnEscape);
-    };
-  }, [menuOpen]);
+  const pathname = usePathname();
 
   return (
-    <header
-      className={`fixed top-0 inset-x-0 z-50 transition-colors duration-300 ${
-        scrolled || menuOpen
-          ? "border-b border-line bg-ink/90 backdrop-blur"
-          : ""
-      }`}
-    >
-      <div className="mx-auto max-w-7xl px-6 sm:px-10 flex items-center justify-between">
-        <Link
-          href="/"
-          transitionTypes={["nav-back"]}
-          className="flex items-center"
-          onClick={() => setMenuOpen(false)}
-          aria-label="The TechForge — home"
-        >
-          <Logo className="h-24 w-24" eager />
+    <header className="site-header">
+      <input
+        type="checkbox"
+        id="nav-toggle"
+        className="nav-checkbox"
+        aria-hidden="true"
+      />
+      <div className="container site-header__inner">
+        <Link className="logo js-nav-item" href="/">
+          <Image
+            className="logo__img logo__img--header"
+            src="/assets/techforge-logo.png"
+            alt="Tech Forge"
+            width={1291}
+            height={781}
+            priority
+          />
         </Link>
 
-        <nav className="hidden md:flex items-center gap-7 text-[15px] font-medium text-paper/90 lg:gap-10">
-          {links.map((l) =>
-            isRoute(l.href) ? (
-              <Link
-                key={l.href}
-                href={l.href}
-                transitionTypes={["nav-forward"]}
-                className="hover:text-signal transition-colors"
-              >
-                {l.label}
-              </Link>
-            ) : (
-              <a
-                key={l.href}
-                href={l.href}
-                className="hover:text-signal transition-colors"
-              >
-                {l.label}
-              </a>
-            ),
-          )}
+        <nav className="nav js-stagger js-stagger--tight" aria-label="Primary">
+          <Link 
+            href="/" 
+            aria-current={pathname === '/' ? 'page' : undefined}
+          >
+            Home
+          </Link>
+          <Link 
+            href="/about" 
+            aria-current={pathname === '/about' ? 'page' : undefined}
+          >
+            About
+          </Link>
+          <Link 
+            href="/editions" 
+            aria-current={pathname === '/editions' ? 'page' : undefined}
+          >
+            Editions
+          </Link>
+          <Link 
+            href="/speakers" 
+            aria-current={pathname === '/speakers' ? 'page' : undefined}
+          >
+            Speakers
+          </Link>
+          <Link 
+            href="/contact" 
+            aria-current={pathname === '/contact' ? 'page' : undefined}
+          >
+            Contact
+          </Link>
         </nav>
 
-        <div className="hidden md:block">
-          <a
-            href="https://tix.africa/discover/the-tech-forge"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm pointer-events-auto inline-flex items-center gap-2 rounded-full bg-white p-3 pl-5 pr-2  font-semibold text-black transition-colors hover:bg-zinc-200"
-          >
-            <span>Get Your Ticket</span>
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-white">
-              <ArrowUpRight className="h-3.5 w-3.5" />
-            </div>
-          </a>
-        </div>
+        <Link className="btn btn--primary header-cta js-nav-item" href="https://tix.africa/discover/the-tech-forge">
+          Get Your Ticket <span className="btn__arrow" aria-hidden="true">→</span>
+        </Link>
 
-        <button
-          type="button"
-          aria-label={menuOpen ? "Close navigation" : "Open navigation"}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-navigation"
-          onClick={() => setMenuOpen((open) => !open)}
-          className="flex h-9 w-9 items-center justify-center rounded-lg border border-paper/15 bg-paper/10 text-paper md:hidden"
+        <label
+          className="nav-toggle"
+          htmlFor="nav-toggle"
+          aria-label="Open navigation"
         >
-          {menuOpen ? (
-            <X className="h-5 w-5" aria-hidden="true" />
-          ) : (
-            <Menu className="h-5 w-5" aria-hidden="true" />
-          )}
-        </button>
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
       </div>
-
-      {menuOpen ? (
-        <div
-          id="mobile-navigation"
-          className="absolute inset-x-0 top-full max-h-[calc(100svh-5rem)] overflow-y-auto border-b border-line bg-ink/95 px-6 py-8 backdrop-blur-xl md:hidden"
-        >
-          <nav
-            aria-label="Mobile navigation"
-            className="mx-auto flex max-w-7xl flex-col"
-          >
-            {links.map((link) =>
-              isRoute(link.href) ? (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  transitionTypes={["nav-forward"]}
-                  onClick={() => setMenuOpen(false)}
-                  className="border-b border-paper/10 py-4 font-display text-3xl font-bold tracking-tight text-paper transition-colors hover:text-signal"
-                >
-                  {link.label}
-                </Link>
-              ) : (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="border-b border-paper/10 py-4 font-display text-3xl font-bold tracking-tight text-paper transition-colors hover:text-signal"
-                >
-                  {link.label}
-                </a>
-              ),
-            )}
-
-            <a
-              href="https://tix.africa/discover/the-tech-forge"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm pointer-events-auto mt-2 lg:mt-6 inline-flex items-center gap-2 rounded-full bg-white p-2 lg:p-3 pl-5 pr-2 w-fit font-semibold text-black transition-colors hover:bg-zinc-200"
-            >
-              <span>Get Your Ticket</span>
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-white">
-                <ArrowUpRight className="h-3.5 w-3.5" />
-              </div>
-            </a>
-          </nav>
-        </div>
-      ) : null}
     </header>
   );
 }
