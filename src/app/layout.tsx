@@ -1,40 +1,3 @@
-// import localFont from "next/font/local";
-// import type { Metadata } from "next";
-// import "./globals.css";
-// import './styles.css';
-// import './motion.css';
-// import Navbar from "@/components/Navbar";
-
-
-// const BDOGrotesk = localFont({
-//   src: "../../public/font/BDOGrotesk-VF.ttf",
-//   variable: "--font-bdo-grotesk",
-// });
-
-// export const metadata: Metadata = {
-//   title: "The TechForge 2026 — The Builders Summit",
-//   description:
-//     "A one-day tech gathering in Lagos for people learning, building, and growing their careers in tech. December 5, 2026.",
-// };
-
-// export default function RootLayout({
-//   children,
-// }: Readonly<{
-//   children: React.ReactNode;
-// }>) {
-//   return (
-//     <html lang="en" className={`${BDOGrotesk.variable} ${BDOGrotesk.className} h-full antialiased`}>
-//       <body className="min-h-full flex flex-col bg-[#0a0a0c] text-[#f2f2f0]">
-//         <Navbar />
-//         {children}
-//       </body>
-      
-//     </html>
-//   );
-// }
-
-
-
 import './globals.css';
 import './styles.css';
 import './motion.css';
@@ -43,6 +6,19 @@ import Footer from "@/components/Footer";
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import MotionHandler from "@/components/MotionHandler";
+import { Caveat, Plus_Jakarta_Sans } from "next/font/google";
+
+const caveat = Caveat({
+  subsets: ["latin"],
+  variable: "--font-caveat",
+  weight: ["600", "700"],
+});
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-jakarta",
+  weight: ["500", "600", "700", "800"],
+});
 
 export const metadata: Metadata = {
   title: "Tech Forge 2026 — The Builders' Blueprint",
@@ -55,15 +31,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${caveat.variable} ${plusJakartaSans.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
-        <script
+        <Script
+          id="motion-init"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function () {

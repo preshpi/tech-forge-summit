@@ -112,9 +112,9 @@
     statusEl.hidden = false;
     statusEl.className = "contact-status contact-status--" + type;
     statusEl.innerHTML =
-      "<p class=\"contact-status__title\">" +
+      '<p class="contact-status__title">' +
       title +
-      "</p><p class=\"contact-status__body\">" +
+      '</p><p class="contact-status__body">' +
       body +
       "</p>";
   }
@@ -155,6 +155,7 @@
       source: "techforge-contact-page",
     };
   }
+
   async function submitContactMessage(payload) {
     const endpoint =
       typeof window.TECHFORGE_CONTACT_ENDPOINT === "string"
@@ -176,12 +177,11 @@
 
       try {
         return await response.json();
-      } catch (_) {
+      } catch {
         return { ok: true };
       }
     }
 
-    // No backend yet — simulate a successful submit so UI states can be tested.
     await new Promise(function (resolve) {
       setTimeout(resolve, 700);
     });
@@ -245,7 +245,6 @@
     try {
       await submitContactMessage(payload);
       form.reset();
-      // Keep placeholder selected state after reset
       if (enquirySelect) {
         enquirySelect.value = "";
       }
@@ -258,7 +257,7 @@
         statusEl.focus();
         statusEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
       }
-    } catch (_) {
+    } catch {
       showStatus(
         "error",
         "Something went wrong.",
@@ -269,7 +268,6 @@
     }
   });
 
-  // Deep-link support: contact.html?enquiry=speaking
   const params = new URLSearchParams(window.location.search);
   const enquiryParam = params.get("enquiry");
   if (enquiryParam && ENQUIRY_TYPES[enquiryParam]) {
