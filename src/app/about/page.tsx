@@ -211,7 +211,7 @@ export default function AboutPage() {
                   continent and beyond.
                 </p>
               </div>
-              <Link className="btn btn--outline" href="/contact">
+              <Link className="btn btn--outline" href="https://chat.whatsapp.com/COxRQs88FdvIuA9bKjuKlc">
                 Join the Community →
               </Link>
             </div>

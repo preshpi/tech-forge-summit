@@ -1,36 +1,74 @@
-'client';
+"client";
 
-'use client';
+"use client";
 
-import { useState, FormEvent } from 'react';
-import Image from 'next/image';
+import { useState, FormEvent } from "react";
+import Image from "next/image";
+
+const CONTACT_ENDPOINT =
+  "https://formsubmit.co/ajax/info.techforgeevent@gmail.com";
 
 export default function ContactClient() {
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
-  const [statusState, setStatusState] = useState<'success' | 'error' | null>(null);
+  const [statusState, setStatusState] = useState<"success" | "error" | null>(
+    null,
+  );
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
-    const formData = new FormData(form);
-    
-    const name = formData.get('name');
-    if (!name) return;
 
-    setStatusMessage('Success');
-    setStatusState('success');
-    form.reset();
+    if (!form.reportValidity() || isSubmitting) return;
+
+    const formData = new FormData(form);
+    const subject = String(formData.get("subject") ?? "").trim();
+    const payload = Object.fromEntries(formData.entries());
+
+    setStatusMessage(null);
+    setStatusState(null);
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch(CONTACT_ENDPOINT, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...payload,
+          _subject: `[Tech Forge Contact] ${subject}`,
+          _template: "table",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Unable to send contact message");
+      }
+
+      setStatusMessage("Success");
+      setStatusState("success");
+      form.reset();
+    } catch {
+      setStatusMessage("Error");
+      setStatusState("error");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleShortcut = (shortcutType: string) => {
-    const selectElement = document.getElementById('contact-enquiry') as HTMLSelectElement;
-    const formPanel = document.getElementById('contact-form-panel');
-    
+    const selectElement = document.getElementById(
+      "contact-enquiry",
+    ) as HTMLSelectElement;
+    const formPanel = document.getElementById("contact-form-panel");
+
     if (selectElement) {
       selectElement.value = shortcutType;
     }
     if (formPanel) {
-      formPanel.scrollIntoView({ behavior: 'smooth' });
+      formPanel.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -67,13 +105,12 @@ export default function ContactClient() {
               Contact Us
             </p>
             <h1 className="heading-lg page-intro__title" id="contact-heading">
-              Let’s build{' '}
-              <span className="text-blue">something together.</span>
+              Let’s build <span className="text-blue">something together.</span>
             </h1>
             <p className="page-intro__lede">
-              Whether you have a question, want to partner with us, speak at Tech
-              Forge, support the event or just say hello, we’d love to hear from
-              you.
+              Whether you have a question, want to partner with us, speak at
+              Tech Forge, support the event or just say hello, we’d love to hear
+              from you.
             </p>
           </div>
 
@@ -89,8 +126,10 @@ export default function ContactClient() {
               height={724}
             />
             <p className="page-intro__script script">
-              Ideas<br />
-              People<br />
+              Ideas
+              <br />
+              People
+              <br />
               <span className="script--highlight">Progress</span>
             </p>
           </div>
@@ -114,18 +153,28 @@ export default function ContactClient() {
             </div>
 
             <div
-              className={`contact-status ${statusState ? `contact-status--${statusState}` : ''}`}
+              className={`contact-status ${statusState ? `contact-status--${statusState}` : ""}`}
               id="contact-status"
               role="status"
               aria-live="polite"
               tabIndex={-1}
               hidden={!statusMessage}
             >
-              <p className="contact-status__title" style={{ fontWeight: 700, marginBottom: '4px' }}>
-                Thanks for reaching out.
+              <p
+                className="contact-status__title"
+                style={{ fontWeight: 700, marginBottom: "4px" }}
+              >
+                {statusState === "error"
+                  ? "Something went wrong."
+                  : "Thanks for reaching out."}
               </p>
-              <p className="contact-status__text" style={{ fontWeight: 100, marginBottom: '4px' }}>
-                We’ve received your message and someone from the Tech Forge team will get back to you soon.
+              <p
+                className="contact-status__text"
+                style={{ fontWeight: 100, marginBottom: "4px" }}
+              >
+                {statusState === "error"
+                  ? "We couldn’t send your message just now. Please try again in a moment."
+                  : "We’ve received your message and someone from the Tech Forge team will get back to you soon."}
               </p>
             </div>
 
@@ -138,7 +187,10 @@ export default function ContactClient() {
               <div className="contact-form__row contact-form__row--split">
                 <div className="field">
                   <label className="field__label" htmlFor="contact-name">
-                    Full name <span className="field__req" aria-hidden="true">*</span>
+                    Full name{" "}
+                    <span className="field__req" aria-hidden="true">
+                      *
+                    </span>
                     <span className="visually-hidden"> (required)</span>
                   </label>
                   <input
@@ -150,13 +202,19 @@ export default function ContactClient() {
                     required
                     placeholder="Your name"
                   />
-                  <p className="field__error" id="contact-name-error" hidden></p>
+                  <p
+                    className="field__error"
+                    id="contact-name-error"
+                    hidden
+                  ></p>
                 </div>
 
                 <div className="field">
                   <label className="field__label" htmlFor="contact-email">
-                    Email address{' '}
-                    <span className="field__req" aria-hidden="true">*</span>
+                    Email address{" "}
+                    <span className="field__req" aria-hidden="true">
+                      *
+                    </span>
                     <span className="visually-hidden"> (required)</span>
                   </label>
                   <input
@@ -168,14 +226,20 @@ export default function ContactClient() {
                     required
                     placeholder="you@example.com"
                   />
-                  <p className="field__error" id="contact-email-error" hidden></p>
+                  <p
+                    className="field__error"
+                    id="contact-email-error"
+                    hidden
+                  ></p>
                 </div>
               </div>
 
               <div className="field">
                 <label className="field__label" htmlFor="contact-enquiry">
-                  What is this about?{' '}
-                  <span className="field__req" aria-hidden="true">*</span>
+                  What is this about?{" "}
+                  <span className="field__req" aria-hidden="true">
+                    *
+                  </span>
                   <span className="visually-hidden"> (required)</span>
                 </label>
                 <select
@@ -185,7 +249,9 @@ export default function ContactClient() {
                   required
                   defaultValue=""
                 >
-                  <option value="" disabled>Select an option</option>
+                  <option value="" disabled>
+                    Select an option
+                  </option>
                   <option value="general">General Enquiry</option>
                   <option value="partnerships">Partnerships</option>
                   <option value="sponsorship">Sponsorship</option>
@@ -196,12 +262,19 @@ export default function ContactClient() {
                   <option value="event-support">Event Support</option>
                   <option value="other">Other</option>
                 </select>
-                <p className="field__error" id="contact-enquiry-error" hidden></p>
+                <p
+                  className="field__error"
+                  id="contact-enquiry-error"
+                  hidden
+                ></p>
               </div>
 
               <div className="field">
                 <label className="field__label" htmlFor="contact-subject">
-                  Subject <span className="field__req" aria-hidden="true">*</span>
+                  Subject{" "}
+                  <span className="field__req" aria-hidden="true">
+                    *
+                  </span>
                   <span className="visually-hidden"> (required)</span>
                 </label>
                 <input
@@ -212,12 +285,19 @@ export default function ContactClient() {
                   required
                   placeholder="Brief subject"
                 />
-                <p className="field__error" id="contact-subject-error" hidden></p>
+                <p
+                  className="field__error"
+                  id="contact-subject-error"
+                  hidden
+                ></p>
               </div>
 
               <div className="field">
                 <label className="field__label" htmlFor="contact-message">
-                  Message <span className="field__req" aria-hidden="true">*</span>
+                  Message{" "}
+                  <span className="field__req" aria-hidden="true">
+                    *
+                  </span>
                   <span className="visually-hidden"> (required)</span>
                 </label>
                 <textarea
@@ -228,12 +308,18 @@ export default function ContactClient() {
                   required
                   placeholder="Tell us more..."
                 ></textarea>
-                <p className="field__error" id="contact-message-error" hidden></p>
+                <p
+                  className="field__error"
+                  id="contact-message-error"
+                  hidden
+                ></p>
               </div>
 
               <button
                 className="btn btn--primary contact-form__submit"
                 type="submit"
+                disabled={isSubmitting}
+                aria-busy={isSubmitting}
               >
                 Send Message →
               </button>
@@ -242,7 +328,9 @@ export default function ContactClient() {
 
           <aside className="contact-sidebar" aria-label="Contact shortcuts">
             <div className="contact-channels">
-              <h2 className="contact-channels__title">Other ways to reach us</h2>
+              <h2 className="contact-channels__title">
+                Other ways to reach us
+              </h2>
               <p className="contact-channels__lede">
                 Prefer a different channel? You can also reach us here.
               </p>
@@ -278,7 +366,9 @@ export default function ContactClient() {
                     </span>
                     <span className="contact-channel__body">
                       <span className="contact-channel__label">Email</span>
-                      <span className="contact-channel__value">hello@techforge.ng</span>
+                      <span className="contact-channel__value">
+                        info@techforgesummit.com
+                      </span>
                       <span className="contact-channel__note">
                         We typically respond within 24–48 hours.
                       </span>
@@ -289,25 +379,32 @@ export default function ContactClient() {
                 <li>
                   <a
                     className="contact-channel"
-                    href="https://www.linkedin.com/company/techforge"
+                    href="https://www.tiktok.com/the.infinite.comm"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <span
-                      className="contact-channel__icon contact-channel__icon--linkedin"
+                      className="contact-channel__icon contact-channel__icon--tiktok"
                       aria-hidden="true"
                     >
                       <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                          d="M6.4 9.2H3.8V20h2.6V9.2ZM5.1 4c-.9 0-1.6.7-1.6 1.6S4.2 7.2 5.1 7.2s1.6-.7 1.6-1.6S6 4 5.1 4ZM20.2 12.3c0-2.5-1.6-3.6-3.3-3.6-1.2 0-2 .5-2.5 1.3h-.1V9.2h-2.5c0 .6 0 10.8 0 10.8h2.5v-6c0-.3 0-.6.1-.8.3-.6.9-1.2 1.9-1.2 1.3 0 1.9.9 1.9 2.3V20h2.5v-7.7Z"
-                        />
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 640 640"
+                          fill="currentColor"
+                        >
+                          <path d="M0 0h640v640H0z" fill="none" />
+                          <path
+                            fill="currentColor"
+                            d="M544.5 273.9c-44 .1-87-13.6-122.8-39.2v178.7c0 33.1-10.1 65.4-29 92.6s-45.6 48-76.6 59.6s-64.8 13.5-96.9 5.3s-60.9-25.9-82.7-50.8s-35.3-56-39-88.9s2.9-66.1 18.6-95.2s40-52.7 69.6-67.7s62.9-20.5 95.7-16v89.9c-15-4.7-31.1-4.6-46 .4s-27.9 14.6-37 27.3s-14 28.1-13.9 43.9s5.2 31 14.5 43.7s22.4 22.1 37.4 26.9s31.1 4.8 46-.1s28-14.4 37.2-27.1s14.2-28.1 14.2-43.8V64h88c-.1 7.4.6 14.9 1.9 22.2c3.1 16.3 9.4 31.9 18.7 45.7s21.3 25.6 35.2 34.6c19.9 13.1 43.2 20.1 67 20.1V274z"
+                          />
+                        </svg>
                       </svg>
                     </span>
                     <span className="contact-channel__body">
-                      <span className="contact-channel__label">LinkedIn</span>
+                      <span className="contact-channel__label">Tiktok</span>
                       <span className="contact-channel__note">
-                        Connect with us on LinkedIn for updates, partnerships
-                        and community.
+                        Follow us for the latest updates.
                       </span>
                     </span>
                   </a>
@@ -316,7 +413,7 @@ export default function ContactClient() {
                 <li>
                   <a
                     className="contact-channel"
-                    href="https://www.instagram.com/techforge.ng"
+                    href="https://www.instagram.com/theinfinitecommunity"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -341,12 +438,19 @@ export default function ContactClient() {
                           stroke="currentColor"
                           strokeWidth="1.8"
                         />
-                        <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" />
+                        <circle
+                          cx="17.2"
+                          cy="6.8"
+                          r="1.1"
+                          fill="currentColor"
+                        />
                       </svg>
                     </span>
                     <span className="contact-channel__body">
                       <span className="contact-channel__label">Instagram</span>
-                      <span className="contact-channel__value">@techforge.ng</span>
+                      <span className="contact-channel__value">
+                        @theinfinitecommunity
+                      </span>
                       <span className="contact-channel__note">
                         Follow us for the latest updates.
                       </span>
@@ -357,13 +461,15 @@ export default function ContactClient() {
             </div>
 
             <div className="contact-enquiries">
-              <p className="eyebrow contact-enquiries__eyebrow">Specific enquiries</p>
+              <p className="eyebrow contact-enquiries__eyebrow">
+                Specific enquiries
+              </p>
               <ul className="contact-enquiries__list">
                 <li>
                   <button
                     type="button"
                     className="contact-enquiries__link"
-                    onClick={() => handleShortcut('partnerships')}
+                    onClick={() => handleShortcut("partnerships")}
                   >
                     Partnerships &amp; Sponsorships →
                   </button>
@@ -372,7 +478,7 @@ export default function ContactClient() {
                   <button
                     type="button"
                     className="contact-enquiries__link"
-                    onClick={() => handleShortcut('speaking')}
+                    onClick={() => handleShortcut("speaking")}
                   >
                     Speaking Opportunities →
                   </button>
@@ -381,7 +487,7 @@ export default function ContactClient() {
                   <button
                     type="button"
                     className="contact-enquiries__link"
-                    onClick={() => handleShortcut('media')}
+                    onClick={() => handleShortcut("media")}
                   >
                     Media &amp; Press →
                   </button>
@@ -390,7 +496,7 @@ export default function ContactClient() {
                   <button
                     type="button"
                     className="contact-enquiries__link"
-                    onClick={() => handleShortcut('general')}
+                    onClick={() => handleShortcut("general")}
                   >
                     General Enquiries →
                   </button>

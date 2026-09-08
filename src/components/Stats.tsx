@@ -216,7 +216,7 @@ export default function Stats() {
             />
           </svg>
           <div className="stat__text">
-            <p className="stat__value">1,000+</p>
+            <p className="stat__value">600+</p>
             <p className="stat__label">Attendees</p>
           </div>
         </div>
@@ -245,7 +245,7 @@ export default function Stats() {
             />
           </svg>
           <div className="stat__text">
-            <p className="stat__value">20+</p>
+            <p className="stat__value">10+</p>
             <p className="stat__label">Speakers</p>
           </div>
         </div>

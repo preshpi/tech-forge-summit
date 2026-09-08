@@ -60,7 +60,7 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        <Link className="btn btn--primary header-cta js-nav-item" href="/#tickets">
+        <Link className="btn btn--primary header-cta js-nav-item" href="https://tix.africa/discover/the-tech-forge">
           Get Your Ticket <span className="btn__arrow" aria-hidden="true">→</span>
         </Link>
 

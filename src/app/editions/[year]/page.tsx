@@ -9,6 +9,8 @@ interface GalleryItem {
   src: string;
   alt?: string;
   size?: string;
+  width?: number;
+  height?: number;
 }
 
 interface Edition {
@@ -27,8 +29,15 @@ interface Edition {
     heroImageAlt?: string;
     showNote?: boolean;
     gallery?: GalleryItem[];
+    fullGallery?: GalleryItem[];
     galleryHref?: string;
   };
+}
+
+function getImageSrc(src: string) {
+  return src.startsWith('/') || /^https?:\/\//i.test(src)
+    ? src
+    : `/assets/${src}`;
 }
 
 declare global {
@@ -59,6 +68,7 @@ export default function EditionDetailPage({ params }: { params: Promise<{ year: 
   const [isLoaded, setIsLoaded] = useState(() => {
     return typeof window !== 'undefined' && !!window.TechForgeEditions;
   });
+  const [isFullGalleryVisible, setIsFullGalleryVisible] = useState(false);
 
   const handleScriptLoad = () => {
     if (window.TechForgeEditions) {
@@ -153,7 +163,7 @@ export default function EditionDetailPage({ params }: { params: Promise<{ year: 
                   <span className="edition-detail__accent" aria-hidden="true"></span>
                   <figure className="edition-detail__photo relative aspect-16/10 overflow-hidden rounded-2xl">
                     <Image
-                      src={`/assets/${h.heroImage}`}
+                      src={getImageSrc(h.heroImage)}
                       alt={h.heroImageAlt || edition.title}
                       fill
                       className="object-cover"
@@ -174,9 +184,21 @@ export default function EditionDetailPage({ params }: { params: Promise<{ year: 
                     <p className="edition-gallery__lede">
                       A glimpse into the energy, conversations and community that made Tech Forge {edition.year} special.
                     </p>
-                    <Link className="btn btn--outline" href={h.galleryHref || "/editions"}>
-                      View Full Gallery →
-                    </Link>
+                    {h.fullGallery && h.fullGallery.length > 0 ? (
+                      <button
+                        className="btn btn--outline"
+                        type="button"
+                        aria-expanded={isFullGalleryVisible}
+                        aria-controls={`full-gallery-${edition.year}`}
+                        onClick={() => setIsFullGalleryVisible(true)}
+                      >
+                        View Full Gallery →
+                      </button>
+                    ) : (
+                      <Link className="btn btn--outline" href={h.galleryHref || "/editions"}>
+                        View Full Gallery →
+                      </Link>
+                    )}
                   </div>
                   <div className="edition-gallery__collage">
                     {h.gallery.map((img, i) => (
@@ -185,7 +207,7 @@ export default function EditionDetailPage({ params }: { params: Promise<{ year: 
                         className={`edition-gallery__item edition-gallery__item--${img.size || "square"}${i === 0 ? " edition-gallery__item--lead" : ""}`}
                       >
                         <Image
-                          src={`/assets/${img.src}`}
+                          src={getImageSrc(img.src)}
                           alt={img.alt || ""}
                           width={1536}
                           height={1024}
@@ -195,6 +217,31 @@ export default function EditionDetailPage({ params }: { params: Promise<{ year: 
                     ))}
                   </div>
                 </div>
+
+                {isFullGalleryVisible && h.fullGallery && (
+                  <div
+                    id={`full-gallery-${edition.year}`}
+                    className="mt-20 columns-1 gap-4 sm:mt-24 sm:columns-2 lg:columns-3 xl:columns-4"
+                    aria-label={`Full Tech Forge ${edition.year} event gallery`}
+                  >
+                    {h.fullGallery.map((img, i) => (
+                      <figure
+                        key={`${img.src}-${i}`}
+                        className="mb-6 inline-block w-full break-inside-avoid overflow-hidden rounded-2xl bg-[#0b1220]"
+                      >
+                        <Image
+                          src={getImageSrc(img.src)}
+                          alt={img.alt || ""}
+                          width={img.width || 1000}
+                          height={img.height || 668}
+                          sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, (max-width: 1279px) 33vw, 25vw"
+                          className="block h-auto w-full"
+                          loading="lazy"
+                        />
+                      </figure>
+                    ))}
+                  </div>
+                )}
               </section>
             )}
           </>

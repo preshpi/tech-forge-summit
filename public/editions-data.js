@@ -1,6 +1,134 @@
 (function (global) {
   "use strict";
 
+  var GALLERY_2025 = [
+    {
+      src: "/tf1.jpg",
+      alt: "Tech Forge 2025 event moment 1",
+      width: 668,
+      height: 1000,
+      size: "wide",
+    },
+    {
+      src: "/tf2.jpg",
+      alt: "Tech Forge 2025 event moment 2",
+      width: 1000,
+      height: 668,
+      size: "tall",
+    },
+    {
+      src: "/tf3.jpg",
+      alt: "Tech Forge 2025 event moment 3",
+      width: 668,
+      height: 1000,
+      size: "square",
+    },
+    {
+      src: "/tf4.jpg",
+      alt: "Tech Forge 2025 event moment 4",
+      width: 1000,
+      height: 668,
+      size: "square",
+    },
+    {
+      src: "/tf5.jpg",
+      alt: "Tech Forge 2025 event moment 5",
+      width: 1000,
+      height: 668,
+      size: "square",
+    },
+    {
+      src: "/tf6.jpg",
+      alt: "Tech Forge 2025 event moment 6",
+      width: 1000,
+      height: 863,
+    },
+    {
+      src: "/tf7.jpg",
+      alt: "Tech Forge 2025 event moment 7",
+      width: 1000,
+      height: 637,
+    },
+    {
+      src: "/tf8.jpg",
+      alt: "Tech Forge 2025 event moment 8",
+      width: 1000,
+      height: 668,
+    },
+    {
+      src: "/tf9.jpg",
+      alt: "Tech Forge 2025 event moment 9",
+      width: 1000,
+      height: 668,
+    },
+    {
+      src: "/tf10.jpg",
+      alt: "Tech Forge 2025 event moment 10",
+      width: 1000,
+      height: 637,
+    },
+    {
+      src: "/tf11.jpg",
+      alt: "Tech Forge 2025 event moment 11",
+      width: 668,
+      height: 1000,
+    },
+    {
+      src: "/tf12.jpg",
+      alt: "Tech Forge 2025 event moment 12",
+      width: 692,
+      height: 1000,
+    },
+    {
+      src: "/tf13.jpg",
+      alt: "Tech Forge 2025 event moment 13",
+      width: 692,
+      height: 1000,
+    },
+    {
+      src: "/tf14.jpg",
+      alt: "Tech Forge 2025 event moment 14",
+      width: 1000,
+      height: 668,
+    },
+    {
+      src: "/tf15.jpg",
+      alt: "Tech Forge 2025 event moment 15",
+      width: 1000,
+      height: 668,
+    },
+    {
+      src: "/tf16.jpg",
+      alt: "Tech Forge 2025 event moment 16",
+      width: 1000,
+      height: 668,
+    },
+    {
+      src: "/tf17.jpg",
+      alt: "Tech Forge 2025 event moment 17",
+      width: 1000,
+      height: 668,
+    },
+    {
+      src: "/tf18.jpg",
+      alt: "Tech Forge 2025 event moment 18",
+      width: 1000,
+      height: 668,
+    },
+    {
+      src: "/tf19.jpg",
+      alt: "Tech Forge 2025 event moment 19",
+      width: 1000,
+      height: 668,
+    },
+    {
+      src: "/tf20.jpg",
+      alt: "Tech Forge 2025 event moment 20",
+      width: 1000,
+      height: 668,
+    },
+  ];
+
   var EDITIONS = [
     {
       year: 2026,
@@ -45,33 +173,8 @@
         heroImageAlt: "Speakers on stage at Tech Forge 2025",
         showNote: true,
         stats: [],
-        gallery: [
-          {
-            src: "conference-wide.png",
-            alt: "Audience at Tech Forge 2025",
-            size: "wide",
-          },
-          {
-            src: "hero-stage.png",
-            alt: "Keynote moment at Tech Forge 2025",
-            size: "tall",
-          },
-          {
-            src: "networking.png",
-            alt: "Networking at Tech Forge 2025",
-            size: "square",
-          },
-          {
-            src: "second.png",
-            alt: "Attendees at Tech Forge 2025",
-            size: "square",
-          },
-          {
-            src: "hero-audience.png",
-            alt: "Community moment at Tech Forge 2025",
-            size: "square",
-          },
-        ],
+        gallery: GALLERY_2025.slice(0, 5),
+        fullGallery: GALLERY_2025,
         galleryHref: "/editions",
         speakers: [],
         speakersHref: null,
