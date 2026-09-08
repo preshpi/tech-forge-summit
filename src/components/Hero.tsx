@@ -201,7 +201,7 @@ export default function Hero() {
             </div>
           </div>
           <div className="text-right space-y-1">
-            <div>Downtown</div>
+            <div>The Zone</div>
             <div>Lagos, Nigeria</div>
           </div>
         </div> */
