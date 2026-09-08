@@ -1,208 +1,192 @@
-"use client";
+// 
 
-import { useEffect, useState } from "react";
-import { CountdownTicker } from "./Countdown";
-import HeroBackdrop from "./HeroBackdrop";
-import { ArrowUpRight, Fan } from "lucide-react";
-
-const words = ["Skills", "Strategy", "Innovation"];
-const slideCount = words.length;
-const slideHoldMs = 2400;
-const transitionMs = 850;
-const typewriterText = "The TechForgefor all the";
-const typewriterDelayMs = 180;
-const typewriterStaggerMs = 45;
-const typewriterRevealMs = 520;
-const typewriterTotalMs =
-  typewriterDelayMs +
-  (typewriterText.length - 1) * typewriterStaggerMs +
-  typewriterRevealMs;
-
-const verticalWordsColors = ["#ff0054", "#fcdd01", "#ff6b4a"];
-
-export function TypewriterText({
-  children,
-  startIndex = 0,
-}: {
-  children: string;
-  startIndex?: number;
-}) {
-  return (
-    <>
-      {Array.from(children).map((character, index) => (
-        <span
-          key={`${character}-${index}`}
-          className="hero-typewriter-character"
-          style={{
-            animationDelay: `${
-              typewriterDelayMs + (startIndex + index) * typewriterStaggerMs
-            }ms`,
-          }}
-        >
-          {character === " " ? "\u00a0" : character}
-        </span>
-      ))}
-    </>
-  );
-}
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Hero() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [nextIndex, setNextIndex] = useState(1);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [transitionKey, setTransitionKey] = useState(0);
-  const [introComplete, setIntroComplete] = useState(false);
-
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    if (prefersReducedMotion) {
-      Promise.resolve().then(() => setIntroComplete(true));
-      return;
-    }
-
-    const finishIntro = window.setTimeout(
-      () => setIntroComplete(true),
-      typewriterTotalMs,
-    );
-
-    return () => window.clearTimeout(finishIntro);
-  }, []);
-
-  useEffect(() => {
-    if (!introComplete) return;
-
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    if (prefersReducedMotion) {
-      return;
-    }
-
-    if (isTransitioning) {
-      const finishTransition = window.setTimeout(() => {
-        setActiveIndex(nextIndex);
-        setNextIndex((nextIndex + 1) % slideCount);
-        setIsTransitioning(false);
-      }, transitionMs);
-
-      return () => window.clearTimeout(finishTransition);
-    }
-
-    const startTransition = window.setTimeout(() => {
-      setNextIndex((activeIndex + 1) % slideCount);
-      setTransitionKey((key) => key + 1);
-      setIsTransitioning(true);
-    }, slideHoldMs);
-
-    return () => window.clearTimeout(startTransition);
-  }, [activeIndex, introComplete, isTransitioning, nextIndex]);
-
   return (
-    <section
-      id="top"
-      className="relative flex h-[60vh] lg:h-screen flex-col justify-between overflow-hidden"
-    >
-      <HeroBackdrop
-        activeIndex={activeIndex}
-        nextIndex={nextIndex}
-        isTransitioning={isTransitioning}
-        transitionKey={transitionKey}
-        transitionMs={transitionMs}
-      />
+    <section className="hero" aria-labelledby="hero-heading">
+      <div className="hero__bg" aria-hidden="true">
+        <span className="hero__shape hero__shape--1"></span>
+        <span className="hero__shape hero__shape--2"></span>
+        <span className="hero__shape hero__shape--3"></span>
+      </div>
+      <div className="container hero__grid">
+        <div className="hero__content">
+          <p className="eyebrow js-hero-item">
+            <svg
+              className="eyebrow__mark"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="7" r="2.2" fill="currentColor" />
+              <circle cx="7.5" cy="15.5" r="2.2" fill="currentColor" />
+              <circle cx="16.5" cy="15.5" r="2.2" fill="currentColor" />
+              <path
+                d="M8.2 13.6c1.4 1.5 3 2.2 3.8 2.2s2.4-.7 3.8-2.2"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+              />
+            </svg>
+            The Infinite Community Presents
+          </p>
 
-      <div className="relative mx-auto flex w-full h-full max-w-8xl px-4 sm:px-10 ">
-        {/* headline anchored to the bottom of the viewport */}
-        <div className="mt-auto w-full h-full flex flex-col items-center justify-center">
-          <div className="px-5 py-2 mb-10 text-[10px] lg:text-sm bg-white rounded-full text-ink flex gap-3 items-center">
-            <Fan
-              className="animate-[spin_1.2s_linear_infinite] motion-reduce:animate-none"
-              aria-hidden="true"
-            />
-            <span>TechForge 2.0: Forging Impact Through Innovation</span>
-            <Fan
-              className="animate-[spin_1.2s_linear_infinite] [animation-direction:reverse] motion-reduce:animate-none"
-              aria-hidden="true"
-            />
-          </div>
-          {/* <Marquee /> */}
-          <h1
-            aria-label={`The TechForge for all the ${words.join(", ")}`}
-            className="text-[24px] lg:text-[75px] text-center font-bold leading-[1.08] tracking-tight text-paper drop-shadow-[0_2px_8px_rgba(10,10,12,0.55)] lg:leading-[1.2]"
-          >
-            <span aria-hidden="true">
-              <span className="whitespace-nowrap">
-                <TypewriterText>The Builder&apos;s Blueprint </TypewriterText>
-              </span>
-            </span>
-            <div className="mt-2 flex flex-wrap items-baseline justify-center gap-x-2 gap-y-1 text-[18px] font-medium lg:text-[30px]">
-              {words.map((word, index) => (
-                <span
-                  key={word}
-                  className="whitespace-nowrap"
-                  style={{
-                    color:
-                      verticalWordsColors[index % verticalWordsColors.length],
-                  }}
-                >
-                  {word}
-                  {index < words.length - 2
-                    ? ","
-                    : index === words.length - 2
-                      ? " &"
-                      : ""}
-                </span>
-              ))}
-              <span className="whitespace-nowrap">for the future</span>
-            </div>
+          <h1 className="hero__title js-hero-item" id="hero-heading">
+            <span className="hero__title-line  js-hero-item">The Builders’</span>
+            <span className="text-blue hero__title-line js-hero-item">Blueprint</span>
           </h1>
 
-          <div className="flex w-full flex-col items-center justify-center">
-            <a
-              href="https://tix.africa/discover/the-tech-forge"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm pointer-events-auto mt-2 lg:mt-6 inline-flex items-center gap-2 rounded-full bg-white p-2 lg:p-3 pl-5 pr-2  font-semibold text-black transition-colors hover:bg-zinc-200"
-            >
-              <span>Get Your Ticket</span>
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-white">
-                <ArrowUpRight className="h-3.5 w-3.5" />
+          <p className="hero__support js-hero-item">
+            Skills, Strategy &amp; Innovation for the future.
+          </p>
+
+          <div className="event-meta js-hero-item js-stagger js-stagger--tight">
+            <div className="event-meta__col">
+              <svg
+                className="event-meta__icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <rect
+                  x="3"
+                  y="5"
+                  width="18"
+                  height="16"
+                  rx="3"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                />
+                <path
+                  d="M3 10h18M8 3v4M16 3v4"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                />
+              </svg>
+              <div className="event-meta__text">
+                <p className="event-meta__primary">Saturday, December 5, 2026</p>
+                <p className="event-meta__secondary">9:00 AM – 5:00 PM (WAT)</p>
               </div>
+            </div>
+            <div className="event-meta__col">
+              <svg
+                className="event-meta__icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M12 21s6.5-5.2 6.5-10.2A6.5 6.5 0 0 0 12 4.3a6.5 6.5 0 0 0-6.5 6.5C5.5 15.8 12 21 12 21Z"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinejoin="round"
+                />
+                <circle
+                  cx="12"
+                  cy="10.8"
+                  r="2.1"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                />
+              </svg>
+              <div className="event-meta__text">
+                <p className="event-meta__primary">The Zone</p>
+                <p className="event-meta__secondary">
+                  Plot 9, Gbagada Industrial Scheme, beside UPS,
+                  Gbagada-Oworonshoki Expressway, Lagos State
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="btn-row js-hero-item">
+            <a className="btn btn--primary" href="#tickets">
+              Get Your Ticket <span className="btn__arrow" aria-hidden="true">→</span>
             </a>
+            <Link className="btn-play" href="/editions-2025">
+              <span className="btn-play__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="11"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                  />
+                  <path d="M10 8.5v7l6-3.5-6-3.5Z" fill="currentColor" />
+                </svg>
+              </span>
+              Watch 2025 Highlights
+            </Link>
+          </div>
 
-            <CountdownTicker className="mt-5" />
+          <p className="hero__script script js-hero-item js-reveal--script">
+            <span className="script--highlight">A More Human Tech Tomorrow</span>
+          </p>
+        </div>
 
-            {/* <a
-              href="#about"
-              className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap text-xs font-medium text-paper/90 drop-shadow-[0_1px_4px_rgba(10,10,12,0.75)] transition-colors hover:text-paper sm:text-sm"
+        <div className="hero__visual">
+          <div className="hero__stack">
+            <svg
+              className="hero__spark js-hero-item js-parallax"
+              data-parallax="8"
+              viewBox="0 0 48 48"
+              aria-hidden="true"
             >
-              Scroll to explore
-              <span className="inline-block animate-bounce">↓</span>
-            </a> */}
+              <path fill="#e83a5c" d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8Z" />
+              <path fill="#f5c518" d="M36 2l2.4 7.2L46 12l-7.6 2.8L36 22l-2.4-7.2L26 12l7.6-2.8Z" />
+              <path fill="#0b1220" d="M12 26l2.4 7.2L22 36l-7.6 2.8L12 46l-2.4-7.2L2 36l7.6-2.8Z" />
+              <path fill="#1e4fd8" d="M36 26l2.4 7.2L46 36l-7.6 2.8L36 46l-2.4-7.2L26 36l7.6-2.8Z" />
+            </svg>
+
+            <figure
+              className="hero__photo js-hero-item js-parallax"
+              data-parallax="12"
+            >
+              <Image
+                src="/assets/hero-stage.png"
+                alt="Speaker on stage at Tech Forge"
+                width={1400}
+                height={1810}
+                priority
+              />
+            </figure>
+
+            <aside
+              className="hero__yellow js-hero-item js-reveal--note js-parallax"
+              data-parallax="6"
+              aria-hidden="true"
+            >
+              <p>People</p>
+              <p>Ideas</p>
+              <p>Products</p>
+              <p>A Brighter</p>
+              <p className="hero__yellow-accent">Tomorrow</p>
+            </aside>
+
+            <span
+              className="hero__pink js-hero-item js-parallax"
+              data-parallax="10"
+              aria-hidden="true"
+            ></span>
+
+            <figure
+              className="hero__inset js-hero-item js-reveal--inset js-parallax"
+              data-parallax="22"
+            >
+              <Image
+                src="/assets/hero-audience.png"
+                alt="Audience member at Tech Forge"
+                width={900}
+                height={836}
+              />
+            </figure>
           </div>
         </div>
       </div>
     </section>
   );
-}
-
-{
-  /* date / location meta, upper third */
-}
-{
-  /* <div className="mt-6 flex w-full max-w-125 items-start justify-between gap-6 font-mono text-[10px] uppercase tracking-wider text-paper/80 sm:mt-16">
-          <div className="space-y-1">
-            <div>December 5, 2026</div>
-            <div className="text-signal">
-              <Countdown />
-            </div>
-          </div>
-          <div className="text-right space-y-1">
-            <div>Downtown</div>
-            <div>Lagos, Nigeria</div>
-          </div>
-        </div> */
 }

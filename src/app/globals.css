@@ -13,7 +13,7 @@ colors:
 
 */
 
-:root {
+/* :root {
   --color-primary: #4845e2;
   --color-secondary: #ff0054;
   --color-tertiary: #3862d2;
@@ -24,11 +24,12 @@ colors:
   --color-accent-2: #b98cff;
   --color-accent-3: #ff6b4a;
   --color-muted: #e5ebfc;
-  --color-decent: #c9d5f9;
+  --color-decent: #c9d5f9; */
 
   /* Single typeface (BDOGrotesk, loaded locally via next/font) used for every
      role — display, body, and mono/eyebrow text — across the whole site. */
-  --font-display: var(--font-bdo-grotesk);
+
+  /* --font-display: var(--font-bdo-grotesk);
   --font-body: var(--font-bdo-grotesk);
   --font-mono: var(--font-bdo-grotesk);
 }
@@ -46,9 +47,9 @@ colors:
   --color-accent-2: var(--color-accent-2);
   --color-accent-3: var(--color-accent-3);
   --color-muted: var(--color-muted);
-}
+} */
 
-.bg-primary {
+/* .bg-primary {
   background-color: var(--color-signal);
 }
 
@@ -184,10 +185,10 @@ body {
 
 .font-mono {
   font-family: var(--font-mono);
-}
+} */
 
 /* Marquee ticker */
-@keyframes marquee {
+/* @keyframes marquee {
   from {
     transform: translateX(0);
   }
@@ -203,10 +204,10 @@ body {
 }
 .animate-marquee-reverse {
   animation: marquee 40s linear infinite reverse;
-}
+} */
 
 /* Orbit for the "who it's for" signature element */
-@keyframes orbit {
+/* @keyframes orbit {
   from {
     transform: rotate(0deg) translateX(var(--radius)) rotate(0deg);
   }
@@ -228,10 +229,10 @@ body {
 }
 .animate-spin-slow {
   animation: spin-slow 18s linear infinite;
-}
+} */
 
 /* Image-filled display text */
-.image-text-fill {
+/* .image-text-fill {
   display: inline-block;
   color: transparent;
   background-position: center;
@@ -242,10 +243,10 @@ body {
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: 0.025em rgba(242, 242, 240, 0.82);
   paint-order: stroke fill;
-}
+} */
 
 /* Ticket CTA switch */
-.ticket-switcher {
+/* .ticket-switcher {
   display: inline-flex;
   align-items: center;
   width: 11.25rem;
@@ -393,10 +394,10 @@ body {
     width: 0.875rem;
     height: 0.875rem;
   }
-}
+} */
 
 /* Hero image carousel */
-.hero-image-carousel {
+/* .hero-image-carousel {
   isolation: isolate;
 }
 
@@ -421,19 +422,19 @@ body {
   inset-inline: -8%;
   bottom: 0;
   z-index: 2;
-  height: 44%;
+  height: 44%; */
   /* background:
     linear-gradient(180deg, transparent 0%, rgba(242, 242, 240, 0.26) 15%, rgba(65, 155, 194, 0.52) 46%, rgba(10, 10, 12, 0.42) 72%, transparent 100%); */
-  filter: blur(18px);
+  /* filter: blur(18px);
   mix-blend-mode: screen;
   opacity: 0;
   pointer-events: none;
   transform: translateY(115%);
   animation: hero-carousel-wipe-up 850ms cubic-bezier(0.72, 0, 0.28, 1) both;
   will-change: transform, opacity;
-}
+} */
 
-@keyframes hero-image-wipe-in {
+/* @keyframes hero-image-wipe-in {
   from {
     clip-path: inset(100% 0 0 0);
   }
@@ -457,10 +458,10 @@ body {
     opacity: 0;
     transform: translateY(-260%);
   }
-}
+} */
 
 /* Hero typewriter */
-.hero-typewriter-character {
+/* .hero-typewriter-character {
   display: inline-block;
   opacity: 0;
   filter: blur(12px);
@@ -485,10 +486,10 @@ body {
     filter: blur(0);
     transform: translateY(0) scale(1);
   }
-}
+} */
 
 /* Hero countdown ticker */
-.hero-countdown {
+/* .hero-countdown {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -547,10 +548,10 @@ body {
     filter: blur(0);
     transform: translateY(0);
   }
-}
+} */
 
 /* Agenda time counter */
-.session-time-cell {
+/* .session-time-cell {
   position: relative;
   display: inline-block;
   flex-shrink: 0;
@@ -585,10 +586,10 @@ body {
 
 .session-time-new-down {
   animation-name: session-time-new-down;
-}
+} */
 
 /* Footer glass spotlight */
-.techforge-footer {
+/* .techforge-footer {
   --footer-pointer-x: 50%;
   --footer-pointer-y: 50%;
   --footer-spotlight-size: 0px;
@@ -705,10 +706,10 @@ body {
   .session-time-value:first-child {
     display: none;
   }
-}
+} */
 
 /* subtle grain */
-.grain {
+/* .grain {
   position: relative;
 }
 .grain::after {
@@ -723,11 +724,11 @@ body {
 ::selection {
   background: var(--color-signal);
   color: #0a0a0c;
-}
+} */
 
 /* attendee plate (DP) — the zoom control. A square signal thumb on a hairline
    track, so the framing control matches the plate's own rectilinear marks. */
-.dp-range {
+/* .dp-range {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
@@ -807,4 +808,4 @@ body {
   .dp-range::-moz-range-thumb {
     transition: none;
   }
-}
+} */
