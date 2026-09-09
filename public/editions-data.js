@@ -151,7 +151,7 @@
       year: 2025,
       status: "completed",
       title: "Tech Forge 2025",
-      theme: "Building for real impact.",
+      theme: "Forging the tool of tomorrow today.",
       datePrimary: "September 13, 2025",
       dateSecondary: null,
       venuePrimary: "The Zone",
@@ -161,8 +161,8 @@
       listImage: "/tf19.jpg",
       listImageAlt: "Panel discussion at Tech Forge 2025",
       highlights: {
-        headlineDark: "Building for",
-        headlineBlue: "real impact.",
+        headlineDark: "Forging the tool of",
+        headlineBlue: "tomorrow today.",
         retrospective:
           "Tech Forge 2025 brought builders, founders and technology professionals together for a day of practical learning, real conversations and meaningful connections across Africa’s tech community.",
         datePrimary: null,
