@@ -303,8 +303,8 @@ export default function ContactClient() {
               <div style={{ minHeight: "65px", marginBottom: "1.5rem" }}>
                 <Turnstile
                   siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-                  onSuccess={(token) => setTurnstileToken(token)}
-                  onError={(err) => {
+                  onSuccess={(token: string) => setTurnstileToken(token)}
+                  onError={(err: unknown) => {
                     console.error("Turnstile Widget Error:", err);
                     setTurnstileToken(null);
                   }}
