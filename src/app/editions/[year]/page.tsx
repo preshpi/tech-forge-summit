@@ -174,7 +174,7 @@ export default function EditionDetailPage({ params }: { params: Promise<{ year: 
             </section>
 
             {h.gallery && h.gallery.length > 0 && (
-              <section className="edition-gallery section--compact" aria-labelledby="gallery-heading">
+              <section className="w-full edition-gallery section--compact" aria-labelledby="gallery-heading">
                 <div className="container edition-gallery__layout">
                   <div className="edition-gallery__intro">
                     <p className="eyebrow">Event Gallery</p>
@@ -218,10 +218,11 @@ export default function EditionDetailPage({ params }: { params: Promise<{ year: 
                   </div>
                 </div>
 
+
                 {isFullGalleryVisible && h.fullGallery && (
                   <div
                     id={`full-gallery-${edition.year}`}
-                    className="mx-auto mt-20 max-w-[1280px] columns-2 px-5 [column-gap:0.75rem] sm:mt-24 sm:px-8 sm:[column-gap:1rem] lg:columns-3 lg:px-10 lg:[column-gap:1.5rem] xl:columns-4"
+                    className="mx-auto mt-20 columns-2 px-5 [column-gap:0.75rem] sm:mt-24 sm:px-8 sm:[column-gap:1rem] lg:columns-3 lg:px-10 lg:[column-gap:1.5rem] xl:columns-4"
                     aria-label={`Full Tech Forge ${edition.year} event gallery`}
                   >
                     {h.fullGallery.map((img, i) => (
@@ -242,6 +243,7 @@ export default function EditionDetailPage({ params }: { params: Promise<{ year: 
                     ))}
                   </div>
                 )}
+
               </section>
             )}
           </>

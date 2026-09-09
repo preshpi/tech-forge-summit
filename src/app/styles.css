@@ -2981,6 +2981,9 @@ button {
 
 .edition-gallery {
   background: var(--blue-mist);
+  width: 100%;
+  max-width: 90%;
+  margin-inline: auto;
 }
 
 .edition-gallery__layout {
