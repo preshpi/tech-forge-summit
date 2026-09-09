@@ -27,7 +27,7 @@ export default function Community() {
         <div className="community__gallery js-stagger" id="gallery">
           <figure className="media community__main js-reveal--image">
             <Image
-              src="/assets/conference-wide.png"
+              src="/tf2.jpg"
               alt="Tech Forge audience smiling together"
               width={1536}
               height={1024}
@@ -35,7 +35,7 @@ export default function Community() {
           </figure>
           <figure className="media community__side community__side--top">
             <Image
-              src="/assets/conference-stage-alt.png"
+              src="/tf1.jpg"
               alt="Conference stage from a past Tech Forge"
               width={1536}
               height={1024}
@@ -43,7 +43,7 @@ export default function Community() {
           </figure>
           <figure className="media community__side community__side--bottom">
             <Image
-              src="/assets/networking.png"
+              src="/tf3.jpg"
               alt="Networking at Tech Forge"
               width={1536}
               height={1024}
