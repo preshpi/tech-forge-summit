@@ -1,9 +1,8 @@
-"client";
-
 "use client";
 
 import { useState, FormEvent } from "react";
 import Image from "next/image";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 const CONTACT_ENDPOINT =
   "https://formsubmit.co/ajax/info.techforgeevent@gmail.com";
@@ -14,12 +13,19 @@ export default function ContactClient() {
     null,
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
 
     if (!form.reportValidity() || isSubmitting) return;
+
+    if (!turnstileToken) {
+      setStatusMessage("Please complete the Turnstile verification.");
+      setStatusState("error");
+      return;
+    }
 
     const formData = new FormData(form);
     const subject = String(formData.get("subject") ?? "").trim();
@@ -50,6 +56,7 @@ export default function ContactClient() {
       setStatusMessage("Success");
       setStatusState("success");
       form.reset();
+      setTurnstileToken(null);
     } catch {
       setStatusMessage("Error");
       setStatusState("error");
@@ -173,7 +180,9 @@ export default function ContactClient() {
                 style={{ fontWeight: 100, marginBottom: "4px" }}
               >
                 {statusState === "error"
-                  ? "We couldn’t send your message just now. Please try again in a moment."
+                  ? statusMessage === "Please complete the Turnstile verification."
+                    ? "Please complete the verification check to prove you are human."
+                    : "We couldn’t send your message just now. Please try again in a moment."
                   : "We’ve received your message and someone from the Tech Forge team will get back to you soon."}
               </p>
             </div>
@@ -202,11 +211,6 @@ export default function ContactClient() {
                     required
                     placeholder="Your name"
                   />
-                  <p
-                    className="field__error"
-                    id="contact-name-error"
-                    hidden
-                  ></p>
                 </div>
 
                 <div className="field">
@@ -226,11 +230,6 @@ export default function ContactClient() {
                     required
                     placeholder="you@example.com"
                   />
-                  <p
-                    className="field__error"
-                    id="contact-email-error"
-                    hidden
-                  ></p>
                 </div>
               </div>
 
@@ -262,11 +261,6 @@ export default function ContactClient() {
                   <option value="event-support">Event Support</option>
                   <option value="other">Other</option>
                 </select>
-                <p
-                  className="field__error"
-                  id="contact-enquiry-error"
-                  hidden
-                ></p>
               </div>
 
               <div className="field">
@@ -285,11 +279,6 @@ export default function ContactClient() {
                   required
                   placeholder="Brief subject"
                 />
-                <p
-                  className="field__error"
-                  id="contact-subject-error"
-                  hidden
-                ></p>
               </div>
 
               <div className="field">
@@ -308,11 +297,19 @@ export default function ContactClient() {
                   required
                   placeholder="Tell us more..."
                 ></textarea>
-                <p
-                  className="field__error"
-                  id="contact-message-error"
-                  hidden
-                ></p>
+              </div>
+
+              {/* Cloudflare Turnstile Widget */}
+              <div style={{ minHeight: "65px", marginBottom: "1.5rem" }}>
+                <Turnstile
+                  siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+                  onSuccess={(token) => setTurnstileToken(token)}
+                  onError={(err) => {
+                    console.error("Turnstile Widget Error:", err);
+                    setTurnstileToken(null);
+                  }}
+                  onExpire={() => setTurnstileToken(null)}
+                />
               </div>
 
               <button
@@ -321,7 +318,7 @@ export default function ContactClient() {
                 disabled={isSubmitting}
                 aria-busy={isSubmitting}
               >
-                Send Message →
+                {isSubmitting ? "Sending..." : "Send Message →"}
               </button>
             </form>
           </div>
@@ -371,88 +368,6 @@ export default function ContactClient() {
                       </span>
                       <span className="contact-channel__note">
                         We typically respond within 24–48 hours.
-                      </span>
-                    </span>
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    className="contact-channel"
-                    href="https://www.tiktok.com/the.infinite.comm"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <span
-                      className="contact-channel__icon contact-channel__icon--tiktok"
-                      aria-hidden="true"
-                    >
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 640 640"
-                          fill="currentColor"
-                        >
-                          <path d="M0 0h640v640H0z" fill="none" />
-                          <path
-                            fill="currentColor"
-                            d="M544.5 273.9c-44 .1-87-13.6-122.8-39.2v178.7c0 33.1-10.1 65.4-29 92.6s-45.6 48-76.6 59.6s-64.8 13.5-96.9 5.3s-60.9-25.9-82.7-50.8s-35.3-56-39-88.9s2.9-66.1 18.6-95.2s40-52.7 69.6-67.7s62.9-20.5 95.7-16v89.9c-15-4.7-31.1-4.6-46 .4s-27.9 14.6-37 27.3s-14 28.1-13.9 43.9s5.2 31 14.5 43.7s22.4 22.1 37.4 26.9s31.1 4.8 46-.1s28-14.4 37.2-27.1s14.2-28.1 14.2-43.8V64h88c-.1 7.4.6 14.9 1.9 22.2c3.1 16.3 9.4 31.9 18.7 45.7s21.3 25.6 35.2 34.6c19.9 13.1 43.2 20.1 67 20.1V274z"
-                          />
-                        </svg>
-                      </svg>
-                    </span>
-                    <span className="contact-channel__body">
-                      <span className="contact-channel__label">Tiktok</span>
-                      <span className="contact-channel__note">
-                        Follow us for the latest updates.
-                      </span>
-                    </span>
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    className="contact-channel"
-                    href="https://www.instagram.com/theinfinitecommunity"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <span
-                      className="contact-channel__icon contact-channel__icon--instagram"
-                      aria-hidden="true"
-                    >
-                      <svg viewBox="0 0 24 24" fill="none">
-                        <rect
-                          x="3"
-                          y="3"
-                          width="18"
-                          height="18"
-                          rx="5"
-                          stroke="currentColor"
-                          strokeWidth="1.8"
-                        />
-                        <circle
-                          cx="12"
-                          cy="12"
-                          r="4.2"
-                          stroke="currentColor"
-                          strokeWidth="1.8"
-                        />
-                        <circle
-                          cx="17.2"
-                          cy="6.8"
-                          r="1.1"
-                          fill="currentColor"
-                        />
-                      </svg>
-                    </span>
-                    <span className="contact-channel__body">
-                      <span className="contact-channel__label">Instagram</span>
-                      <span className="contact-channel__value">
-                        @theinfinitecommunity
-                      </span>
-                      <span className="contact-channel__note">
-                        Follow us for the latest updates.
                       </span>
                     </span>
                   </a>

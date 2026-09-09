@@ -13,10 +13,10 @@ export default function Conversations() {
                 Real conversations. Real impact.
               </h2>
             </div>
-            <a className="link-arrow" href="#programme">
+            {/* <a className="link-arrow" href="#programme">
               Explore all topics
               <span className="link-arrow__glyph" aria-hidden="true">→</span>
-            </a>
+            </a> */}
           </div>
 
           <div className="topics__grid js-stagger js-stagger--topics">
