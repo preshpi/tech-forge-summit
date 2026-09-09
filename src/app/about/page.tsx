@@ -47,7 +47,7 @@ export default function AboutPage() {
               <span className="about-story__accent" aria-hidden="true"></span>
               <figure className="about-story__photo">
                 <Image
-                  src="/assets/second.png"
+                  src="/tf18.jpg"
                   alt="Audience at a Tech Forge gathering"
                   width={1536}
                   height={1024}
@@ -220,7 +220,7 @@ export default function AboutPage() {
               <span className="about-community__blob" aria-hidden="true"></span>
               <figure className="about-community__photo">
                 <Image
-                  src="/assets/networking.png"
+                  src="/tf11.jpg"
                   alt="Builders connecting at Tech Forge"
                   width={1536}
                   height={1024}
