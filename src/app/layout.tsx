@@ -1,12 +1,19 @@
-import './globals.css';
-import './styles.css';
-import './motion.css';
+import "./globals.css";
+import "./styles.css";
+import "./motion.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import type { Metadata } from 'next';
-import Script from 'next/script';
+import type { Metadata } from "next";
+import Script from "next/script";
 import MotionHandler from "@/components/MotionHandler";
 import { Caveat, Plus_Jakarta_Sans } from "next/font/google";
+import {
+  DEFAULT_OG_IMAGE,
+  HOME_DESCRIPTION,
+  HOME_TITLE,
+  SITE_NAME,
+  SITE_URL,
+} from "@/lib/site";
 
 const caveat = Caveat({
   subsets: ["latin"],
@@ -21,8 +28,48 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Tech Forge 2026 — The Builders' Blueprint",
-  description: "Tech Forge brings together builders across Africa for a full day of skills, strategy and innovation. December 5, 2026 · Lagos.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: HOME_TITLE,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: HOME_DESCRIPTION,
+  applicationName: SITE_NAME,
+  creator: "The Infinite Community",
+  publisher: "The Infinite Community",
+  keywords: [
+    "TechForge 2026",
+    "technology conference Lagos",
+    "tech conference Nigeria",
+    "African technology conference",
+    "startup conference Nigeria",
+    "software engineering conference Lagos",
+  ],
+  alternates: {
+    canonical: "/",
+  },
+
+  openGraph: {
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    url: "/",
+    siteName: SITE_NAME,
+    images: [DEFAULT_OG_IMAGE],
+    locale: "en_NG",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    images: [DEFAULT_OG_IMAGE],
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
@@ -31,7 +78,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${caveat.variable} ${plusJakartaSans.variable}`}>
+    <html
+      lang="en"
+      className={`${caveat.variable} ${plusJakartaSans.variable}`}
+    >
       <head>
         <Script
           id="motion-init"

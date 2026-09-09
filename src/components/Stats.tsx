@@ -249,7 +249,7 @@ export default function Stats() {
             <p className="stat__label">Speakers</p>
           </div>
         </div>
-        <div className="stat js-reveal" data-count="10">
+        <div className="stat js-reveal" data-count="10" data-suffix="+">
           <svg className="stat__icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
             <path
               d="M10 14.5 20 9l10 5.5-10 5.5L10 14.5Z"

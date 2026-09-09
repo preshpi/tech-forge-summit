@@ -3,11 +3,14 @@ import Image from "next/image";
 import { ArrowDownRight, Fan } from "lucide-react";
 import GalleryFooter from "@/components/GalleryFooter";
 import GalleryTypewriter from "@/components/GalleryTypewriter";
+import { createPageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Gallery | The TechForge",
-  description: "A look back at the first edition of The TechForge.",
-};
+export const metadata: Metadata = createPageMetadata({
+  title: "Gallery",
+  description:
+    "Explore moments, conversations and community highlights from the first Tech Forge gathering in Lagos.",
+  path: "/gallery",
+});
 
 const moments = [
   { src: "/tf1.jpg", ratio: "aspect-[2/3]" },
