@@ -142,7 +142,7 @@
       venueSecondary: "Gbagada, Lagos",
       summary:
         "Our biggest edition yet. Bringing together builders, founders, technology professionals, students and emerging talent for a full day of practical learning, meaningful conversations and connections.",
-      listImage: "second.png",
+      listImage: "/tf18.jpg",
       listImageAlt: "Audience at Tech Forge",
       ticketHref: "#tickets",
       highlights: null,
@@ -158,7 +158,7 @@
       venueSecondary: "Gbagada, Lagos",
       summary:
         "A gathering of builders, founders and technology talent coming together to learn, connect and push Africa’s tech ecosystem forward.",
-      listImage: "conference-stage-alt.png",
+      listImage: "/tf19.jpg",
       listImageAlt: "Panel discussion at Tech Forge 2025",
       highlights: {
         headlineDark: "Building for",
@@ -169,7 +169,7 @@
         dateSecondary: null,
         venuePrimary: "Lagos, Nigeria",
         venueSecondary: null,
-        heroImage: "conference-stage-alt.png",
+        heroImage: "/tf15.jpg",
         heroImageAlt: "Speakers on stage at Tech Forge 2025",
         showNote: true,
         stats: [],

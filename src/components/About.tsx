@@ -52,7 +52,7 @@
 //                 industry, and meet others figuring things out too.
 //               </p>
 //               <p>
-//                 This December, over 1,000 attendees and 10+ speakers will come
+//                 This December, over 600 attendees and 10+ speakers will come
 //                 together for one focused day of practical conversations about
 //                 technology, careers, building, and meaningful connection.
 //               </p>
