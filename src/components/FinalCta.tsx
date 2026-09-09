@@ -25,7 +25,7 @@ export default function FinalCta() {
             <span className="reveal-line">Come build with us.</span>
           </h2>
           <div className="btn-row js-reveal">
-            <a className="btn btn--primary" href="#tickets">
+            <a className="btn btn--primary" target="_blank" href="https://tix.africa/discover/the-tech-forge">
               Get Your Ticket <span className="btn__arrow" aria-hidden="true">→</span>
             </a>
             <Link className="btn btn--outline" href="/contact">

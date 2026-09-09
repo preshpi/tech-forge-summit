@@ -144,7 +144,7 @@
         "Our biggest edition yet. Bringing together builders, founders, technology professionals, students and emerging talent for a full day of practical learning, meaningful conversations and connections.",
       listImage: "/tf18.jpg",
       listImageAlt: "Audience at Tech Forge",
-      ticketHref: "#tickets",
+      ticketHref: "https://tix.africa/discover/the-tech-forge",
       highlights: null,
     },
     {

@@ -1739,6 +1739,7 @@ button {
 .speakers-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
   gap: clamp(1.75rem, 3.5vw, 2.75rem) clamp(1.15rem, 2.2vw, 1.75rem);
 }
 
@@ -1857,6 +1858,51 @@ button {
   color: var(--ink);
 }
 
+.speaker-card--upcoming {
+  border-color: var(--border-strong);
+  transition:
+    border-color var(--transition),
+    background-color var(--transition);
+}
+
+.speaker-placeholder__media {
+  display: grid;
+  place-items: center;
+  background: var(--blue-soft);
+  transition: background-color var(--transition);
+}
+
+.speaker-placeholder__question {
+  color: var(--blue-deep);
+  font-size: clamp(5.5rem, 9vw, 7.5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.08em;
+  transform-origin: center;
+  transition: transform var(--transition);
+}
+
+.speaker-badge--upcoming {
+  background: var(--white);
+  color: var(--blue-deep);
+}
+
+.speaker-card__rule--upcoming {
+  background: var(--blue);
+}
+
+.speaker-card--upcoming:hover {
+  border-color: rgba(30, 79, 216, 0.35);
+}
+
+.speaker-card--upcoming:hover .speaker-placeholder__media {
+  background: #dfe8fb;
+}
+
+.speaker-card--upcoming:hover .speaker-placeholder__question {
+  transform: scale(1.04);
+}
+
 .speakers-grid__note {
   margin: clamp(2rem, 4vw, 2.75rem) 0 0;
   text-align: center;
@@ -1884,6 +1930,14 @@ button {
     grid-template-columns: 1fr;
     max-width: 22rem;
     margin-inline: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .speaker-card--upcoming,
+  .speaker-placeholder__media,
+  .speaker-placeholder__question {
+    transition: none;
   }
 }
 
