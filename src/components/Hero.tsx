@@ -147,7 +147,7 @@ export default function Hero() {
               data-parallax="12"
             >
               <Image
-                src="/assets/hero-stage.png"
+                src="/tf9.jpg"
                 alt="Speaker on stage at Tech Forge"
                 width={1400}
                 height={1810}
@@ -178,7 +178,7 @@ export default function Hero() {
               data-parallax="22"
             >
               <Image
-                src="/assets/hero-audience.png"
+                src="/tf10.jpg"
                 alt="Audience member at Tech Forge"
                 width={900}
                 height={836}
