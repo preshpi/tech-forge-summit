@@ -3,7 +3,7 @@ import Image from "next/image";
 const speakers = [
   {
     name: "Paul Edward",
-    role: "Founder, TIC\nCTO, Afrinvest West Africa",
+    role: "Founder, TIC\nHost, The TechForge",
     session: "The Next Chapter for African Builders",
     image: "/assets/speakers/infinity-paul-1.jpeg",
     badge: "Fireside Chat",
@@ -30,7 +30,7 @@ const speakers = [
   },
   {
     name: "Folashade Blessing",
-    role: "Co-founder, PiggyVest\nCEO, FirstCheck Africa",
+    role: "Senior Product Designer, Interswitch Group\nFounder, Designer Fola Circle",
     session: "Designing for the Future: Building Products People Actually Need",
     image: "/assets/speakers/folashade.jpeg",
     badge: "Speaker",

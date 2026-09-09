@@ -185,7 +185,7 @@ export default function Sponsors() {
         {/* Right Column: Text & Contact CTA */}
         <div className="lg:col-span-5 lg:pt-8 flex flex-col justify-between space-y-6">
           <p className="text-zinc-300 text-sm sm:text-base leading-relaxed font-normal">
-            The TechForge 2026 is expected to bring together more than 1,000
+            The TechForge 2026 is expected to bring together more than 600
             developers, founders, designers, students, product professionals,
             and people building careers across tech.
           </p>

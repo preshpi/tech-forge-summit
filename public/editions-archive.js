@@ -20,8 +20,7 @@
       return {
         calendar:
           '<svg class="edition-row__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
-        pin:
-          '<svg class="edition-row__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s6.5-5.2 6.5-10.2A6.5 6.5 0 0 0 12 4.3a6.5 6.5 0 0 0-6.5 6.5C5.5 15.8 12 21 12 21Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10.8" r="2.1" stroke="currentColor" stroke-width="1.8"/></svg>',
+        pin: '<svg class="edition-row__icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s6.5-5.2 6.5-10.2A6.5 6.5 0 0 0 12 4.3a6.5 6.5 0 0 0-6.5 6.5C5.5 15.8 12 21 12 21Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10.8" r="2.1" stroke="currentColor" stroke-width="1.8"/></svg>',
       };
     }
 
@@ -41,7 +40,7 @@
                 esc(edition.dateSecondary) +
                 "</p>"
               : "") +
-            "</div></div>"
+            "</div></div>",
         );
       }
 
@@ -57,7 +56,7 @@
                 esc(edition.venueSecondary) +
                 "</p>"
               : "") +
-            "</div></div>"
+            "</div></div>",
         );
       }
 
@@ -70,10 +69,7 @@
         return (
           '<a class="btn btn--primary" href="' +
           esc(
-            window.TechForgeEditions.page(
-              "",
-              edition.ticketHref || "#tickets"
-            )
+            window.TechForgeEditions.page("", edition.ticketHref || "#tickets"),
           ) +
           '">Get Your Ticket →</a>'
         );

@@ -8,7 +8,7 @@
 
 // const stats = [
 //   {
-//     value: 1000,
+//     value: 600,
 //     suffix: "+",
 //     label: "Attendees",
 //     desc: "People from across tech, all in one room to learn, connect, and exchange ideas.",
@@ -199,7 +199,7 @@ export default function Stats() {
   return (
     <section className="stats" aria-label="Event highlights">
       <div className="container stats__grid">
-        <div className="stat js-reveal" data-count="1000" data-suffix="+">
+        <div className="stat js-reveal" data-count="600" data-suffix="+">
           <svg className="stat__icon" viewBox="0 0 40 40" fill="none" aria-hidden="true">
             <circle cx="20" cy="14" r="4.5" stroke="currentColor" strokeWidth="2" />
             <path

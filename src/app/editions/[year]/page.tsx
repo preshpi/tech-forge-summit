@@ -221,20 +221,20 @@ export default function EditionDetailPage({ params }: { params: Promise<{ year: 
                 {isFullGalleryVisible && h.fullGallery && (
                   <div
                     id={`full-gallery-${edition.year}`}
-                    className="mt-20 columns-1 gap-4 sm:mt-24 sm:columns-2 lg:columns-3 xl:columns-4"
+                    className="mx-auto mt-20 max-w-[1280px] columns-2 px-5 [column-gap:0.75rem] sm:mt-24 sm:px-8 sm:[column-gap:1rem] lg:columns-3 lg:px-10 lg:[column-gap:1.5rem] xl:columns-4"
                     aria-label={`Full Tech Forge ${edition.year} event gallery`}
                   >
                     {h.fullGallery.map((img, i) => (
                       <figure
                         key={`${img.src}-${i}`}
-                        className="mb-6 inline-block w-full break-inside-avoid overflow-hidden rounded-2xl bg-[#0b1220]"
+                        className="mb-3 inline-block w-full break-inside-avoid overflow-hidden rounded-2xl bg-[#0b1220] sm:mb-4 lg:mb-6"
                       >
                         <Image
                           src={getImageSrc(img.src)}
                           alt={img.alt || ""}
                           width={img.width || 1000}
                           height={img.height || 668}
-                          sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, (max-width: 1279px) 33vw, 25vw"
+                          sizes="(max-width: 1023px) 50vw, (max-width: 1279px) 33vw, 25vw"
                           className="block h-auto w-full"
                           loading="lazy"
                         />
