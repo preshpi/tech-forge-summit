@@ -106,7 +106,7 @@ export default function Hero() {
             <a className="btn btn--primary" href="https://tix.africa/discover/the-tech-forge">
               Get Your Ticket <span className="btn__arrow" aria-hidden="true">→</span>
             </a>
-            <Link className="btn-play" href="https://www.instagram.com/reel/DOl6KDHDQPF/?stkn=MWhqMTNraHJ6cHo5eA==">
+            <Link className="btn-play" href="https://www.instagram.com/reel/DOl6KDHDQPF/?stkn=MWhqMTNraHJ6cHo5eA==" target="_blank" rel="noopener noreferrer">
               <span className="btn-play__icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none">
                   <circle
