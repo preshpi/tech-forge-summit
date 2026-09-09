@@ -1,4 +1,5 @@
 import Image from "next/image";
+import UpcomingSpeakerCard from "@/components/UpcomingSpeakerCard";
 
 const speakers = [
   {
@@ -220,6 +221,9 @@ export default function SpeakersPage() {
                   <p className="speaker-card__session">{speaker.session}</p>
                 </div>
               </li>
+            ))}
+            {Array.from({ length: 3 }, (_, index) => (
+              <UpcomingSpeakerCard key={`upcoming-speaker-${index + 1}`} />
             ))}
           </ul>
 

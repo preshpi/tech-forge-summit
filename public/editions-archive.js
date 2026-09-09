@@ -67,7 +67,7 @@
     function renderCta(edition) {
       if (edition.status === "upcoming") {
         return (
-          '<a class="btn btn--primary" href="' +
+          '<a class="btn btn--primary" target="_blank" href="' +
           esc(
             window.TechForgeEditions.page("", edition.ticketHref || "#tickets"),
           ) +

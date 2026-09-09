@@ -103,7 +103,7 @@ export default function Hero() {
           </div>
 
           <div className="btn-row js-hero-item">
-            <a className="btn btn--primary" href="https://tix.africa/discover/the-tech-forge">
+            <a className="btn btn--primary" target="_blank" href="https://tix.africa/discover/the-tech-forge">
               Get Your Ticket <span className="btn__arrow" aria-hidden="true">→</span>
             </a>
             <Link className="btn-play" href="https://www.instagram.com/reel/DOl6KDHDQPF/?stkn=MWhqMTNraHJ6cHo5eA==" target="_blank" rel="noopener noreferrer">

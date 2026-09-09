@@ -271,7 +271,7 @@ export default function Stats() {
             />
           </svg>
           <div className="stat__text">
-            <p className="stat__value">6</p>
+            <p className="stat__value">10+</p>
             <p className="stat__label">Tracks</p>
           </div>
         </div>
