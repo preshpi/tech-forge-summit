@@ -1,10 +1,12 @@
-import ContactClient from './ContactClient';
+import ContactClient from "./ContactClient";
+import { createPageMetadata } from "@/lib/site";
 
-export const metadata = {
-  title: 'Contact — Tech Forge 2026',
+export const metadata = createPageMetadata({
+  title: "Contact",
   description:
-    'Get in touch with Tech Forge — partnerships, speaking, media, volunteering, and general enquiries.',
-};
+    "Get in touch with Tech Forge about partnerships, speaking, media, volunteering and general enquiries.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return <ContactClient />;

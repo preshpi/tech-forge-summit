@@ -1,5 +1,13 @@
 import Image from "next/image";
 import UpcomingSpeakerCard from "@/components/UpcomingSpeakerCard";
+import { createPageMetadata } from "@/lib/site";
+
+export const metadata = createPageMetadata({
+  title: "Speakers",
+  description:
+    "Meet the founders, engineers, product leaders, investors and creators speaking at Tech Forge 2026 in Lagos.",
+  path: "/speakers",
+});
 
 const speakers = [
   {

@@ -1,5 +1,13 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
+import { createPageMetadata } from "@/lib/site";
+
+export const metadata = createPageMetadata({
+  title: "About",
+  description:
+    "Discover how Tech Forge brings African builders, founders and technology professionals together to learn, connect and create lasting impact.",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (
