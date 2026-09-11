@@ -13,7 +13,7 @@ const speakers = [
   {
     name: "Paul Edward",
     role: "Founder, TIC\nHost, The TechForge",
-    session: "The Next Chapter for African Builders",
+    session: "Beyond the Prompt: How AI Agents Are Changing the Way We Work, Build and Collaborate",
     image: "/assets/speakers/infinity-paul-1.jpeg",
     badge: "Fireside Chat",
     badgeClass: "speaker-badge--fireside",
