@@ -64,15 +64,15 @@ const speakers = [
     badgeClass: "speaker-badge--keynote",
     ruleClass: "speaker-badge--keynote",
   },
-  // {
-  //   name: "Bosun Tijani",
-  //   role: "Minister of Communications,\nInnovation & Digital Economy",
-  //   session: "Policy, Talent & the Builder Economy",
-  //   image: "/assets/speakers/bosun-tijani.png",
-  //   badge: "Panel",
-  //   badgeClass: "speaker-badge--panel",
-  //   ruleClass: "speaker-badge--panel",
-  // },
+  {
+    name: "Ayodeji Ebo",
+    role: "CEO MDU Capital Limited",
+    session: "To be revealed",
+    image: "/assets/speakers/ayodeji.jpeg",
+    badge: "Speaker",
+    badgeClass: "speaker-badge--keynote",
+    ruleClass: "speaker-badge--keynote",
+  },
   // {
   //   name: "Fara Ashiru Jituboh",
   //   role: "Founder\nSoft Space",
@@ -230,7 +230,7 @@ export default function SpeakersPage() {
                 </div>
               </li>
             ))}
-            {Array.from({ length: 3 }, (_, index) => (
+            {Array.from({ length: 4 - (speakers.length % 4) }, (_, index) => (
               <UpcomingSpeakerCard key={`upcoming-speaker-${index + 1}`} />
             ))}
           </ul>

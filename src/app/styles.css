@@ -444,7 +444,7 @@ button {
   border-radius: 2px;
 }
 
-/* Pure CSS mobile nav via checkbox hack — no JS */
+/* Mobile nav visibility is controlled by a checkbox. */
 .nav-checkbox {
   position: absolute;
   opacity: 0;

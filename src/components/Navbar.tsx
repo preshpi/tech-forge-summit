@@ -3,13 +3,22 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useRef } from 'react';
 
 export default function Navbar() {
   const pathname = usePathname();
+  const navToggleRef = useRef<HTMLInputElement>(null);
+
+  const closeNavbar = () => {
+    if (navToggleRef.current) {
+      navToggleRef.current.checked = false;
+    }
+  };
 
   return (
     <header className="site-header">
       <input
+        ref={navToggleRef}
         type="checkbox"
         id="nav-toggle"
         className="nav-checkbox"
@@ -31,30 +40,35 @@ export default function Navbar() {
           <Link 
             href="/" 
             aria-current={pathname === '/' ? 'page' : undefined}
+            onClick={closeNavbar}
           >
             Home
           </Link>
           <Link 
             href="/about" 
             aria-current={pathname === '/about' ? 'page' : undefined}
+            onClick={closeNavbar}
           >
             About
           </Link>
           <Link 
             href="/editions" 
             aria-current={pathname === '/editions' ? 'page' : undefined}
+            onClick={closeNavbar}
           >
             Editions
           </Link>
           <Link 
             href="/speakers" 
             aria-current={pathname === '/speakers' ? 'page' : undefined}
+            onClick={closeNavbar}
           >
             Speakers
           </Link>
           <Link 
             href="/contact" 
             aria-current={pathname === '/contact' ? 'page' : undefined}
+            onClick={closeNavbar}
           >
             Contact
           </Link>
