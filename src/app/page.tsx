@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Stats from "@/components/Stats";
 import Conversations from "@/components/Conversations";
+import { PreTechForgeHome } from "@/components/PreTechForge";
 import Community from "@/components/Community";
 import FinalCta from "@/components/FinalCta";
 import { eventJsonLd } from "@/lib/site";
@@ -25,6 +26,7 @@ export default function Home() {
         <Stats />
         <About />
         <Conversations />
+        <PreTechForgeHome />
         <Community />
         <FinalCta />
         {/* <Hosts />

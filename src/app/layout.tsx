@@ -1,6 +1,7 @@
 import "./globals.css";
 import "./styles.css";
 import "./motion.css";
+import "./pre-tech-forge.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import type { Metadata } from "next";
