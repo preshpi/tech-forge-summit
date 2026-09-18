@@ -13,8 +13,9 @@ const speakers = [
   {
     name: "Paul Edward",
     role: "Founder, TIC\nHost, The TechForge",
-    session: "Beyond the Prompt: How AI Agents Are Changing the Way We Work, Build and Collaborate",
-    image: "/assets/speakers/infinity-paul-1.jpeg",
+    session:
+      "Beyond the Prompt: How AI Agents Are Changing the Way We Work, Build and Collaborate",
+    image: "/assets/speakers/infinity-paul-3.jpeg",
     badge: "Speaker",
     badgeClass: "speaker-badge--keynote",
     ruleClass: "speaker-badge--keynote",
@@ -31,14 +32,15 @@ const speakers = [
   {
     name: "Imam Abubakar",
     role: "Founder, Sqaleup\nFounder, Upsqaler",
-    session: "Building Beyond Borders: Creating Global Tech Solutions from Africa",
+    session:
+      "Building Beyond Borders: Creating Global Tech Solutions from Africa",
     image: "/assets/speakers/imam.jpeg",
     badge: "Speaker",
     badgeClass: "speaker-badge--keynote",
     ruleClass: "speaker-badge--keynote",
   },
   {
-    name: "Folashade Blessing",
+    name: "Folashade Adegbite",
     role: "Senior Product Designer, Interswitch Group\nFounder, Designer Fola Circle",
     session: "Designing for the Future: Building Products People Actually Need",
     image: "/assets/speakers/folashade.jpeg",
@@ -73,15 +75,16 @@ const speakers = [
     badgeClass: "speaker-badge--keynote",
     ruleClass: "speaker-badge--keynote",
   },
-  // {
-  //   name: "Fara Ashiru Jituboh",
-  //   role: "Founder\nSoft Space",
-  //   session: "From Idea to Investable Product",
-  //   image: "/assets/speakers/fara-ashiru-jituboh.png",
-  //   badge: "Panel",
-  //   badgeClass: "speaker-badge--panel",
-  //   ruleClass: "speaker-badge--panel",
-  // },
+  {
+    name: "Christine Imoukhuede",
+    role: "Founder & CEO, Ahavaplan\nProduct & Technology Leader",
+    session:
+      "Building Beyond the Hype: Lessons from the realities of innovation, failure and building again.",
+    image: "/assets/speakers/Christine.jpeg",
+    badge: "Panel",
+    badgeClass: "speaker-badge--panel",
+    ruleClass: "speaker-badge--panel",
+  },
   // {
   //   name: "Ayodeji Razaq",
   //   role: "Engineering Leader\nPaystack",
@@ -152,8 +155,20 @@ export default function SpeakersPage() {
                 fill="none"
                 aria-hidden="true"
               >
-                <circle cx="9" cy="9" r="3" stroke="currentColor" strokeWidth="1.8" />
-                <circle cx="16" cy="9.5" r="2.5" stroke="currentColor" strokeWidth="1.8" />
+                <circle
+                  cx="9"
+                  cy="9"
+                  r="3"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                />
+                <circle
+                  cx="16"
+                  cy="9.5"
+                  r="2.5"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                />
                 <path
                   d="M4.5 19c.8-2.6 2.7-4 4.5-4s3.7 1.4 4.5 4"
                   stroke="currentColor"
@@ -170,8 +185,11 @@ export default function SpeakersPage() {
               Speakers
             </p>
 
-            <h1 className="heading-lg speakers-intro__title" id="speakers-heading">
-              Meet the people{' '}
+            <h1
+              className="heading-lg speakers-intro__title"
+              id="speakers-heading"
+            >
+              Meet the people{" "}
               <span className="text-blue">building what’s next.</span>
             </h1>
 
@@ -195,8 +213,10 @@ export default function SpeakersPage() {
               priority
             />
             <p className="speakers-intro__script script">
-              Ideas<br />
-              People<br />
+              Ideas
+              <br />
+              People
+              <br />
               <span className="script--highlight">Progress</span>
             </p>
           </div>
@@ -222,10 +242,15 @@ export default function SpeakersPage() {
                 </div>
                 <div className="speaker-card__body">
                   <h2 className="speaker-card__name">{speaker.name}</h2>
-                  <p className="speaker-card__role" style={{ whiteSpace: "pre-line" }}>
+                  <p
+                    className="speaker-card__role"
+                    style={{ whiteSpace: "pre-line" }}
+                  >
                     {speaker.role}
                   </p>
-                  <span className={`speaker-card__rule speaker-card__rule--${speaker.ruleClass}`}></span>
+                  <span
+                    className={`speaker-card__rule speaker-card__rule--${speaker.ruleClass}`}
+                  ></span>
                   <p className="speaker-card__session">{speaker.session}</p>
                 </div>
               </li>
@@ -235,7 +260,9 @@ export default function SpeakersPage() {
             ))}
           </ul>
 
-          <p className="speakers-grid__note">More speakers to be announced soon.</p>
+          <p className="speakers-grid__note">
+            More speakers to be announced soon.
+          </p>
         </div>
       </section>
     </main>
