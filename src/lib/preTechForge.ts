@@ -30,7 +30,7 @@ const sessions: PreTechForgeSession[] = [
     time: "18:00",
     timezone: "WAT",
     platform: "Google Meet",
-    registrationUrl: "#",
+    registrationUrl: "https://calendar.app.google/QcnioMk1wHmGaei4A"
     recordingUrl: null,
     status: "upcoming",
   },
