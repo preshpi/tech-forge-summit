@@ -34,7 +34,7 @@ export default function Footer() {
         </nav>
 
         <div className="footer-social" aria-label="Social links">
-          <a href="https://www.instagram.com/theinfinitecommunity" aria-label="Instagram" rel="noopener">
+          <a href="https://www.instagram.com/the.techforge_" aria-label="Instagram" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <rect
                 x="3"
@@ -55,7 +55,7 @@ export default function Footer() {
               <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" />
             </svg>
           </a>
-          <a href="https://www.tiktok.com/the.infinite.comm" aria-label="Tiktok" rel="noopener">
+          <a href="https://www.tiktok.com/the.techforge_" aria-label="Tiktok" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
