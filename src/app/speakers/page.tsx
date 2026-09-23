@@ -59,8 +59,8 @@ const speakers = [
   },
   {
     name: "Dabere Nnamani",
-    role: "Founder, The Data Immersed (TDI)\nData Analyst, AI, Engineer",
-    session: "To be revealed",
+    role: "Founder, The Data Immersed (TDI)\nAI Strategist and Consultant",
+    session: "AI for Good: Building Ethical, Culturally-Aware AI Systems That Actually Serve African Communities.",
     image: "/assets/speakers/annie.jpeg",
     badge: "Speaker",
     badgeClass: "speaker-badge--keynote",

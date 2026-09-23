@@ -20,7 +20,7 @@ function SessionMedia({ session, className }: { session: PreTechForgeSession; cl
 function SessionCta({ session }: { session: PreTechForgeSession }) {
   if (session.status === "upcoming" && session.registrationUrl) {
     const external = session.registrationUrl.startsWith("http");
-    return <a className="btn btn--primary ptf-card__cta" href={session.registrationUrl} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined}>Register →</a>;
+    return <a className="btn btn--primary ptf-card__cta" href={session.registrationUrl} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined}>Add to Calendar →</a>;
   }
   if (session.status === "completed" && session.recordingUrl) {
     return <a className="btn btn--outline ptf-card__cta" href={session.recordingUrl} target="_blank" rel="noopener noreferrer">Watch Session →</a>;
