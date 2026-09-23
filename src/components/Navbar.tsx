@@ -52,6 +52,13 @@ export default function Navbar() {
             About
           </Link>
           <Link 
+            href="/pre-tech-forge" 
+            aria-current={pathname === '/pre-tech-forge' ? 'page' : undefined}
+            onClick={closeNavbar}
+          >
+            Pre-TechForge
+          </Link>
+          <Link 
             href="/editions" 
             aria-current={pathname === '/editions' ? 'page' : undefined}
             onClick={closeNavbar}
