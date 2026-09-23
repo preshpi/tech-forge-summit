@@ -23,7 +23,7 @@ const speakers = [
   {
     name: "Iyinoluwa Aboyeji",
     role: "Founding Partner, Future Africa\nCo-founder, Andela",
-    session: "The Next Chapter for African Builders",
+    session: "Building for the Future: Skills, Technology & Opportunity in Africa",
     image: "/assets/speakers/iyinoluwa-aboyeji-1.jpeg",
     badge: "Fireside Chat",
     badgeClass: "speaker-badge--fireside",
