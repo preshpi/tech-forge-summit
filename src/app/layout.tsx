@@ -15,6 +15,7 @@ import {
   SITE_NAME,
   SITE_URL,
 } from "@/lib/site";
+import NextTopLoader from "nextjs-toploader";
 
 const caveat = Caveat({
   subsets: ["latin"],
@@ -108,6 +109,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <NextTopLoader />
         <MotionHandler />
         <Navbar />
         {children}
