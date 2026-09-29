@@ -86,6 +86,22 @@ export default function RootLayout({
     >
       <head>
         <Script
+          id="google-analytics-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){window.dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-8N08BFEDTK');
+            `,
+          }}
+        />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-8N08BFEDTK"
+          strategy="afterInteractive"
+        />
+        <Script
           id="motion-init"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{

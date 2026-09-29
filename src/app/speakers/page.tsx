@@ -30,6 +30,35 @@ const speakers = [
     ruleClass: "speaker-badge--fireside",
   },
   {
+    name: "Olakunle Soriyan",
+    role: "Founder & Chief Strategist, FEEDBACK FROM THE FUTURE",
+    session:
+      "To be revealed",
+    image: "/assets/speakers/pk.png",
+    badge: "Speaker",
+    badgeClass: "speaker-badge--keynote",
+    ruleClass: "speaker-badge--keynote",
+  },
+  {
+    name: "Christine Imoukhuede",
+    role: "Founder & CEO, Ahavaplan\nProduct & Technology Leader",
+    session:
+      "Building Beyond the Hype: Lessons from the realities of innovation, failure and building again.",
+    image: "/assets/speakers/Christine.jpeg",
+    badge: "Panel",
+    badgeClass: "speaker-badge--panel",
+    ruleClass: "speaker-badge--panel",
+  },
+  {
+    name: "Dabere Nnamani",
+    role: "Founder, The Data Immersed (TDI)\nAI Strategist and Consultant",
+    session: "AI for Good: Building Ethical, Culturally-Aware AI Systems That Actually Serve African Communities.",
+    image: "/assets/speakers/annie.jpeg",
+    badge: "Speaker",
+    badgeClass: "speaker-badge--keynote",
+    ruleClass: "speaker-badge--keynote",
+  },
+  {
     name: "Imam Abubakar",
     role: "Founder, Sqaleup\nFounder, Upsqaler",
     session:
@@ -58,15 +87,6 @@ const speakers = [
     ruleClass: "speaker-badge--keynote",
   },
   {
-    name: "Dabere Nnamani",
-    role: "Founder, The Data Immersed (TDI)\nAI Strategist and Consultant",
-    session: "AI for Good: Building Ethical, Culturally-Aware AI Systems That Actually Serve African Communities.",
-    image: "/assets/speakers/annie.jpeg",
-    badge: "Speaker",
-    badgeClass: "speaker-badge--keynote",
-    ruleClass: "speaker-badge--keynote",
-  },
-  {
     name: "Ayodeji Ebo",
     role: "CEO MDU Capital Limited",
     session: "To be revealed",
@@ -74,16 +94,6 @@ const speakers = [
     badge: "Speaker",
     badgeClass: "speaker-badge--keynote",
     ruleClass: "speaker-badge--keynote",
-  },
-  {
-    name: "Christine Imoukhuede",
-    role: "Founder & CEO, Ahavaplan\nProduct & Technology Leader",
-    session:
-      "Building Beyond the Hype: Lessons from the realities of innovation, failure and building again.",
-    image: "/assets/speakers/Christine.jpeg",
-    badge: "Panel",
-    badgeClass: "speaker-badge--panel",
-    ruleClass: "speaker-badge--panel",
   },
   // {
   //   name: "Ayodeji Razaq",
