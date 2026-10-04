@@ -33,9 +33,9 @@ const speakers = [
     name: "Olakunle Soriyan",
     role: "Founder & Chief Strategist, FEEDBACK FROM THE FUTURE",
     session:
-      "To be revealed",
-    image: "/assets/speakers/pk.png",
-    badge: "Speaker",
+      "The Builder's Blueprint: Skills, Strategy & Innovation for the future.",
+    image: "/assets/speakers/PK.jpeg",
+    badge: "Keynote",
     badgeClass: "speaker-badge--keynote",
     ruleClass: "speaker-badge--keynote",
   },
