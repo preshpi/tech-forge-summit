@@ -1,0 +1,3 @@
+project_id = "techforge-questions"
+[functions.submit-question]
+verify_jwt = false

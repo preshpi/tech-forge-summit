@@ -1,4 +1,5 @@
 import "./globals.css";
+import "./questions.css";
 import "./styles.css";
 import "./motion.css";
 import "./pre-tech-forge.css";

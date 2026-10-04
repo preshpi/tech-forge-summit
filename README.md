@@ -34,3 +34,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Session audience questions
+
+Audience question pages, Supabase migrations, protected Edge submission, and admin tools are implemented. See [setup, security model, tests, and exact deployment commands](docs/audience-questions.md). Configure the placeholders in `.env.example` securely before enabling this feature.

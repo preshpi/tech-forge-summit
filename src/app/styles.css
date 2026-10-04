@@ -436,6 +436,11 @@ button {
   flex-direction: column;
 }
 
+.nav-toggle:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 4px;
+}
+
 .nav-toggle span {
   display: block;
   width: 1.1rem;
