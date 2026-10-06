@@ -95,6 +95,16 @@ const speakers = [
     badgeClass: "speaker-badge--keynote",
     ruleClass: "speaker-badge--keynote",
   },
+  {
+    name: "Adesuwa Imasekha",
+    role: "CEO, TAI Corp",
+    session:
+      "To be revealed",
+    image: "/assets/speakers/adesuwa.png",
+    badge: "Speaker",
+    badgeClass: "speaker-badge--keynote",
+    ruleClass: "speaker-badge--keynote",
+  },
   // {
   //   name: "Ayodeji Razaq",
   //   role: "Engineering Leader\nPaystack",
