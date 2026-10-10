@@ -1,0 +1,20 @@
+import assert from 'node:assert/strict';
+// Run against a running local app; no prizes or winner records are created.
+const base = process.env.GAME_TEST_BASE_URL ?? 'http://localhost:3000';
+const page = await fetch(`${base}/game`);
+assert.equal(page.status, 200);
+assert.match(await page.text(), /Continue spin/);
+const adminPage = await fetch(`${base}/admin`);
+assert.equal(adminPage.status, 200);
+assert.match(await adminPage.text(), /Admin workspace/);
+const api = `${base}/api/questions/game`;
+const prizes = await fetch(`${api}/prizes`);
+assert.equal(prizes.status, 200);
+assert.ok(Array.isArray(await prizes.json()));
+assert.equal((await fetch(`${api}/admin/wins`)).status, 401);
+assert.equal((await fetch(`${api}/admin/prizes`)).status, 401);
+const post = (path, body, origin = base) => fetch(`${api}/${path}`, {method:'POST', headers:{'Content-Type':'application/json',Origin:origin},body:JSON.stringify(body)});
+assert.equal((await post('spin', {})).status, 400);
+assert.equal((await post('spin', {}, 'https://invalid.example')).status, 403);
+assert.equal((await post('admin/prizes', {name:'Unauthorized test', quantity:1})).status, 401);
+console.log('PASS: game and relocated admin pages, public prize listing, private admin routes, input validation, and origin checks. No prizes or winners created.');

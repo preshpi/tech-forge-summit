@@ -32,4 +32,4 @@ if (!user) {
 if (!user.email_confirmed_at) throw new Error('Existing account email is unconfirmed. Verify ownership in Supabase Auth before authorising it.');
 // The RPC does not exist in the public schema: grant the allowlist through SQL via a one-time admin-only function.
 await api('rest/v1/rpc/provision_question_admin','POST',{p_user:user.id});
-console.log('The configured admin account is authorised. Sign in at /questions/admin.');
+console.log('The configured admin account is authorised. Sign in at /admin.');

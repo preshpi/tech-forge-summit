@@ -14,6 +14,8 @@ try {
  }
  await db.exec(await readFile('supabase/tests/questions.sql','utf8'));
  await db.exec(await readFile('supabase/tests/question_deletion.sql','utf8'));
+ await db.exec(await readFile('supabase/tests/spin_game.sql','utf8'));
+ console.log('PASS: spin awards, stock, retries, email uniqueness, private winner records, and prize admin access.');
  console.log('PASS: public restrictions, session isolation, admin permissions, self-promotion prevention, closed intake, retries, moderation, persistent limits, session dates, private deletion ownership, and deletion retries.');
 } catch(e) { console.error(e.message); process.exitCode=1; }
 finally { await db.close(); }

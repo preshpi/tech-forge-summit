@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/gallery`, changeFrequency: "yearly", priority: 0.6 },
     { url: `${SITE_URL}/contact`, changeFrequency: "yearly", priority: 0.5 },
     { url: `${SITE_URL}/dp`, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${SITE_URL}/game`, changeFrequency: "weekly", priority: 0.6 },
   ];
 
   const editionPages: MetadataRoute.Sitemap = getCompletedEditions().map(

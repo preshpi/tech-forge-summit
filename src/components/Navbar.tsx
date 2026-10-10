@@ -86,6 +86,7 @@ export default function Navbar() {
             Contact
           </Link>
           <Link href="/questions" aria-current={pathname.startsWith("/questions") ? "page" : undefined} onClick={closeNavbar}>Questions</Link>
+          <Link href="/game" aria-current={pathname === '/game' ? 'page' : undefined} onClick={closeNavbar}>Spin & Win</Link>
         </nav>
 
         <Link className="btn btn--primary header-cta js-nav-item" target='_blank' href="https://tix.africa/discover/the-tech-forge">

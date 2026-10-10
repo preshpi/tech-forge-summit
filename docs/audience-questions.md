@@ -9,7 +9,7 @@ Routes:
 - `/questions`: published event selection.
 - `/questions/[event]`: published session listing.
 - `/questions/[event]/[session]`: shareable session page, optional name and speaker point, question submission, 20-question pages, 15-second polling while open, and retained questions when closed.
-- `/questions/admin`: admin sign-in, event/session creation and editing, intake controls, and paginated hide/restore moderation.
+- `/admin`: admin sign-in, event/session creation and editing, intake controls, and paginated hide/restore moderation.
 
 All dates are displayed and entered in Africa/Lagos (WAT). Published Pre-TechForge sessions must have distinct dates. Published Main Event sessions must match the event's date. Counts come from database records; no frontend session count is fixed. Slugs form the shareable URLs; keep them stable after sharing.
 
@@ -87,7 +87,7 @@ Set `ADMIN_EMAIL` to the owner's actual email. For a new account, securely suppl
 node scripts/provision-question-admin.mjs
 ```
 
-The script reads `.env.local` using Next's environment loader. It never prints credentials or the configured email. Sign in at `/questions/admin` with that email and password. Remove the setup password and service-role key from the website runtime environment after provisioning. Supply the credentials privately to the owner using the password manager's secure sharing process. Do not send them in source, logs, or this chat.
+The script reads `.env.local` using Next's environment loader. It never prints credentials or the configured email. Sign in at `/admin` with that email and password. Remove the setup password from the website runtime environment after provisioning. Keep the service-role key server-side when the spin game is enabled, because prize awards require it; a questions-only deployment can remove it after provisioning. Supply the credentials privately to the owner using the password manager's secure sharing process. Do not send them in source, logs, or this chat.
 
 For password recovery, use Supabase Auth's normal recovery process or the Supabase dashboard. This feature does not add a public registration or password reset flow. To revoke an admin, a trusted operator runs this in the Supabase SQL editor using the actual UUID:
 
