@@ -1,30 +1,37 @@
 -- Disposable database only; every fixture is rolled back.
 begin;
+update public.game_settings set win_chance=100;
 create function public.game_assert(ok boolean, message text) returns void language plpgsql as $$ begin if ok is distinct from true then raise exception 'Assertion failed: %',message; end if; end $$;
 insert into auth.users(id,email) values ('11000000-0000-4000-8000-000000000001','game-admin@example.invalid'),('11000000-0000-4000-8000-000000000002','game-attendee@example.invalid');
 select public.provision_question_admin('11000000-0000-4000-8000-000000000001');
 insert into public.game_prizes(id,name,quantity,active) values ('21000000-0000-4000-8000-000000000001','T-shirt',2,true),('21000000-0000-4000-8000-000000000002','Paused prize',10,false);
+select public.game_assert(to_regprocedure('public.spin_game(uuid,text,text)') is null,'Unprotected legacy RPC removed');
 set local role anon;
 select public.game_assert((select count(*)=1 from public.game_prizes),'Public only sees available prizes');
 do $$ begin
  begin perform * from public.game_wins; raise exception 'Public winner access allowed'; exception when insufficient_privilege then null; end;
- begin perform public.spin_game(gen_random_uuid(),'Bypass','bypass@example.invalid'); raise exception 'Public draw RPC allowed'; exception when insufficient_privilege then null; end;
+ begin perform public.spin_game(gen_random_uuid(),'Bypass','bypass@example.invalid',repeat('a',64)); raise exception 'Public draw RPC allowed'; exception when insufficient_privilege then null; end;
  begin insert into public.game_prizes(name) values('Unauthorized'); raise exception 'Public prize insert allowed'; exception when insufficient_privilege then null; end;
 end $$;
 reset role;
 set local role service_role;
-select public.game_assert(public.spin_game('31000000-0000-4000-8000-000000000001',' Ada ',' ADA@example.invalid ')->>'prize_name'='T-shirt','Available prize awarded');
+select public.game_assert(public.spin_game('31000000-0000-4000-8000-000000000001',' Ada ',' ADA@example.invalid ',repeat('a',64))->>'prize_name'='T-shirt','Available prize awarded');
 select public.game_assert((select count(*)=1 from public.game_wins),'One winner recorded');
 select public.game_assert((select email='ada@example.invalid' and name='Ada' from public.game_wins),'Details normalized and recorded');
 select public.game_assert((select quantity=1 from public.game_prizes where name='T-shirt'),'Stock decremented');
 select public.game_assert((select jsonb_array_length(wheel)=1 from public.game_wins),'Wheel snapshot excludes paused prizes');
-select public.game_assert(public.spin_game('31000000-0000-4000-8000-000000000001','Ada','ada@example.invalid')->>'id'=(select id::text from public.game_wins),'Retry returns same award');
+select public.game_assert(public.spin_game('31000000-0000-4000-8000-000000000001','Ada','ada@example.invalid',repeat('a',64))->>'id'=(select id::text from public.game_wins),'Retry returns same award');
 select public.game_assert((select quantity=1 from public.game_prizes where name='T-shirt'),'Retry leaves stock unchanged');
-select public.game_assert(public.spin_game('31000000-0000-4000-8000-000000000001','Other','other@example.invalid') ? 'error','Conflicting retry denied');
-select public.game_assert(public.spin_game(gen_random_uuid(),'Ada','ADA@example.invalid') ? 'error','Second win per email denied');
-select public.game_assert(public.spin_game(gen_random_uuid(),'','invalid') ? 'error','Invalid details rejected');
-select public.game_assert(public.spin_game('31000000-0000-4000-8000-000000000002','Bola','bola@example.invalid')->>'prize_name'='T-shirt','Last stock awarded');
-select public.game_assert(public.spin_game(gen_random_uuid(),'Chidi','chidi@example.invalid') ? 'error','Exhausted stock rejected');
+select public.game_assert(public.spin_game(gen_random_uuid(),'Different attendee','different@example.invalid',repeat('a',64))->>'error'='Someone has already spun from this network. One attempt per IP address.','Different email on the same IP denied');
+select public.game_assert((select quantity=1 from public.game_prizes where name='T-shirt'),'Blocked IP leaves stock unchanged');
+select public.game_assert(public.spin_game('31000000-0000-4000-8000-000000000001','Ada','ada@example.invalid',repeat('z',64)) ? 'error','Malformed IP identity rejected');
+select public.game_assert(public.spin_game('31000000-0000-4000-8000-000000000001','Ada','ada@example.invalid',null) ? 'error','Missing IP identity rejected');
+select public.game_assert(public.spin_game('31000000-0000-4000-8000-000000000001','Ada','ada@example.invalid',repeat('d',64))->>'id'=(select id::text from public.game_wins),'Retry from a changed IP recovers the same win');
+select public.game_assert(public.spin_game('31000000-0000-4000-8000-000000000001','Other','other@example.invalid',repeat('a',64)) ? 'error','Conflicting retry denied');
+select public.game_assert(public.spin_game(gen_random_uuid(),'Ada','ADA@example.invalid',repeat('e',64))->>'error'='This email has already been used to spin. One attempt per email address.','Second win per email denied');
+select public.game_assert(public.spin_game(gen_random_uuid(),'','invalid',repeat('a',64)) ? 'error','Invalid details rejected');
+select public.game_assert(public.spin_game('31000000-0000-4000-8000-000000000002','Bola','bola@example.invalid',repeat('b',64))->>'prize_name'='T-shirt','Last stock awarded');
+select public.game_assert(public.spin_game(gen_random_uuid(),'Chidi','chidi@example.invalid',repeat('c',64)) ? 'error','Exhausted stock rejected');
 select public.game_assert((select count(*)=2 from public.game_wins),'Exactly two wins stored');
 select public.game_assert((select quantity=0 from public.game_prizes where name='T-shirt'),'Stock does not fall below zero');
 update public.game_prizes set name='Renamed prize' where name='T-shirt';
@@ -35,11 +42,17 @@ select set_config('request.jwt.claim.sub','11000000-0000-4000-8000-000000000002'
 select public.game_assert((select count(*)=0 from public.game_wins),'Non-admin cannot see personal details');
 do $$ begin
  begin insert into public.game_prizes(name) values('Unauthorized'); raise exception 'Non-admin prize insert allowed'; exception when insufficient_privilege then null; end;
- begin perform public.spin_game(gen_random_uuid(),'Bypass','bypass@example.invalid'); raise exception 'Authenticated draw RPC allowed'; exception when insufficient_privilege then null; end;
+ begin perform public.spin_game(gen_random_uuid(),'Bypass','bypass@example.invalid',repeat('a',64)); raise exception 'Authenticated draw RPC allowed'; exception when insufficient_privilege then null; end;
 end $$;
 select set_config('request.jwt.claim.sub','11000000-0000-4000-8000-000000000001',true);
 select public.game_assert((select count(*)=2 from public.game_wins),'Admin sees winner records');
 select public.game_assert((select count(*)=2 from public.game_prizes),'Admin sees paused and exhausted stock');
 update public.game_prizes set quantity=3,active=true where id='21000000-0000-4000-8000-000000000001';
 select public.game_assert((select quantity=3 from public.game_prizes where id='21000000-0000-4000-8000-000000000001'),'Admin can restock');
+reset role;
+select public.game_assert((select count(*)=2 from private.game_ip_attempts),'Only successful wins claim an IP');
+set local role authenticated;
+do $$ begin
+ begin perform * from private.game_ip_attempts; raise exception 'Private IP access allowed'; exception when insufficient_privilege then null; end;
+end $$;
 rollback;
