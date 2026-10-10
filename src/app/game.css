@@ -1,0 +1,54 @@
+.spin-page { background: #f0f4fc; color: #172047; padding: clamp(3rem, 7vw, 7rem) 0 4rem; }
+.spin-layout { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+.spin-eyebrow { display: inline-flex; gap: .6rem; align-items: center; color: #173ddb; font-size: .85rem; font-weight: 700; }
+.spin-copy h1 { font-size: clamp(3.4rem, 7vw, 6.7rem); line-height: 1; letter-spacing: -.065em; margin: 1.5rem 0; }
+.spin-copy h1 span { color: #173ddb; }
+.spin-copy > p { max-width: 30rem; line-height: 1.8; }
+.spin-steps { list-style: none; padding: 0; margin: 2rem 0; display: grid; gap: 1rem; font-weight: 700; }
+.spin-steps li { display: flex; gap: 1rem; align-items: center; }
+.spin-steps span { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: #fff; color: #173ddb; font-size: .75rem; }
+.spin-small { font-size: .8rem; line-height: 1.7; color: #596480; }
+.spin-stage { min-width: 0; padding: 2rem clamp(1rem, 3vw, 2.5rem); background: #fff; border: 1px solid #dfe5f0; border-radius: 2rem; box-shadow: 0 20px 65px #233a6810; text-align: center; }
+.spin-stage__tag { display: inline-flex; gap: .5rem; align-items: center; color: #173ddb; font-size: .7rem; letter-spacing: .12em; font-weight: 800; }
+.spin-wheel-wrap { position: relative; margin: 2rem auto; width: 100%; max-width: 28rem; aspect-ratio: 1; }
+.spin-wheel { width: 100%; height: 100%; border: 9px solid #172047; border-radius: 50%; box-shadow: 0 8px 0 #dbe1ed, 0 12px 30px #17204722; overflow: hidden; transition: transform 5s cubic-bezier(.12,.72,.15,1); }
+.spin-wheel svg { width: 100%; height: 100%; display: block; }
+.spin-pointer { position: absolute; z-index: 2; left: 50%; top: -12px; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 35px solid #ea7053; filter: drop-shadow(0 2px 1px #17204733); }
+.spin-hub { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 4.5rem; height: 4.5rem; border-radius: 50%; display: grid; place-items: center; background: #fff; color: #173ddb; border: 5px solid #172047; }
+.spin-stage__action { display: grid; justify-items: center; gap: .9rem; }
+.spin-button { min-width: 14rem; justify-content: center; }
+.spin-page button:disabled, .game-admin button:disabled { opacity: .55; cursor: not-allowed; }
+.spin-result > span { color: #173ddb; font-size: .8rem; text-transform: uppercase; letter-spacing: .16em; font-weight: 800; }
+.spin-result h2 { font-size: 2rem; margin: .5rem 0; }
+.spin-result p { font-size: .9rem; line-height: 1.7; margin: .75rem 0; }
+.spin-result code { font-size: .7rem; overflow-wrap: anywhere; }
+.spin-result .spin-prize-image { width: 7rem; height: 7rem; margin: 1rem auto; }
+.spin-prizes { margin-top: 5rem; }
+.spin-prizes h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); letter-spacing: -.04em; margin: .5rem 0 2rem; }
+.spin-prize-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1rem; }
+.spin-prize-grid article { border-radius: 1rem; padding: 1.5rem; background: #fff; border: 1px solid #dfe5f0; }
+.spin-prize-grid h3 { margin: 1rem 0 .5rem; }
+.spin-prize-grid p { font-size: .85rem; line-height: 1.6; color: #596480; }
+.spin-prize-image { display: block; width: 100%; height: 10rem; object-fit: contain; border-radius: .65rem; background: #f0f4fc; }
+.spin-prize-icon { display: grid; place-items: center; width: 4rem; height: 4rem; background: #ffce45; border-radius: 1rem; }
+.spin-dialog .qh-dialog__body { display: grid; gap: 1.1rem; }
+.game-admin { margin-top: 2.5rem; padding: clamp(1rem, 3vw, 2rem); }
+.game-admin-heading { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.game-admin-heading .section-label { display: flex; gap: .5rem; align-items: center; }
+.game-admin h2 { font-size: 1.6rem; letter-spacing: -.04em; }
+.game-admin .qh-caption { margin-top: .5rem; }
+.game-prize-editor { margin: 1.5rem 0; padding: 1.5rem; border: 1px solid #dfe5f0; border-radius: 1rem; background: #f5f7fc; }
+.game-admin-prizes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 1rem; margin-top: 1.5rem; }
+.game-admin-prizes article { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: center; padding: 1rem; border: 1px solid #dfe5f0; border-radius: .8rem; }
+.game-admin-prizes h3 { font-size: 1rem; }
+.game-winners-heading { margin: 2rem 0 1rem; }
+.game-winners-scroll { overflow-x: auto; }
+.game-winners { width: 100%; border-collapse: collapse; text-align: left; font-size: .85rem; }
+.game-winners th { background: #f0f4fc; font-size: .7rem; text-transform: uppercase; letter-spacing: .05em; }
+.game-winners th, .game-winners td { padding: .9rem; border-bottom: 1px solid #dfe5f0; }
+.game-winners td { overflow-wrap: anywhere; min-width: 8rem; }
+.game-winners code { font-size: .65rem; }
+.game-admin-empty { padding: 1.5rem 0; font-size: .9rem; color: #596480; }
+.game-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+@media (max-width: 800px) { .spin-layout { grid-template-columns: 1fr; } .spin-copy h1 { font-size: clamp(3.4rem, 13vw, 5rem); } .spin-copy > p { max-width: 100%; } .spin-stage { max-width: 34rem; width: 100%; margin-inline: auto; } }
+@media (prefers-reduced-motion: reduce) { .spin-wheel { transition-duration: .01s; } }

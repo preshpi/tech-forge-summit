@@ -275,9 +275,9 @@ export default function SpeakersPage() {
                 </div>
               </li>
             ))}
-            {Array.from({ length: 4 - (speakers.length % 4) }, (_, index) => (
+            {/* {Array.from({ length: 4 - (speakers.length % 4) }, (_, index) => (
               <UpcomingSpeakerCard key={`upcoming-speaker-${index + 1}`} />
-            ))}
+            ))} */}
           </ul>
 
           <p className="speakers-grid__note">
