@@ -18,13 +18,35 @@ export default function SpinGame() {
   const [rotation, setRotation] = useState(0);
   const [wheel, setWheel] = useState<WheelSegment[]>([]);
   const [result, setResult] = useState<SpinResult | null>(null);
+  const [showingCurrentWheel, setShowingCurrentWheel] = useState(false);
   const modal = useRef<HTMLDialogElement>(null);
   const pending = useRef<SpinResult | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const request = useRef<{ id: string; signature: string } | null>(null);
   async function load(restored?: SpinResult) {
     setLoading(true); setError('');
-    try { const data = await gameApi('config'); setPrizes(data.prizes); setChance(data.win_chance); setWheel(restored ? displayWheel(restored.wheel) : createPrizeWheel(data.prizes, data.win_chance)); }
+    try {
+      const [data, status] = await Promise.all([
+        gameApi('config'),
+        restored ? gameApi('result-status', { result_id: restored.id }) : Promise.resolve(null),
+      ]);
+      // Only a successful database check can invalidate a saved receipt.
+      if (status?.exists === false) {
+        try {
+          sessionStorage.removeItem('tf-spin-result');
+          sessionStorage.removeItem('tf-spin-request');
+        } catch {}
+        request.current = null;
+        restored = undefined;
+        setResult(null); setHasRequest(false); setShowingCurrentWheel(false);
+      }
+      setPrizes(data.prizes); setChance(data.win_chance);
+      if (data.prizes.length || !restored) {
+        setWheel(createPrizeWheel(data.prizes, data.win_chance));
+        setRotation(0);
+        setShowingCurrentWheel(Boolean(restored));
+      }
+    }
     catch (e) { setError((e as Error).message); }
     finally { setLoading(false); }
   }
@@ -37,6 +59,7 @@ export default function SpinGame() {
         if (saved?.id && (saved?.prize_name || saved?.outcome === 'no_prize' || saved?.outcome === 'try_again')) {
           restored = { ...saved, outcome: saved.outcome ?? 'won', win_chance: saved.win_chance ?? 100 };
           setResult(restored ?? null);
+          setWheel(displayWheel(saved.wheel));
           setRotation(resultRotation(saved.wheel, saved.prize_id, 0, saved.segment_id));
         }
       } catch {}
@@ -68,6 +91,7 @@ export default function SpinGame() {
       const win: SpinResult = { ...await gameApi('spin', { name, email, request_id: request.current.id }), request_id: request.current.id };
       try { sessionStorage.setItem('tf-spin-result', JSON.stringify(win)); } catch {}
       const target = resultRotation(win.wheel, win.prize_id, 6, win.segment_id);
+      setShowingCurrentWheel(false);
       setWheel(displayWheel(win.wheel)); pending.current = win; modal.current?.close();
       // Wait for the server's wheel snapshot to render before rotating to its winning segment.
       timer.current = setTimeout(() => {
@@ -79,7 +103,7 @@ export default function SpinGame() {
     } catch (e) { setError((e as Error).message); setBusy(false); }
   }
   function retrySpin() {
-    if (busy) return;
+    if (busy || loading) return;
     const details = request.current ? JSON.parse(request.current.signature) : null;
     if (!Array.isArray(details) || details.length !== 2) {
       setModalOpen(true); modal.current?.showModal(); return;
@@ -87,6 +111,17 @@ export default function SpinGame() {
     // A transport retry reuses its pending request; an earned extra spin gets a new one.
     if (request.current?.id === result?.request_id) request.current = null;
     void submitSpin(details[0], details[1]);
+  }
+  function toggleWheel() {
+    if (!result || chance === null || busy) return;
+    if (showingCurrentWheel) {
+      setWheel(displayWheel(result.wheel));
+      setRotation(resultRotation(result.wheel, result.prize_id, 0, result.segment_id));
+    } else {
+      setWheel(createPrizeWheel(prizes, chance));
+      setRotation(0);
+    }
+    setShowingCurrentWheel(!showingCurrentWheel);
   }
   return <main className="spin-page"><div className="container">
     <div className="spin-layout">
@@ -99,15 +134,18 @@ export default function SpinGame() {
       </section>
       <section className="spin-stage" aria-label="Prize wheel">
         <span className="spin-stage__tag"><Gift size={16} /> TECHFORGE SPIN & WIN</span>
+        {result && !busy && <p className="spin-small">{showingCurrentWheel ? 'Current wheel — your saved result is shown below.' : 'The wheel from your saved spin.'}</p>}
         <div className="spin-wheel-wrap"><div className="spin-pointer" aria-hidden="true" />
           <div className="spin-wheel" style={{ transform: `rotate(${rotation}deg)` }} onTransitionEnd={reveal}>
             <PrizeWheel prizes={wheel.length ? wheel : [{ id: 'empty', name: 'TechForge' }]} />
           </div><div className="spin-hub" aria-hidden="true"><Sparkles size={30} /></div>
         </div>
         <div className="spin-stage__action">
-          {!result && chance !== null && <p className="spin-small">{chance}% chance of winning a prize while prizes are available.</p>}
-          {result ? <div className="spin-result" role="status"><span>{result.outcome === 'won' ? 'You won!' : result.outcome === 'try_again' ? 'Another chance!' : 'Thanks for playing'}</span><h2>{result.outcome === 'won' ? result.prize_name : resultSegment(result.wheel, null, result.segment_id)?.name}</h2>{result.prize_image && <PrizeImage src={result.prize_image} name={result.prize_name ?? 'Your prize'} />}<p>{result.outcome === 'try_again' ? 'You earned another spin. Continue with the same name, email and network.' : result.outcome === 'no_prize' ? 'Your game is complete. We look forward to seeing you at TechForge!' : 'Your win is saved. Show the event team your email and this reference to collect your prize.'}</p>{result.outcome === 'try_again' && <button className="btn btn--primary spin-button" disabled={busy} onClick={retrySpin}>{busy ? spinning ? 'Spinning…' : 'Preparing your spin…' : 'Try again'}</button>}<code>{result.id}</code></div> : <><button className="btn btn--primary spin-button" disabled={loading || busy || (!prizes.length && !hasRequest)} onClick={() => { setError(''); setModalOpen(true); modal.current?.showModal(); }}><Sparkles size={19} />{loading ? 'Loading prizes…' : busy ? spinning ? 'Spinning…' : 'Preparing your spin…' : !prizes.length && hasRequest ? 'Recover your spin' : 'Spin the wheel'}</button><p className="spin-small">{!loading && !prizes.length ? 'Prizes are coming soon. Check back for your chance to win.' : 'Your next good surprise starts here.'}</p></>}
-          {error && !modalOpen && <div role="alert"><p>{error}</p>{!result && <button className="qh-button" disabled={loading || busy} onClick={() => void load()}>Reload prizes</button>}</div>}
+          <p className="spin-small">Slices are equal in size; each outcome has its own odds.</p>
+          {result && !busy && chance !== null && prizes.length > 0 && <button className="qh-button" onClick={toggleWheel}>{showingCurrentWheel ? 'View my saved spin' : 'View current wheel'}</button>}
+          {!result && chance !== null && <p className="spin-small">{chance}% chance of winning per spin while prizes are available.</p>}
+          {result ? <div className="spin-result" role="status"><span>{result.outcome === 'won' ? 'You won!' : result.outcome === 'try_again' ? 'Another chance!' : 'Thanks for playing'}</span><h2>{result.outcome === 'won' ? result.prize_name : resultSegment(result.wheel, null, result.segment_id)?.name}</h2>{result.prize_image && <PrizeImage src={result.prize_image} name={result.prize_name ?? 'Your prize'} />}<p>{result.outcome === 'try_again' ? 'You earned another spin. Continue with the same name, email and network.' : result.outcome === 'no_prize' ? 'Your game is complete. We look forward to seeing you at TechForge!' : 'Your win is saved. Show the event team your email and this reference to collect your prize.'}</p>{result.outcome === 'try_again' && <button className="btn btn--primary spin-button" disabled={busy || loading} onClick={retrySpin}>{busy ? spinning ? 'Spinning…' : 'Preparing your spin…' : 'Try again'}</button>}<code>{result.id}</code></div> : <><button className="btn btn--primary spin-button" disabled={loading || busy || (!prizes.length && !hasRequest)} onClick={() => { setError(''); setModalOpen(true); modal.current?.showModal(); }}><Sparkles size={19} />{loading ? 'Loading prizes…' : busy ? spinning ? 'Spinning…' : 'Preparing your spin…' : !prizes.length && hasRequest ? 'Recover your spin' : 'Spin the wheel'}</button><p className="spin-small">{!loading && !prizes.length ? 'Prizes are coming soon. Check back for your chance to win.' : 'Your next good surprise starts here.'}</p></>}
+          {error && !modalOpen && <div role="alert"><p>{error}</p><button className="qh-button" disabled={loading || busy} onClick={() => void load(result ?? undefined)}>{result ? 'Check saved result' : 'Reload prizes'}</button></div>}
         </div>
       </section>
     </div>

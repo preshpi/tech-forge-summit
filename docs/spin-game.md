@@ -4,7 +4,7 @@ The audience page is `/game`. Prize management and winner records are in the exi
 
 Add prizes with a name, optional description and image (PNG/JPG/WebP under 350 KB), and remaining quantity. Activate a prize to add it to the wheel; pause it to remove it. Zero-stock prizes disappear automatically. Editing a prize does not alter historical winner names or images.
 
-Attendees click **Spin the wheel**, enter their name and email, then click **Continue spin**. The server uses the configured winning chance (20% by default) to choose a prize, **Try again**, or **Nothing For You**. A 20% setting gives each eligible spin an independent 1-in-5 chance; it does not guarantee exactly 20 winners in every 100 attempts. Winning draws then choose equally among available prize types. The wheel's segment sizes reflect these odds and it lands on the saved outcome.
+Attendees click **Spin the wheel**, enter their name and email, then click **Continue spin**. The server uses the configured winning chance (20% by default) to choose a prize, **Try again**, or **Nothing For You**. A 20% setting gives each eligible spin an independent 1-in-5 chance; it does not guarantee exactly 20 winners in every 100 attempts. Winning draws then choose equally among available prize types. All wheel slices have the same visual size. The server selects the outcome using the configured odds, and the animation lands on that saved outcome; equal slice sizes do not mean equal winning chances.
 
 In `/admin`, use **Winning chance (%)** and **Save chance** to set a whole percentage from 0 to 100. 0% produces only retries or Nothing For You; 100% produces a prize on each eligible spin. Changes apply to new attempts. Stock must be available to start any new attempt; no-stock errors do not consume the attempt.
 
@@ -46,6 +46,6 @@ node scripts/test-game-identity.mjs
 node scripts/test-game-wheel.mjs
 ```
 
-The tests cover default odds, admin-only settings, 0% losses and 100% wins, losing-attempt limits, proportional wheel geometry and result alignment, historical data migration, stock decrements and exhaustion, idempotent and conflicting retries, email and IP uniqueness, rejected attempts leaving stock unchanged, missing/malformed IP identities, removed legacy RPC access, retained historical prize names, public/non-admin access restrictions, admin prize management, trusted ingress and equivalent IPv6/IPv4 address forms. Do not run fixture tests against production data.
+The tests cover default odds, admin-only settings, 0% losses and 100% wins, losing-attempt limits, equal-size wheel geometry and result alignment, historical data migration, stock decrements and exhaustion, idempotent and conflicting retries, email and IP uniqueness, rejected attempts leaving stock unchanged, missing/malformed IP identities, removed legacy RPC access, retained historical prize names, public/non-admin access restrictions, admin prize management, trusted ingress and equivalent IPv6/IPv4 address forms. Do not run fixture tests against production data.
 
 Implementation verification passed: production build, TypeScript, ESLint, all disposable database tests, and local HTTP checks for the page, public prize listing, admin protection, invalid input and origin checks. Browser visual testing remains pending because no connected browser was available.
