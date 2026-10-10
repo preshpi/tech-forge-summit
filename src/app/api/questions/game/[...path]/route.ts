@@ -42,6 +42,20 @@ export async function POST(req: NextRequest, context: Context) {
     let body;
     try { body = JSON.parse(raw); } catch { return reply({ error: 'Invalid request' }, 400); }
     if (!body || typeof body !== 'object' || Array.isArray(body)) return reply({ error: 'Invalid request' }, 400);
+    if (path.join('/') === 'result-status') {
+      if (typeof body.result_id !== 'string' || !uuid.test(body.result_id)) return reply({ error: 'Invalid result reference.' }, 400);
+      const { url } = config();
+      const service = process.env.SUPABASE_SERVICE_ROLE_KEY;
+      if (!service) return reply({ error: 'The game is not configured yet.' }, 503);
+      // A receipt can confirm its existence, but never exposes attendee or prize details.
+      const res = await fetch(`${url}/rest/v1/game_attempts?select=id&id=eq.${body.result_id}&limit=1`, {
+        cache: 'no-store', headers: gameServiceHeaders(service),
+      });
+      if (!res.ok) return reply({ error: 'Unable to verify your saved spin. Please try again.' }, 503);
+      const rows = await res.json();
+      if (!Array.isArray(rows)) return reply({ error: 'Unable to verify your saved spin. Please try again.' }, 503);
+      return reply({ exists: rows.length > 0 });
+    }
     if (path.join('/') === 'spin') {
       if (typeof body.name !== 'string' || !body.name.trim() || body.name.trim().length > 100 || typeof body.email !== 'string' || body.email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.email.trim()) || typeof body.request_id !== 'string' || !uuid.test(body.request_id)) return reply({ error: 'Please enter a valid name and email address.' }, 400);
       const { url } = config();

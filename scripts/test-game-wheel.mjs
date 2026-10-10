@@ -4,12 +4,14 @@ import { createPrizeWheel, displayWheel, isNoPrizeSegment, resultRotation, resul
 const prizes = [{ id: 'cap', name: 'Cap' }, { id: 'shirt', name: 'T-shirt' }];
 const wheel = createPrizeWheel(prizes, 20);
 const angles = wheelAngles(wheel);
-assert.deepEqual(angles.map(segment => segment.angle), [36, 72, 36, 72, 72, 72]);
+assert.deepEqual(angles.map(segment => segment.angle), [60, 60, 60, 60, 60, 60]);
 assert.equal(wheel.filter(segment => segment.name === 'Try again').length, 3);
 assert.equal(wheel.filter(segment => segment.name === 'Nothing For You').length, 1);
 assert.equal(wheel.filter(segment => isNoPrizeSegment(segment.id)).reduce((sum, segment) => sum + segment.weight, 0), 80);
 assert.deepEqual(displayWheel(wheel), wheel, 'Already expanded wheels remain unchanged');
 assert.equal(angles.at(-1).end, 360);
+assert.deepEqual(wheelAngles([{ id: 'rare', name: 'Rare prize', weight: 1 }, { id: 'common', name: 'Common outcome', weight: 99 }]).map(segment => segment.angle), [180, 180], 'Server weights do not change visual slice sizes');
+assert.deepEqual(wheelAngles([]), []);
 for (const segment of angles) {
   const rotation = resultRotation(wheel, segment.id);
   assert.equal((rotation + segment.center) % 360, 0, 'Pointer lands at the saved outcome');
@@ -30,4 +32,4 @@ assert.equal(createPrizeWheel(prizes, 100).some(segment => segment.id === 'no-pr
 assert.deepEqual(createPrizeWheel([], 20), []);
 assert.deepEqual(wheelAngles(prizes).map(segment => segment.angle), [180, 180], 'Historical wheels still render');
 assert.throws(() => resultRotation(wheel, 'missing'));
-console.log('PASS: proportional wheel segments, winning and losing pointer alignment, edge chances and historical results.');
+console.log('PASS: equal-size wheel segments, winning and losing pointer alignment, edge chances and historical results.');

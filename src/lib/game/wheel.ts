@@ -33,13 +33,11 @@ export function resultSegment(wheel: WheelSegment[], prizeId: string | null, seg
 }
 
 export function wheelAngles(wheel: WheelSegment[]) {
-  const total = wheel.reduce((sum, segment) => sum + (segment.weight ?? 1), 0);
-  let start = 0;
-  return wheel.map(segment => {
-    const angle = (segment.weight ?? 1) / total * 360;
-    const result = { ...segment, start, end: start + angle, center: start + angle / 2, angle };
-    start += angle;
-    return result;
+  // Slice size is visual only. The server chooses the outcome using the configured odds.
+  const angle = 360 / wheel.length;
+  return wheel.map((segment, index) => {
+    const start = index * angle;
+    return { ...segment, start, end: (index + 1) * angle, center: start + angle / 2, angle };
   });
 }
 
