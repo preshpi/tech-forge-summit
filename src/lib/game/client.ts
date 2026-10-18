@@ -1,4 +1,4 @@
-export type GamePrize = { id: string; name: string; description: string; image: string | null; quantity: number; active: boolean };
+export type GamePrize = { id: string; name: string; description: string; image: string | null; quantity: number; active: boolean; win_chance: number };
 export type GameWin = { id: string; name: string; email: string; prize_name: string; created_at: string };
 export type GameAttempt = Omit<GameWin, 'prize_name'> & { outcome: 'won' | 'no_prize' | 'try_again'; prize_name: string | null; win_chance: number };
 export type WheelSegment = { id: string; name: string; weight?: number };

@@ -29,6 +29,8 @@ try {
  await db.exec(await readFile('supabase/tests/question_deletion.sql','utf8'));
  await db.exec(await readFile('supabase/tests/spin_game.sql','utf8'));
  await db.exec(await readFile('supabase/tests/spin_game_retries.sql','utf8'));
+ await db.exec(await readFile('supabase/tests/spin_game_prize_chances.sql','utf8'));
+ console.log('PASS: per-prize chances, total validation, saved weighted wheels and deterministic 100% awards.');
  console.log('PASS: retry segments, same-attendee/network restrictions, replay safety, final outcomes and stock invariants.');
  console.log('PASS: 20% default, admin-only odds settings, 0% losses, 100% wins, losing-attempt limits, recovery and stock invariants.');
  console.log('PASS: spin awards, stock, retries, email and IP uniqueness, private winner records, and prize admin access.');

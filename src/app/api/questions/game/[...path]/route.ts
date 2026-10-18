@@ -15,19 +15,16 @@ export async function GET(req: NextRequest, context: Context) {
     const { path } = await context.params;
     if (path.join('/') === 'prizes') return reply(await database('game_prizes?select=id,name,description,image&active=eq.true&quantity=gt.0&order=id.asc'));
     if (path.join('/') === 'config') {
-      const [prizes, settings] = await Promise.all([
-        database('game_prizes?select=id,name,description,image&active=eq.true&quantity=gt.0&order=id.asc'),
-        database('game_settings?select=win_chance&id=eq.true'),
-      ]);
-      if (!settings[0]) return reply({ error: 'The game is not configured yet.' }, 503);
-      return reply({ prizes, win_chance: settings[0].win_chance });
+      const prizes = await database('game_prizes?select=id,name,description,image,win_chance&active=eq.true&quantity=gt.0&order=id.asc');
+      const winChance = prizes.reduce((total: number, prize: { win_chance: number }) => total + prize.win_chance, 0);
+      if (winChance > 100) return reply({ error: 'The game is not configured yet.' }, 503);
+      return reply({ prizes, win_chance: winChance });
     }
     const token = await adminToken();
-    if (path.join('/') === 'admin/settings') return reply((await database('game_settings?select=win_chance&id=eq.true', token))[0]);
     if (path.join('/') === 'admin/prizes') return reply(await database('game_prizes?select=*&order=created_at.asc,id.asc', token));
     if (path.join('/') === 'admin/wins' || path.join('/') === 'admin/attempts') {
       const offset = Math.max(0, Math.min(1000000, Math.floor(Number(req.nextUrl.searchParams.get('offset')) || 0)));
-      if (path[1] === 'attempts') return reply(await database(`game_attempts?select=id,name,email,outcome,prize_name,win_chance,created_at&order=created_at.desc,id.desc&limit=51&offset=${offset}`, token));
+      if (path[1] === 'attempts') return reply(await database(`game_attempts?select=id,name,email,outcome,prize_name,win_chance,created_at&outcome=eq.won&order=created_at.desc,id.desc&limit=51&offset=${offset}`, token));
       return reply(await database(`game_wins?select=id,name,email,prize_name,created_at&order=created_at.desc,id.desc&limit=51&offset=${offset}`, token));
     }
     return reply({ error: 'Not found' }, 404);
@@ -74,13 +71,17 @@ export async function POST(req: NextRequest, context: Context) {
       return reply(data, data.error ? 409 : 200);
     }
     const token = await adminToken();
-    if (path.join('/') === 'admin/settings') {
-      if (!Number.isInteger(body.win_chance) || body.win_chance < 0 || body.win_chance > 100) return reply({ error: 'Winning chance must be a whole number from 0 to 100.' }, 400);
-      return reply((await database('game_settings?id=eq.true', token, 'PATCH', { win_chance: body.win_chance }))[0]);
-    }
     if (path[0] !== 'admin' || path[1] !== 'prizes' || path.length > 3 || (path[2] && !uuid.test(path[2]))) return reply({ error: 'Not found' }, 404);
-    const data = Object.fromEntries(Object.entries(body).filter(([field]) => ['name', 'description', 'image', 'quantity', 'active'].includes(field)));
-    if (('name' in data && (typeof data.name !== 'string' || !data.name.trim() || data.name.length > 100)) || ('quantity' in data && (typeof data.quantity !== 'number' || !Number.isInteger(data.quantity) || data.quantity < 0 || data.quantity > 100000)) || ('active' in data && typeof data.active !== 'boolean') || ('description' in data && (typeof data.description !== 'string' || data.description.length > 500)) || ('image' in data && data.image !== null && (typeof data.image !== 'string' || data.image.length > 480000 || !/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/.test(data.image)))) return reply({ error: 'Check the prize details and image size.' }, 400);
+    const data = Object.fromEntries(Object.entries(body).filter(([field]) => ['name', 'description', 'image', 'quantity', 'active', 'win_chance'].includes(field)));
+    if (('name' in data && (typeof data.name !== 'string' || !data.name.trim() || data.name.length > 100)) || ('quantity' in data && (typeof data.quantity !== 'number' || !Number.isInteger(data.quantity) || data.quantity < 0 || data.quantity > 100000)) || ('active' in data && typeof data.active !== 'boolean') || ('win_chance' in data && (typeof data.win_chance !== 'number' || !Number.isInteger(data.win_chance) || data.win_chance < 0 || data.win_chance > 100)) || ('description' in data && (typeof data.description !== 'string' || data.description.length > 500)) || ('image' in data && data.image !== null && (typeof data.image !== 'string' || data.image.length > 480000 || !/^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/.test(data.image)))) return reply({ error: 'Check the prize details, chance and image size.' }, 400);
+    const prizes: Array<{ id: string; quantity: number; active: boolean; win_chance: number }> = await database('game_prizes?select=id,quantity,active,win_chance', token);
+    const current = prizes.find(prize => prize.id === path[2]);
+    const proposed = { quantity: 1, active: false, win_chance: 1, ...current, ...data };
+    const totalChance = prizes.reduce((total, prize) => {
+      const value = prize.id === path[2] ? proposed : prize;
+      return total + (value.active && value.quantity > 0 ? value.win_chance : 0);
+    }, path[2] ? 0 : proposed.active && proposed.quantity > 0 ? proposed.win_chance : 0);
+    if (totalChance > 100) return reply({ error: `Available prize chances total ${totalChance}%. Reduce them to 100% or less.` }, 400);
     return reply(await database(`game_prizes${path[2] ? `?id=eq.${path[2]}` : ''}`, token, path[2] ? 'PATCH' : 'POST', data));
   } catch (error) { return failure(error); }
 }
