@@ -29,6 +29,9 @@ for (let index = 0; index < 4; index++) {
 }
 assert.equal(selected.size, 4, 'Every loss label can be selected');
 assert.equal(createPrizeWheel(prizes, 100).some(segment => segment.id === 'no-prize'), false);
+const weightedWheel = createPrizeWheel([{ id: 'rare', name: 'Rare', win_chance: 2 }, { id: 'merch', name: 'Merch', win_chance: 5 }, { id: 'standard', name: 'Standard', win_chance: 20 }], 27);
+assert.deepEqual(weightedWheel.filter(segment => !isNoPrizeSegment(segment.id)).map(segment => segment.weight), [2, 5, 20]);
+assert.equal(weightedWheel.filter(segment => isNoPrizeSegment(segment.id)).reduce((sum, segment) => sum + segment.weight, 0), 73);
 assert.deepEqual(createPrizeWheel([], 20), []);
 assert.deepEqual(wheelAngles(prizes).map(segment => segment.angle), [180, 180], 'Historical wheels still render');
 assert.throws(() => resultRotation(wheel, 'missing'));

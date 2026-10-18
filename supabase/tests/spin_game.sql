@@ -4,7 +4,7 @@ update public.game_settings set win_chance=100;
 create function public.game_assert(ok boolean, message text) returns void language plpgsql as $$ begin if ok is distinct from true then raise exception 'Assertion failed: %',message; end if; end $$;
 insert into auth.users(id,email) values ('11000000-0000-4000-8000-000000000001','game-admin@example.invalid'),('11000000-0000-4000-8000-000000000002','game-attendee@example.invalid');
 select public.provision_question_admin('11000000-0000-4000-8000-000000000001');
-insert into public.game_prizes(id,name,quantity,active) values ('21000000-0000-4000-8000-000000000001','T-shirt',2,true),('21000000-0000-4000-8000-000000000002','Paused prize',10,false);
+insert into public.game_prizes(id,name,quantity,active,win_chance) values ('21000000-0000-4000-8000-000000000001','T-shirt',2,true,100),('21000000-0000-4000-8000-000000000002','Paused prize',10,false,1);
 select public.game_assert(to_regprocedure('public.spin_game(uuid,text,text)') is null,'Unprotected legacy RPC removed');
 set local role anon;
 select public.game_assert((select count(*)=1 from public.game_prizes),'Public only sees available prizes');

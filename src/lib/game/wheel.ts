@@ -1,10 +1,12 @@
 import type { WheelSegment } from './client';
 
-export function createPrizeWheel(prizes: { id: string; name: string }[], chance: number): WheelSegment[] {
+export function createPrizeWheel(prizes: { id: string; name: string; win_chance?: number }[], chance: number): WheelSegment[] {
   if (!prizes.length) return [];
+  const usesPrizeChances = prizes.every(prize => Number.isInteger(prize.win_chance));
+  const prizeChance = usesPrizeChances ? prizes.reduce((total, prize) => total + (prize.win_chance ?? 0), 0) : chance;
   return displayWheel([
-    ...(chance > 0 ? prizes.map(prize => ({ id: prize.id, name: prize.name, weight: chance / prizes.length })) : []),
-    ...(chance < 100 ? [{ id: 'no-prize', name: 'No prize this time', weight: 100 - chance }] : []),
+    ...prizes.filter(prize => usesPrizeChances ? prize.win_chance! > 0 : chance > 0).map(prize => ({ id: prize.id, name: prize.name, weight: usesPrizeChances ? prize.win_chance : chance / prizes.length })),
+    ...(prizeChance < 100 ? [{ id: 'no-prize', name: 'No prize this time', weight: 100 - prizeChance }] : []),
   ]);
 }
 
