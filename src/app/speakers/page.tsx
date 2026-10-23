@@ -280,9 +280,9 @@ export default function SpeakersPage() {
             ))} */}
           </ul>
 
-          <p className="speakers-grid__note">
+          {/* <p className="speakers-grid__note">
             More speakers to be announced soon.
-          </p>
+          </p> */}
         </div>
       </section>
     </main>
