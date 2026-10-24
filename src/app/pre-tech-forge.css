@@ -327,6 +327,30 @@
   border-radius: 0.85rem;
 }
 
+.ptf-past__media {
+  position: relative;
+  flex: 0 0 4.5rem;
+  width: 4.5rem;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 0.65rem;
+  background: #e8ecf3;
+}
+
+.ptf-past__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ptf-past__media .speaker-badge {
+  display: none;
+}
+
+.ptf-past__main {
+  flex: 1 1 20rem;
+}
+
 .ptf-past__speaker {
   margin: 0;
   font-size: 0.8rem;

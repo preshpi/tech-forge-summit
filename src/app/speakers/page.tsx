@@ -23,7 +23,8 @@ const speakers = [
   {
     name: "Iyinoluwa Aboyeji",
     role: "Founding Partner, Future Africa\nCo-founder, Andela",
-    session: "Building for the Future: Skills, Technology & Opportunity in Africa",
+    session:
+      "Building for the Future: Skills, Technology & Opportunity in Africa",
     image: "/assets/speakers/iyinoluwa-aboyeji-1.jpeg",
     badge: "Fireside Chat",
     badgeClass: "speaker-badge--fireside",
@@ -36,8 +37,8 @@ const speakers = [
       "The Builder's Blueprint: Skills, Strategy & Innovation for the future.",
     image: "/assets/speakers/PK.jpeg",
     badge: "Keynote",
-    badgeClass: "speaker-badge--keynote",
-    ruleClass: "speaker-badge--keynote",
+    badgeClass: "speaker-badge--workshop",
+    ruleClass: "speaker-badge--workshop",
   },
   {
     name: "Christine Imoukhuede",
@@ -52,7 +53,8 @@ const speakers = [
   {
     name: "Dabere Nnamani",
     role: "Founder, The Data Immersed (TDI)\nAI Strategist and Consultant",
-    session: "AI for Good: Building Ethical, Culturally-Aware AI Systems That Actually Serve African Communities.",
+    session:
+      "AI for Good: Building Ethical, Culturally-Aware AI Systems That Actually Serve African Communities.",
     image: "/assets/speakers/annie.jpeg",
     badge: "Speaker",
     badgeClass: "speaker-badge--keynote",
@@ -87,6 +89,16 @@ const speakers = [
     ruleClass: "speaker-badge--keynote",
   },
   {
+    name: "BRITNEY ABASIAKARA-MOSES",
+    role: "Aesthetic and Longevity Nurse Practitioner \nFounder, SKN OG",
+    session:
+      "Building Beyond the Hype: Lessons from the realities of innovation, failure and building again.",
+    image: "/assets/speakers/Britney.jpeg",
+    badge: "Panel",
+    badgeClass: "speaker-badge--panel",
+    ruleClass: "speaker-badge--panel",
+  },
+  {
     name: "Ayodeji Ebo",
     role: "CEO MDU Capital Limited",
     session: "To be revealed",
@@ -98,22 +110,12 @@ const speakers = [
   {
     name: "Adesuwa Imasekha",
     role: "CEO, TAI Corp",
-    session:
-      "To be revealed",
+    session: "To be revealed",
     image: "/assets/speakers/adesuwa.png",
     badge: "Speaker",
     badgeClass: "speaker-badge--keynote",
     ruleClass: "speaker-badge--keynote",
   },
-  // {
-  //   name: "Ayodeji Razaq",
-  //   role: "Engineering Leader\nPaystack",
-  //   session: "Agentic Engineering in Practice",
-  //   image: "/assets/speakers/ayodeji-razaq.png",
-  //   badge: "Speaker",
-  //   badgeClass: "speaker-badge--workshop",
-  //   ruleClass: "speaker-badge--workshop",
-  // },
   // {
   //   name: "Segun Adeyemi",
   //   role: "Partner\nVentures Platform",
