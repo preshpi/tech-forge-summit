@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { connection } from "next/server";
 import { PastSessionRow, SessionRow } from "@/components/PreTechForge";
-import { getPast, getUpcoming } from "@/lib/preTechForge";
+import { SessionStatusRefresh } from "@/components/SessionStatusRefresh";
+import { getPast, getSessionEndTime, getUpcoming } from "@/lib/preTechForge";
 import { createPageMetadata } from "@/lib/site";
 
 export const metadata = createPageMetadata({
@@ -9,10 +11,12 @@ export const metadata = createPageMetadata({
   path: "/pre-tech-forge",
 });
 
-export default function PreTechForgePage() {
+export default async function PreTechForgePage() {
+  await connection();
   const upcoming = getUpcoming();
   const past = getPast();
   return <main id="top">
+    <SessionStatusRefresh deadlines={upcoming.map(getSessionEndTime)} />
     <section className="ptf-hero" aria-labelledby="ptf-heading">
       <div className="container ptf-hero__inner">
         <p className="section-label">Pre-Tech Forge</p>

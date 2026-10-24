@@ -11,8 +11,10 @@ import { eventJsonLd } from "@/lib/site";
 // import Hosts from "@/components/Hosts";
 // import Pricing from "@/components/Pricing";
 // import FAQ from "@/components/FAQ";
+import { connection } from "next/server";
 
-export default function Home() {
+export default async function Home() {
+  await connection();
   return (
     <>
       <script

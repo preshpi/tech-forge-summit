@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { currentYear, formatDate, formatTime, getUpcoming, type PreTechForgeSession } from "@/lib/preTechForge";
+import { currentYear, formatDate, formatTime, getSessionEndTime, getUpcoming, type PreTechForgeSession } from "@/lib/preTechForge";
+import { SessionStatusRefresh } from "@/components/SessionStatusRefresh";
 
 function roleLine(session: PreTechForgeSession) {
   return [session.speaker.role, session.speaker.company].filter(Boolean).join(", ");
@@ -33,6 +34,7 @@ export function PreTechForgeHome() {
   return (
     <section className="ptf-home section js-reveal" id="pre-tech-forge" aria-labelledby="ptf-home-heading">
       <div id="ptf-home">
+        <SessionStatusRefresh deadlines={upcoming.map(getSessionEndTime)} />
         <div className="container ptf-home__grid">
           <div className="ptf-home__copy">
             <p className="section-label">Pre-Tech Forge</p>
@@ -78,6 +80,7 @@ export function SessionRow({ session }: { session: PreTechForgeSession }) {
 
 export function PastSessionRow({ session }: { session: PreTechForgeSession }) {
   return <article className={`ptf-past${session.isPlaceholder ? " ptf-past--placeholder" : ""}`}>
+    <SessionMedia session={session} className="ptf-past__media" />
     <div className="ptf-past__main">
       <p className="ptf-past__speaker">{session.speaker.name}</p>
       <h3 className="ptf-past__title">{session.title}</h3>

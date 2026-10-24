@@ -32,7 +32,7 @@ const sessions: PreTechForgeSession[] = [
     platform: "Google Meet",
     registrationUrl: "https://calendar.app.google/QcnioMk1wHmGaei4A",
     recordingUrl: null,
-    status: "upcoming",
+    status: "completed",
   },
   {
     id: `ptf-2026-2`,
@@ -98,7 +98,21 @@ const sessions: PreTechForgeSession[] = [
 
 export function parseDate(session: PreTechForgeSession) {
   if (!session.date) return 0;
-  return Date.parse(`${session.date}T${session.time || "00:00"}:00`) || 0;
+  const offset = session.timezone.toUpperCase() === "WAT" ? "+01:00" : "+00:00";
+  return Date.parse(`${session.date}T${session.time || "00:00"}:00${offset}`) || 0;
+}
+
+const sessionDurationMs = 60 * 60 * 1000;
+
+export function getSessionEndTime(session: PreTechForgeSession) {
+  const startsAt = parseDate(session);
+  return session.date && startsAt ? startsAt + sessionDurationMs : 0;
+}
+
+function isPastSession(session: PreTechForgeSession, now: number) {
+  if (session.status === "completed") return true;
+  const endsAt = getSessionEndTime(session);
+  return Boolean(endsAt && now >= endsAt);
 }
 
 export function formatDate(isoDate: string) {
@@ -115,10 +129,10 @@ export function formatTime(session: PreTechForgeSession) {
 
 export function getAll() { return sessions.slice(); }
 export function getByYear(year: number) { return sessions.filter((session) => session.year === Number(year)); }
-export function getUpcoming(year = currentYear, limit?: number) {
-  const list = getByYear(year).filter((session) => session.status === "upcoming").sort((a, b) => parseDate(a) - parseDate(b));
+export function getUpcoming(year = currentYear, limit?: number, now = Date.now()) {
+  const list = getByYear(year).filter((session) => !isPastSession(session, now)).sort((a, b) => parseDate(a) - parseDate(b));
   return typeof limit === "number" ? list.slice(0, limit) : list;
 }
-export function getPast(year = currentYear) {
-  return getByYear(year).filter((session) => session.status === "completed").sort((a, b) => parseDate(b) - parseDate(a));
+export function getPast(year = currentYear, now = Date.now()) {
+  return getByYear(year).filter((session) => isPastSession(session, now)).sort((a, b) => parseDate(b) - parseDate(a));
 }
