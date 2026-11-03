@@ -31,6 +31,16 @@ const speakers = [
     ruleClass: "speaker-badge--fireside",
   },
   {
+    name: "Ayodeji Ebo",
+    role: "CEO MDU Capital Limited",
+    session:
+      "Building Wealth, Not Just Careers: Financial Intelligence for the Next Generation of Tech Builders",
+    image: "/assets/speakers/ayodeji.jpeg",
+    badge: "Fireside Chat",
+    badgeClass: "speaker-badge--fireside",
+    ruleClass: "speaker-badge--fireside",
+  },
+  {
     name: "Olakunle Soriyan",
     role: "Founder & Chief Strategist, FEEDBACK FROM THE FUTURE",
     session:
@@ -46,6 +56,25 @@ const speakers = [
     session:
       "Building Beyond the Hype: Lessons from the realities of innovation, failure and building again.",
     image: "/assets/speakers/Christine.jpeg",
+    badge: "Panel",
+    badgeClass: "speaker-badge--panel",
+    ruleClass: "speaker-badge--panel",
+  },
+  {
+    name: "BRITNEY ABASIAKARA-MOSES",
+    role: "Aesthetic and Longevity Nurse Practitioner \nFounder, SKN OG",
+    session:
+      "Building Beyond the Hype: Lessons from the realities of innovation, failure and building again.",
+    image: "/assets/speakers/Britney.jpeg",
+    badge: "Panel",
+    badgeClass: "speaker-badge--panel",
+    ruleClass: "speaker-badge--panel",
+  },
+  {
+    name: "DR. OLUWATOYIN ARIYO-OJEME",
+    role: "CEO, TAI Corp",
+    session: "To be revealed",
+    image: "/assets/speakers/Dr. Ariyo.jpeg",
     badge: "Panel",
     badgeClass: "speaker-badge--panel",
     ruleClass: "speaker-badge--panel",
@@ -84,25 +113,6 @@ const speakers = [
     role: "Founder & Lead Maintainer, Sails",
     session: "The Architecture of a Future-Proof Tech Career",
     image: "/assets/speakers/koo.jpg",
-    badge: "Speaker",
-    badgeClass: "speaker-badge--keynote",
-    ruleClass: "speaker-badge--keynote",
-  },
-  {
-    name: "BRITNEY ABASIAKARA-MOSES",
-    role: "Aesthetic and Longevity Nurse Practitioner \nFounder, SKN OG",
-    session:
-      "Building Beyond the Hype: Lessons from the realities of innovation, failure and building again.",
-    image: "/assets/speakers/Britney.jpeg",
-    badge: "Panel",
-    badgeClass: "speaker-badge--panel",
-    ruleClass: "speaker-badge--panel",
-  },
-  {
-    name: "Ayodeji Ebo",
-    role: "CEO MDU Capital Limited",
-    session: "To be revealed",
-    image: "/assets/speakers/ayodeji.jpeg",
     badge: "Speaker",
     badgeClass: "speaker-badge--keynote",
     ruleClass: "speaker-badge--keynote",
