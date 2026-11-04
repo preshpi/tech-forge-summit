@@ -61,7 +61,7 @@ const speakers = [
     ruleClass: "speaker-badge--panel",
   },
   {
-    name: "BRITNEY ABASIAKARA-MOSES",
+    name: "Britney Abasiakara-Moses",
     role: "Aesthetic and Longevity Nurse Practitioner \nFounder, SKN OG",
     session:
       "Building Beyond the Hype: Lessons from the realities of innovation, failure and building again.",
@@ -71,9 +71,9 @@ const speakers = [
     ruleClass: "speaker-badge--panel",
   },
   {
-    name: "DR. OLUWATOYIN ARIYO-OJEME",
-    role: "CEO, TAI Corp",
-    session: "To be revealed",
+    name: "Dr. Oluwatoyin Ariyo-Ojeme",
+    role: "Visioneer, Royal Gem Schools and Royal Gem Educational Services",
+    session: "Building Beyond the Hype: Lessons from the realities of innovation, failure and building again.",
     image: "/assets/speakers/Dr. Ariyo.jpeg",
     badge: "Panel",
     badgeClass: "speaker-badge--panel",
