@@ -35,7 +35,7 @@ const speakers = [
     role: "CEO MDU Capital Limited",
     session:
       "Building Wealth, Not Just Careers: Financial Intelligence for the Next Generation of Tech Builders",
-    image: "/assets/speakers/ayodeji.jpeg",
+    image: "/assets/speakers/DrAyodeji.jpeg",
     badge: "Fireside Chat",
     badgeClass: "speaker-badge--fireside",
     ruleClass: "speaker-badge--fireside",
