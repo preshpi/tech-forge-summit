@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 import { adminToken, config, database } from '@/lib/questions/server';
 import { gameServiceHeaders } from '@/lib/game/auth';
 import { gameClientIdentity } from '@/lib/game/identity';
+import { toCsv, watTimestamp } from '@/lib/game/csv';
 
 const reply = (data: unknown, status = 200) => Response.json(data, { status, headers: { 'Cache-Control': 'no-store' } });
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -21,6 +22,21 @@ export async function GET(req: NextRequest, context: Context) {
       return reply({ prizes, win_chance: winChance });
     }
     const token = await adminToken();
+    if (path.join('/') === 'admin/attempts/export') {
+      type Win = { id: string; name: string; email: string; prize_name: string | null; win_chance: number; created_at: string };
+      const wins: Win[] = [];
+      for (let offset = 0; offset < 1000000; offset += 1000) {
+        const batch: Win[] = await database(`game_attempts?select=id,name,email,prize_name,win_chance,created_at&outcome=eq.won&order=created_at.desc,id.desc&limit=1000&offset=${offset}`, token);
+        wins.push(...batch);
+        if (batch.length < 1000) break;
+      }
+      const csv = toCsv(
+        ['#', 'Name', 'Email', 'Prize', 'Chance (%)', 'Won at (WAT)', 'Reference'],
+        wins.map((win, index) => [index + 1, win.name, win.email, win.prize_name, win.win_chance, watTimestamp(win.created_at), win.id]),
+      );
+      const stamp = new Date().toLocaleDateString('sv-SE', { timeZone: 'Africa/Lagos' });
+      return new Response(csv, { headers: { 'Content-Type': 'text/csv; charset=utf-8', 'Content-Disposition': `attachment; filename="spin-and-win-results-${stamp}.csv"`, 'Cache-Control': 'no-store' } });
+    }
     if (path.join('/') === 'admin/prizes') return reply(await database('game_prizes?select=*&order=created_at.asc,id.asc', token));
     if (path.join('/') === 'admin/wins' || path.join('/') === 'admin/attempts') {
       const offset = Math.max(0, Math.min(1000000, Math.floor(Number(req.nextUrl.searchParams.get('offset')) || 0)));
