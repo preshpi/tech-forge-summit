@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Gift, Plus, RefreshCw, X } from 'lucide-react';
+import { Download, Gift, Plus, RefreshCw, X } from 'lucide-react';
 import { gameApi, type GamePrize, type GameAttempt } from '@/lib/game/client';
 import { questionDate } from '@/lib/questions/client';
 
@@ -12,6 +12,7 @@ export default function GameAdmin() {
   const [more, setMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
+  const [exporting, setExporting] = useState(false);
   const [notice, setNotice] = useState('');
   const [error, setError] = useState('');
   const [editor, setEditor] = useState<Partial<GamePrize> | null>(null);
@@ -54,6 +55,20 @@ export default function GameAdmin() {
     catch (e) { setError((e as Error).message); }
     finally { setBusy(false); }
   }
+  async function exportCsv() {
+    setExporting(true); setError(''); setNotice('');
+    try {
+      const response = await fetch('/api/questions/game/admin/attempts/export', { cache: 'no-store' });
+      if (!response.ok) throw new Error((await response.json().catch(() => ({}))).error ?? 'Unable to export results. Please try again.');
+      const filename = /filename="([^"]+)"/.exec(response.headers.get('Content-Disposition') ?? '')?.[1] ?? 'spin-and-win-results.csv';
+      const url = URL.createObjectURL(await response.blob());
+      const link = document.createElement('a');
+      link.href = url; link.download = filename; document.body.append(link); link.click(); link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      setNotice('Results exported.');
+    } catch (e) { setError((e as Error).message); }
+    finally { setExporting(false); }
+  }
   return <section className="game-admin qh-panel" aria-labelledby="game-admin-title">
     <div className="game-admin-heading"><div><p className="section-label"><Gift size={16} /> Spin & win</p><h2 id="game-admin-title">A little delight, all managed here.</h2><p className="qh-caption">Upload prizes, set each prize’s per-spin chance, manage remaining stock and see every result. Available prize chances must total 100% or less.</p></div><div className="qh-inline-actions"><Link className="qh-button" href="/game">Open game ↗</Link><button className="btn btn--primary qh-button--compact" disabled={busy} onClick={() => {setEditor({ quantity: 1, win_chance: 1, active: false });setError('');setNotice('');}}><Plus size={16} />Add prize</button></div></div>
     {notice && <p className="qh-notice" role="status">{notice}</p>}
@@ -61,7 +76,7 @@ export default function GameAdmin() {
     {editor && <form key={editor.id ?? 'new'} className="qh-form game-prize-editor" onSubmit={save}><div className="game-admin-heading"><h3>{editor.id ? 'Edit prize' : 'New prize'}</h3><button type="button" className="qh-icon-button" disabled={busy} aria-label="Close prize editor" onClick={() => setEditor(null)}><X size={18} /></button></div><div className="qh-form-row"><label>Prize name<input name="name" required maxLength={100} defaultValue={editor.name} placeholder="e.g. TechForge T-shirt" disabled={busy} /></label><label>Remaining quantity<input name="quantity" type="number" min={0} max={100000} step={1} required defaultValue={editor.quantity} disabled={busy} /></label></div><label>Chance per spin (%)<input name="win_chance" type="number" min={0} max={100} step={1} required defaultValue={editor.win_chance ?? 1} disabled={busy} /><span className="qh-caption">All available prizes combined must be 100% or less.</span></label><label>Description<textarea name="description" maxLength={500} defaultValue={editor.description} placeholder="What makes this prize special?" disabled={busy} /></label><label>Prize image<input type="file" name="image" accept="image/png,image/jpeg,image/webp" disabled={busy} /><span className="qh-caption">PNG, JPG or WebP, up to 350 KB.</span></label>{editor.image && <label className="qh-check"><input type="checkbox" name="remove_image" disabled={busy} />Remove existing image</label>}<label className="qh-check"><input type="checkbox" name="active" defaultChecked={editor.active} disabled={busy} />Available on the wheel</label><button className="btn btn--primary" disabled={busy}>{busy ? 'Saving…' : 'Save prize'}</button></form>}
     <div className="game-admin-prizes">{prizes.map(prize => <article key={prize.id}><div><h3>{prize.name}</h3><p className="qh-caption">{prize.quantity} remaining · {prize.win_chance}% per spin · {prize.active ? prize.quantity ? 'On the wheel' : 'Out of stock' : 'Paused'}</p></div><div className="qh-inline-actions"><button className="qh-button" disabled={busy} onClick={() => {setEditor(prize);setError('');}}>Edit</button><button className="qh-button" disabled={busy} onClick={() => void toggle(prize)}>{prize.active ? 'Pause' : 'Activate'}</button></div></article>)}</div>
     {!loading && !prizes.length && !error && <p className="game-admin-empty">Add your first prize to get the wheel ready. Activate prizes when you’re ready for attendees to play.</p>}
-    <div className="game-admin-heading game-winners-heading"><div><h3>Winner records</h3><p className="qh-caption">Only successful prize wins appear here. Try again and Nothing For You results stay out of the admin panel.</p></div><button className="qh-button" disabled={loading || busy} onClick={() => void load()}><RefreshCw size={15} />{loading ? 'Refreshing…' : 'Refresh'}</button></div>
+    <div className="game-admin-heading game-winners-heading"><div><h3>Winner records</h3><p className="qh-caption">Only successful prize wins appear here. Try again and Nothing For You results stay out of the admin panel.</p></div><div className="qh-inline-actions"><button className="qh-button" disabled={exporting || (!loading && !attempts.length && !page)} onClick={() => void exportCsv()}><Download size={15} />{exporting ? 'Exporting…' : 'Export CSV'}</button><button className="qh-button" disabled={loading || busy} onClick={() => void load()}><RefreshCw size={15} />{loading ? 'Refreshing…' : 'Refresh'}</button></div></div>
     <div className="game-winners-scroll"><table className="game-winners"><caption className="game-sr-only">Prize winners and contact details</caption><thead><tr><th>Name</th><th>Email</th><th>Prize</th><th>Chance</th><th>Won at · WAT</th><th>Reference</th></tr></thead><tbody>{attempts.map(win => <tr key={win.id}><td>{win.name}</td><td>{win.email}</td><td>{win.prize_name}</td><td>{win.win_chance}%</td><td>{questionDate(win.created_at, true)}</td><td><code>{win.id}</code></td></tr>)}</tbody></table></div>
     {!loading && !attempts.length && !error && <p className="game-admin-empty">Prize winners will appear here.</p>}
     <div className="qh-pagination"><button className="qh-button" disabled={!page || loading} onClick={() => setPage(p => p - 1)}>Previous</button><span>Page {page + 1}</span><button className="qh-button" disabled={!more || loading} onClick={() => setPage(p => p + 1)}>Next</button></div>
