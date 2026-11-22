@@ -1,0 +1,17 @@
+:root{
+  /* Light theme */
+  --tf-light-bg:#E9EDFB; --tf-light-glow:#F6F8FF; --tf-light-ink:#151A2D; --tf-light-muted:#4A5272;
+  --tf-light-accent:#3A47D5; --tf-light-ring-end:#7C6CF0; --tf-light-photo-bg:#CBD3F5;
+  /* Blue theme */
+  --tf-blue-bg:#3340C8; --tf-blue-glow:#4A57E0; --tf-blue-ink:#FFFFFF; --tf-blue-muted:#DCE1FF;
+  --tf-blue-ring:#FFFFFF; --tf-blue-photo-bg:#5A66E6;
+  /* Yellow theme */
+  --tf-yellow-bg:#FFD400; --tf-yellow-glow:#FFE34D; --tf-yellow-ink:#151A2D; --tf-yellow-muted:#574A00;
+  --tf-yellow-photo-bg:#FFE566;
+  /* Pink theme */
+  --tf-pinktheme-bg:#D90E57; --tf-pinktheme-glow:#E52E6B; --tf-pinktheme-ink:#FFFFFF; --tf-pinktheme-muted:#FFF0F5;
+  --tf-pinktheme-photo-bg:#E8407A;
+  /* Brand accents (all themes) */
+  --tf-pink:#D90F57; --tf-yellow:#FFD400;
+  --tf-font:'Plus Jakarta Sans',-apple-system,'Helvetica Neue',Arial,sans-serif;
+}

@@ -1,6 +1,8 @@
 import "./globals.css";
+import "../../public/assets/tokens.css";
 import "./questions.css";
 import "./game.css";
+import "./dp.css";
 import "./styles.css";
 import "./motion.css";
 import "./pre-tech-forge.css";
