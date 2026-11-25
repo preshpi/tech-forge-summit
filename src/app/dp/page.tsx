@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import PlateStudio from "@/components/PlateStudio";
+import DpEditor from "@/components/DpEditor";
 import { createPageMetadata } from "@/lib/site";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Create Your Tech Forge 2026 DP",
+  title: "Make Your TechForge 2.0 DP",
   description:
-    "Make your attendee plate for The TechForge 2026: your portrait, your name, and the summit's own type and blue. Renders in your browser and downloads at 1024 × 1024.",
+    "Add your photo and name to make your attendee DP for The TechForge 2.0, Sat 5 December 2026 at The Zone, Lagos. Everything happens in your browser.",
   path: "/dp",
 });
 
 export default function DpPage() {
   return (
     <main className="flex flex-1 flex-col">
-      <PlateStudio />
+      <DpEditor />
     </main>
   );
 }
