@@ -1,0 +1,524 @@
+/* ------------------------------------------------------------------ */
+/* VIP welcome page (/vip/[code])                                       */
+/* Built from the homepage hero's language: mist background, two-tone  */
+/* headline, white-bordered photo, yellow note, sparkles, Caveat script.*/
+/* ------------------------------------------------------------------ */
+
+.vip {
+  --vip-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --vip-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow-x: clip;
+}
+
+/* ----- Hero ----- */
+.vip-hero {
+  position: relative;
+  padding-block: clamp(2.5rem, 6vw, 5.5rem) clamp(3.5rem, 7vw, 6rem);
+  background:
+    radial-gradient(60rem 30rem at 85% 10%, rgba(30, 79, 216, 0.08), transparent 70%),
+    var(--blue-mist);
+  isolation: isolate;
+}
+
+/* The soft diagonal capsules from the homepage hero */
+.vip-hero__shapes span {
+  position: absolute;
+  z-index: -1;
+  width: 15rem;
+  height: 4.25rem;
+  border-radius: var(--radius-pill);
+  background: rgba(30, 79, 216, 0.06);
+  transform: rotate(-32deg);
+}
+.vip-hero__shapes span:first-child { top: 12%; left: -4rem; }
+.vip-hero__shapes span:last-child { bottom: 10%; left: 2rem; width: 10rem; }
+
+.vip-hero__grid {
+  display: grid;
+  gap: clamp(3rem, 7vw, 4.5rem);
+  align-items: center;
+}
+
+.vip-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.vip-title {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.25rem;
+  /* Sized so "The TechForge 2.0," always fits on one line in its column */
+  font-size: clamp(2.2rem, 4.4vw, 4.25rem);
+  white-space: nowrap;
+}
+/* Each line rises out of its own mask */
+.vip-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.vip-line > span { display: inline-block; }
+
+.vip-hero__copy .lede { margin-bottom: 1.6rem; }
+.vip-meta { margin-bottom: 1.75rem; }
+.vip-script { margin-top: 1.5rem; }
+
+/* ----- Portrait stage ----- */
+.vip-stage {
+  position: relative;
+  width: min(100%, 26rem);
+  margin-inline: auto;
+  padding: 1.5rem 1.5rem 2.5rem;
+}
+
+.vip-tilt {
+  position: relative;
+  transform: perspective(1100px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 0.6s var(--vip-ease);
+}
+.vip-tilt:hover { transition-duration: 0.15s; }
+
+.vip-portrait {
+  position: relative;
+  margin: 0;
+  transform: rotate(-1.5deg);
+}
+
+.vip-portrait__frame {
+  position: relative;
+  aspect-ratio: 5 / 6;
+  overflow: hidden;
+  border-radius: 2.6rem;
+  border: 3px solid var(--white);
+  background: linear-gradient(145deg, #e8ecf3, #d5dff0);
+  box-shadow:
+    0 30px 60px -18px rgba(21, 59, 176, 0.35),
+    0 12px 24px rgba(11, 18, 32, 0.08);
+}
+.vip-portrait__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 20%;
+}
+/* A band of light that sweeps across the photo, like foil catching it */
+.vip-portrait__sheen {
+  position: absolute;
+  inset: -20%;
+  background: linear-gradient(
+    105deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.05) 44%,
+    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0.05) 56%,
+    transparent 62%
+  );
+  transform: translateX(-70%);
+  pointer-events: none;
+}
+/* Soft highlight that follows the pointer */
+.vip-portrait__glare {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--glare-x, 30%) var(--glare-y, 20%), rgba(255, 255, 255, 0.28), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.vip-tilt:hover .vip-portrait__glare { opacity: 1; }
+
+/* Name plate pinned to the bottom of the photo */
+.vip-portrait__caption {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.85rem 1rem;
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  box-shadow: 0 10px 30px rgba(11, 18, 32, 0.14);
+  transform: translateZ(40px);
+}
+.vip-portrait__name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.vip-portrait__role {
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--ink-muted);
+}
+
+/* Yellow note, same family as the homepage hero's */
+.vip-note {
+  position: absolute;
+  top: -0.75rem;
+  right: -1.25rem;
+  display: flex;
+  flex-direction: column;
+  width: 7.25rem;
+  padding: 0.95rem 0.9rem 1rem;
+  background: #ffe600;
+  color: var(--ink);
+  border-radius: 1.45rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  box-shadow: 0 12px 32px rgba(11, 18, 32, 0.12), 0 4px 10px rgba(255, 230, 0, 0.3);
+  transform: rotate(6deg) translateZ(60px);
+}
+.vip-note__rule {
+  width: 2.4rem;
+  height: 3px;
+  margin: 0.45rem 0 0.4rem;
+  border-radius: 2px;
+  background: var(--blue);
+  transform: rotate(-2deg);
+}
+.vip-note small {
+  font-size: 0.66rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+/* Rotating seal */
+.vip-seal {
+  position: absolute;
+  left: -1.6rem;
+  top: -1.6rem;
+  width: 7rem;
+  height: 7rem;
+  transform: translateZ(50px);
+  filter: drop-shadow(0 10px 20px rgba(21, 59, 176, 0.3));
+}
+.vip-seal__disc { fill: var(--blue); }
+.vip-seal__ring {
+  transform-origin: 60px 60px;
+  fill: var(--white);
+  font-size: 9px;
+  font-weight: 800;
+}
+.vip-seal__star { fill: #ffe600; }
+
+/* Sparkle cluster, like the one by the homepage hero photo */
+.vip-sparkle {
+  position: absolute;
+  width: 1.6rem;
+  height: 1.6rem;
+  pointer-events: none;
+}
+.vip-sparkle--pink { bottom: 1rem; left: 0.25rem; fill: var(--pink); }
+.vip-sparkle--yellow { bottom: 2.75rem; left: -0.5rem; width: 1.1rem; height: 1.1rem; fill: var(--yellow); }
+.vip-sparkle--ink { bottom: 3.5rem; right: -0.4rem; width: 1.2rem; height: 1.2rem; fill: var(--ink); }
+.vip-sparkle--blue { bottom: 1.5rem; right: 1.2rem; width: 1.9rem; height: 1.9rem; fill: var(--blue); }
+
+/* ----- Thank-you letter ----- */
+.vip-story {
+  padding-block: clamp(4rem, 8vw, 6.5rem);
+  background: var(--white);
+  border-block: 1px solid var(--border);
+}
+.vip-letter {
+  position: relative;
+  max-width: 44rem;
+  margin-inline: auto;
+  padding: clamp(1.75rem, 5vw, 3.25rem);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(var(--white), var(--white)) padding-box,
+    var(--blue-mist);
+  box-shadow: var(--shadow-soft);
+}
+.vip-letter .heading-md { margin-bottom: 1.5rem; }
+.vip-letter__session {
+  position: relative;
+  margin: 0 0 0.75rem;
+  padding: 1.25rem 1.25rem 1.25rem 3.25rem;
+  border-radius: var(--radius);
+  background: var(--blue-soft);
+}
+.vip-letter__session p {
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.vip-letter__mark {
+  position: absolute;
+  left: 1rem;
+  top: 0.35rem;
+  font-size: 3.25rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--blue);
+}
+.vip-letter__meta {
+  margin-bottom: 1.5rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--blue);
+}
+.vip-letter .body-text { max-width: none; }
+.vip-letter__sign { margin-top: 1.5rem; color: var(--blue-deep); }
+
+/* ----- VIP access (dark band) ----- */
+.vip-perks {
+  position: relative;
+  padding-block: clamp(4rem, 8vw, 6.5rem);
+  background: var(--ink);
+  color: var(--white);
+  overflow: hidden;
+  isolation: isolate;
+}
+.vip-perks__glow {
+  position: absolute;
+  z-index: -1;
+  top: -14rem;
+  left: 50%;
+  width: 46rem;
+  height: 28rem;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(30, 79, 216, 0.55), transparent);
+  transform: translateX(-50%);
+  filter: blur(10px);
+}
+.vip-perks .section-label { color: #8fb0ff; }
+.vip-perks__head { margin-bottom: clamp(2rem, 5vw, 3rem); }
+.vip-perks__grid {
+  display: grid;
+  gap: 1rem;
+}
+.vip-perk {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+  transition: transform 0.35s var(--vip-ease), border-color 0.35s ease, background-color 0.35s ease;
+}
+.vip-perk:hover {
+  transform: translateY(-4px);
+  border-color: rgba(143, 176, 255, 0.45);
+}
+.vip-perk__icon {
+  display: grid;
+  place-items: center;
+  width: 2.9rem;
+  height: 2.9rem;
+  margin-bottom: 1.25rem;
+  border-radius: 0.9rem;
+  background: var(--blue);
+  box-shadow: 0 10px 24px rgba(30, 79, 216, 0.45);
+}
+.vip-perk__time {
+  margin-bottom: 0.6rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 230, 0, 0.14);
+  color: #ffe600;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.vip-perk h3 {
+  margin-bottom: 0.4rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.vip-perk p {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* ----- Countdown ----- */
+.vip-day {
+  padding-block: clamp(4rem, 8vw, 6.5rem);
+  background: var(--blue-mist);
+  text-align: center;
+}
+.vip-day__inner { display: flex; flex-direction: column; align-items: center; }
+.vip-countdown {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 5.5rem));
+  gap: clamp(0.5rem, 2vw, 1rem);
+  margin: 2rem 0 2.25rem;
+}
+.vip-countdown__unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 1rem 0.25rem 0.85rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: 0 10px 30px rgba(21, 59, 176, 0.08);
+  overflow: hidden;
+}
+.vip-countdown__value {
+  display: block;
+  font-size: clamp(1.6rem, 5vw, 2.35rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+}
+.vip-countdown__label {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.vip-countdown__live {
+  margin: 1.75rem 0 2rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--blue);
+}
+.vip-day__actions { justify-content: center; }
+.vip-day__help { margin-top: 1.5rem; font-size: 0.9rem; color: var(--ink-muted); }
+.vip-day__help a { font-weight: 700; color: var(--blue); }
+.vip-day__help a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ----- Invite not found ----- */
+.vip-missing { padding-block: clamp(4rem, 10vw, 8rem); background: var(--blue-mist); }
+.vip-missing__inner { max-width: 40rem; }
+.vip-missing .body-text { margin: 1rem 0 2rem; }
+
+/* ----- Focus ----- */
+.vip a:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+.vip-perks a:focus-visible { outline-color: #8fb0ff; }
+
+/* ----- Layout ----- */
+@media (min-width: 720px) {
+  .vip-perks__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 960px) {
+  .vip-hero__grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+  .vip-stage { margin-right: 0; }
+}
+@media (max-width: 959px) {
+  /* Scanned on a phone: show the speaker's own portrait first */
+  .vip-stage { order: -1; width: min(100%, 21rem); }
+}
+@media (max-width: 540px) {
+  .event-meta.vip-meta { grid-template-columns: 1fr; }
+  .vip-note { right: -0.5rem; width: 6.5rem; font-size: 1.1rem; }
+  .vip-seal { left: -0.75rem; top: -1rem; width: 5.75rem; height: 5.75rem; }
+  .vip-countdown { grid-template-columns: repeat(4, minmax(0, 1fr)); width: 100%; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Motion. Everything below is skipped for people who prefer less.     */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  /* Load sequence: eyebrow, headline lines, then the rest, staggered by --d */
+  .vip-in {
+    animation: vip-rise 0.8s var(--vip-ease) both;
+    animation-delay: calc(var(--d, 0) * 90ms + 100ms);
+  }
+  .vip-line > span {
+    animation: vip-line-up 0.9s var(--vip-ease) both;
+    animation-delay: calc(var(--d, 0) * 90ms + 100ms);
+  }
+
+  /* Portrait arrives, then the note drops in, the seal spins up, the foil sweeps */
+  .vip-portrait { animation: vip-portrait-in 1.1s var(--vip-ease) 0.35s both; }
+  .vip-note { animation: vip-note-in 0.9s var(--vip-spring) 1.05s both; }
+  .vip-seal { animation: vip-pop 0.8s var(--vip-spring) 1.25s both; }
+  .vip-seal__ring { animation: vip-spin 22s linear infinite; }
+  .vip-portrait__sheen { animation: vip-sheen 1.4s var(--vip-ease) 1.5s both; }
+  .vip-tilt:hover .vip-portrait__sheen { animation: vip-sheen 1.1s var(--vip-ease) both; }
+  .vip-portrait__caption { animation: vip-rise 0.8s var(--vip-ease) 1.2s both; }
+
+  .vip-sparkle { animation: vip-twinkle 2.8s ease-in-out infinite both; }
+  .vip-sparkle--yellow { animation-delay: 0.6s; }
+  .vip-sparkle--ink { animation-delay: 1.3s; }
+  .vip-sparkle--blue { animation-delay: 1.9s; }
+
+  .vip-perks__glow { animation: vip-breathe 7s ease-in-out infinite; }
+
+  /* Scroll reveals. Hidden only once JS is running (html.motion-on is set by
+     MotionHandler), so the content is never lost if scripts fail. */
+  .motion-on .vip-reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s var(--vip-ease), transform 0.8s var(--vip-ease);
+    transition-delay: calc(var(--i, 0) * 110ms);
+  }
+  .motion-on .vip-reveal.is-visible { opacity: 1; transform: none; }
+  /* Perk cards keep their hover lift after revealing */
+  .motion-on .vip-perk.vip-reveal.is-visible:hover { transform: translateY(-4px); transition-delay: 0s; }
+
+  .vip-countdown__value { animation: vip-digit 0.45s var(--vip-ease); }
+}
+
+@media (max-width: 359px) {
+  .vip-title { white-space: normal; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vip-tilt { transform: none !important; }
+}
+
+@keyframes vip-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes vip-line-up {
+  from { transform: translateY(105%); }
+  to { transform: none; }
+}
+@keyframes vip-portrait-in {
+  from { opacity: 0; transform: translateY(40px) rotate(-6deg) scale(0.94); }
+  to { opacity: 1; transform: rotate(-1.5deg); }
+}
+@keyframes vip-note-in {
+  from { opacity: 0; transform: translateY(-36px) rotate(18deg) translateZ(60px); }
+  to { opacity: 1; transform: rotate(6deg) translateZ(60px); }
+}
+@keyframes vip-pop {
+  from { opacity: 0; transform: scale(0.4) translateZ(50px); }
+  to { opacity: 1; transform: scale(1) translateZ(50px); }
+}
+@keyframes vip-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes vip-sheen {
+  from { transform: translateX(-70%); }
+  to { transform: translateX(70%); }
+}
+@keyframes vip-twinkle {
+  0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  50% { opacity: 0.35; transform: scale(0.6) rotate(45deg); }
+}
+@keyframes vip-breathe {
+  0%, 100% { opacity: 0.85; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.08); }
+}
+@keyframes vip-digit {
+  from { opacity: 0; transform: translateY(-40%); }
+  to { opacity: 1; transform: none; }
+}

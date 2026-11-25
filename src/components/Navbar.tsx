@@ -87,7 +87,13 @@ export default function Navbar() {
           </Link>
           <Link href="/questions" aria-current={pathname.startsWith("/questions") ? "page" : undefined} onClick={closeNavbar}>Questions</Link>
           <Link href="/game" aria-current={pathname === '/game' ? 'page' : undefined} onClick={closeNavbar}>Spin & Win</Link>
+          {/* Phones: the header has no room beside the ticket button, so it lives in the menu */}
+          <Link className="nav__dp" href="/dp" aria-current={pathname === '/dp' ? 'page' : undefined} onClick={closeNavbar}>Get Your DP</Link>
         </nav>
+
+        <Link className="header-dp js-nav-item" href="/dp" aria-current={pathname === '/dp' ? 'page' : undefined}>
+          Get Your DP
+        </Link>
 
         <Link className="btn btn--primary header-cta js-nav-item" target='_blank' href="https://tix.africa/discover/the-tech-forge">
           Get Your Ticket <span className="btn__arrow" aria-hidden="true">→</span>
