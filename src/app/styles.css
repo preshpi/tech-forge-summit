@@ -423,6 +423,44 @@ button {
   flex-shrink: 0;
 }
 
+/* Text-only link beside "Get Your Ticket" */
+.header-dp {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  min-height: 3rem;
+  padding-inline: 0.35rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--blue);
+  white-space: nowrap;
+  transition: color var(--transition);
+}
+
+.header-dp:hover,
+.header-dp[aria-current="page"] {
+  color: var(--blue-deep);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.header-dp:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+  border-radius: 0.4rem;
+}
+
+.nav a.nav__dp {
+  display: none;
+}
+
+/* Below 1080px the inline nav has no room for it */
+@media (max-width: 1079px) {
+  .header-dp {
+    display: none;
+  }
+}
+
 .nav-toggle {
   display: none;
   width: 2.6rem;
@@ -1315,6 +1353,16 @@ button {
 
   .nav-toggle {
     display: inline-flex;
+  }
+
+  .header-dp {
+    display: none;
+  }
+
+  .nav a.nav__dp {
+    display: inline;
+    font-weight: 700;
+    color: var(--blue);
   }
 
   .nav-checkbox:checked ~ .site-header__inner .nav {

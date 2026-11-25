@@ -4,6 +4,7 @@ import "./game.css";
 import "./styles.css";
 import "./motion.css";
 import "./pre-tech-forge.css";
+import "./vip.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import type { Metadata } from "next";
